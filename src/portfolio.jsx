@@ -35,13 +35,21 @@ const GlobalStyles = () => (
 
     .heading-display {
       font-family:var(--font-head); font-weight:800;
-      font-size:clamp(3rem,7vw,6.5rem);
-      line-height:0.95; letter-spacing:-0.04em;
+      font-size:3.6rem;
+      line-height:1.1; letter-spacing:-0.01em;
     }
     .heading-section {
       font-family:var(--font-head); font-weight:800;
-      font-size:clamp(2.5rem,5vw,4.5rem);
-      line-height:1.05; letter-spacing:-0.03em;
+      font-size:2.4rem;
+      line-height:1.18; letter-spacing:-0.01em;
+    }
+    @media(max-width:1024px) {
+      .heading-display { font-size:2.8rem; }
+      .heading-section { font-size:2rem; }
+    }
+    @media(max-width:768px) {
+      .heading-display { font-size:2.2rem; }
+      .heading-section { font-size:1.7rem; }
     }
     .text-gradient {
       background:linear-gradient(130deg,#fff 0%,rgba(255,255,255,0.6) 100%);
@@ -121,6 +129,15 @@ const GlobalStyles = () => (
       .nav-links { display:none !important; }
       section    { padding:80px 24px !important; }
     }
+
+    /* Prevent any element from stretching beyond readable width */
+    .section-inner {
+      max-width:1100px;
+      margin-left:auto;
+      margin-right:auto;
+      width:100%;
+    }
+    section { max-width:100%; }
   `}</style>
 );
 
@@ -419,7 +436,7 @@ function ProjectModal({ project, onClose }) {
           <span style={{ padding:"6px 16px",background:"rgba(167,139,250,0.15)",color:"#c4b5fd",fontSize:12,fontWeight:700,letterSpacing:1,textTransform:"uppercase",borderRadius:100 }}>{project.tag}</span>
           <span style={{ padding:"6px 16px",background:"rgba(255,255,255,0.05)",color:"rgba(255,255,255,0.6)",fontSize:12,fontWeight:700,letterSpacing:1,textTransform:"uppercase",borderRadius:100 }}>{project.sub}</span>
         </div>
-        <h2 style={{ fontFamily:"var(--font-head)",fontSize:"clamp(2rem,4vw,3rem)",fontWeight:800,lineHeight:1.1,marginBottom:20 }}>{project.title}</h2>
+        <h2 style={{ fontFamily:"var(--font-head)",fontSize:"2.2rem",fontWeight:800,lineHeight:1.1,marginBottom:20 }}>{project.title}</h2>
         <p style={{ fontSize:16,color:"rgba(255,255,255,0.6)",lineHeight:1.8,marginBottom:32,fontWeight:300 }}>{project.desc}</p>
         <div style={{ padding:24,background:"rgba(167,139,250,0.05)",border:"1px solid rgba(167,139,250,0.15)",borderRadius:16,marginBottom:40 }}>
           <h4 style={{ fontFamily:"var(--font-head)",fontSize:14,textTransform:"uppercase",letterSpacing:2,color:"#a78bfa",marginBottom:12 }}>Metrics & Impact</h4>
@@ -588,7 +605,7 @@ function StackSection() {
 
   return (
     <section id="skills" style={{ padding:"160px 64px", position:"relative", zIndex:2 }}>
-      <div style={{ maxWidth:1200, margin:"0 auto" }}>
+      <div style={{ maxWidth:1100, margin:"0 auto" }}>
         <Reveal>
           <p style={{ fontSize:12, letterSpacing:4, textTransform:"uppercase", color:"rgba(255,255,255,0.36)", marginBottom:16 }}>Arsenal</p>
           <h2 className="heading-section" style={{ marginBottom:16 }}>
@@ -709,7 +726,7 @@ function ExperienceSection() {
 
   return (
     <section id="experience" style={{ padding:"160px 64px",position:"relative",zIndex:2,background:"rgba(255,255,255,0.01)",borderTop:"1px solid rgba(255,255,255,0.03)" }}>
-      <div style={{ maxWidth:1200,margin:"0 auto" }}>
+      <div style={{ maxWidth:1100,margin:"0 auto" }}>
         <Reveal>
           <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:16 }}>Journey</p>
           <h2 className="heading-section" style={{ marginBottom:60 }}>
@@ -763,7 +780,7 @@ function ExperienceSection() {
                 <div style={{ width:8,height:8,borderRadius:"50%",background:EXPERIENCES[openIdx].color,boxShadow:`0 0 10px ${EXPERIENCES[openIdx].color}` }}/>
                 <span style={{ fontSize:11,fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:EXPERIENCES[openIdx].color }}>{EXPERIENCES[openIdx].type} · {EXPERIENCES[openIdx].period}</span>
               </div>
-              <h3 style={{ fontFamily:"var(--font-head)",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,lineHeight:1.15,marginBottom:8 }}>{EXPERIENCES[openIdx].role}</h3>
+              <h3 style={{ fontFamily:"var(--font-head)",fontSize:"1.8rem",fontWeight:800,lineHeight:1.15,marginBottom:8 }}>{EXPERIENCES[openIdx].role}</h3>
               <p style={{ fontSize:15,color:EXPERIENCES[openIdx].color,fontWeight:600,letterSpacing:0.5 }}>{EXPERIENCES[openIdx].co}</p>
             </div>
 
@@ -798,7 +815,7 @@ function ContactSection() {
   return (
     <section id="contact" style={{ padding:"200px 64px",position:"relative",zIndex:2,overflow:"hidden" }}>
       {/* Big background word */}
-      <div style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",fontSize:"clamp(6rem,18vw,14rem)",fontFamily:"var(--font-head)",fontWeight:800,color:"rgba(255,255,255,0.018)",pointerEvents:"none",whiteSpace:"nowrap",letterSpacing:-10,userSelect:"none" }}>CONNECT</div>
+      <div style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",fontSize:"10rem",fontFamily:"var(--font-head)",fontWeight:800,color:"rgba(255,255,255,0.018)",pointerEvents:"none",whiteSpace:"nowrap",letterSpacing:-10,userSelect:"none" }}>CONNECT</div>
 
       {/* Decorative orbs */}
       <div style={{ position:"absolute",top:"20%",left:"5%",width:350,height:350,borderRadius:"50%",background:"radial-gradient(circle,rgba(167,139,250,0.1),transparent 70%)",filter:"blur(80px)",animation:"contactOrb 10s ease-in-out infinite",pointerEvents:"none" }}/>
@@ -820,7 +837,7 @@ function ContactSection() {
           {/* Big email link */}
           <div style={{ textAlign:"center",marginBottom:72 }}>
             <a href="mailto:aishwaryajoshi554@gmail.com"
-              style={{ display:"inline-block",fontSize:"clamp(1rem,3.5vw,2rem)",fontFamily:"var(--font-head)",fontWeight:800,
+              style={{ display:"inline-block",fontSize:"1.5rem",fontFamily:"var(--font-head)",fontWeight:800,
                 background:"linear-gradient(130deg,#a78bfa,#60a5fa,#f472b6)",
                 WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text",
                 backgroundSize:"200%",animation:"bgShift 5s ease infinite",
@@ -866,6 +883,237 @@ function ContactSection() {
             <Mag href="https://github.com/Aishwarya-J05" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ padding:"16px 40px" }}>GitHub ↗</Mag>
           </div>
         </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ==========================================================
+   ★ TERMINAL BLOCK — animated typewriter hero right panel
+========================================================== */
+const TERMINAL_LINES = [
+  { delay:0,    type:"comment",  text:"# SteelSense AI — defect detection" },
+  { delay:600,  type:"import",   text:"import torch, cv2" },
+  { delay:900,  type:"import",   text:"from ultralytics import YOLO" },
+  { delay:1300, type:"blank",    text:"" },
+  { delay:1500, type:"code",     text:"model = YOLO('steelsense_v2.pt')" },
+  { delay:2000, type:"code",     text:"results = model.predict(frame," },
+  { delay:2300, type:"code",     text:"    conf=0.72, device='cuda')" },
+  { delay:2800, type:"blank",    text:"" },
+  { delay:3000, type:"comment",  text:"# Live defect output ↓" },
+  { delay:3400, type:"output",   text:"✦ defects_found : 2" },
+  { delay:3700, type:"output",   text:"✦ type          : ['scratch','pit']" },
+  { delay:4000, type:"output",   text:"✦ confidence    : [0.94, 0.88]" },
+  { delay:4300, type:"output",   text:"✦ inference_ms  : 87ms" },
+  { delay:4700, type:"blank",    text:"" },
+  { delay:4900, type:"success",  text:"✔ Deployed · HuggingFace Spaces" },
+];
+
+const LINE_COLORS = {
+  comment: "rgba(127,176,105,0.85)",
+  import:  "#60a5fa",
+  code:    "#f0f0f5",
+  output:  "#a78bfa",
+  success: "#4ade80",
+  blank:   "transparent",
+};
+
+function TerminalBlock() {
+  const [visibleLines, setVisibleLines] = useState(0);
+  const [started, setStarted] = useState(false);
+  const [cursor, setCursor] = useState(true);
+  const ref = useRef(null);
+
+  // start once in viewport
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setStarted(true); obs.disconnect(); }
+    }, { threshold: 0.3 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!started) return;
+    TERMINAL_LINES.forEach((_, i) => {
+      setTimeout(() => setVisibleLines(v => Math.max(v, i + 1)),
+        TERMINAL_LINES[i].delay);
+    });
+  }, [started]);
+
+  // blinking cursor
+  useEffect(() => {
+    const id = setInterval(() => setCursor(c => !c), 530);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div ref={ref} style={{
+      background:"rgba(8,8,14,0.92)",
+      border:"1px solid rgba(255,255,255,0.1)",
+      borderRadius:20,
+      overflow:"hidden",
+      boxShadow:"0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(167,139,250,0.08)",
+      fontFamily:"'Fira Code','Courier New',monospace",
+      fontSize:13,
+      lineHeight:1.7,
+      backdropFilter:"blur(20px)",
+    }}>
+      {/* Window chrome */}
+      <div style={{ padding:"14px 20px", background:"rgba(255,255,255,0.03)", borderBottom:"1px solid rgba(255,255,255,0.07)", display:"flex", alignItems:"center", gap:10 }}>
+        {["#ff5f57","#ffbd2e","#28c840"].map(c => (
+          <div key={c} style={{ width:12, height:12, borderRadius:"50%", background:c, opacity:0.85 }}/>
+        ))}
+        <span style={{ marginLeft:12, fontSize:11, color:"rgba(255,255,255,0.35)", letterSpacing:1 }}>
+          steelsense_ai.py — python3
+        </span>
+        <div style={{ marginLeft:"auto", display:"flex", gap:6 }}>
+          {["PyTorch","YOLO","Flask"].map(t => (
+            <span key={t} style={{ fontSize:10, padding:"2px 8px", borderRadius:4, background:"rgba(167,139,250,0.12)", color:"#c4b5fd", letterSpacing:0.5 }}>{t}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* Code body */}
+      <div style={{ padding:"22px 28px", minHeight:320 }}>
+        {TERMINAL_LINES.slice(0, visibleLines).map((line, i) => (
+          <div key={i} style={{
+            color: LINE_COLORS[line.type] || "#f0f0f5",
+            marginBottom: line.type === "blank" ? 8 : 2,
+            display:"flex",
+            alignItems:"baseline",
+            gap:12,
+            animation:"fadeSlideIn 0.25s ease both",
+          }}>
+            {/* Line number */}
+            <span style={{ color:"rgba(255,255,255,0.18)", fontSize:11, minWidth:20, textAlign:"right", userSelect:"none" }}>
+              {line.type !== "blank" ? i + 1 : ""}
+            </span>
+            {/* Content */}
+            <span>{line.text}
+              {/* blinking cursor on last line */}
+              {i === visibleLines - 1 && (
+                <span style={{ display:"inline-block", width:8, height:14, background: cursor ? "rgba(255,255,255,0.7)" : "transparent", marginLeft:2, verticalAlign:"middle", transition:"background 0.1s" }}/>
+              )}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Status bar */}
+      <div style={{ padding:"10px 28px", background:"rgba(167,139,250,0.08)", borderTop:"1px solid rgba(255,255,255,0.06)", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+        <div style={{ display:"flex", gap:16 }}>
+          <span style={{ fontSize:11, color:"#4ade80" }}>● RUNNING</span>
+          <span style={{ fontSize:11, color:"rgba(255,255,255,0.3)" }}>Python 3.11</span>
+        </div>
+        <div style={{ display:"flex", gap:12 }}>
+          <span style={{ fontSize:11, color:"rgba(255,255,255,0.3)" }}>UTF-8</span>
+          <span style={{ fontSize:11, color:"#a78bfa" }}>CUDA:0</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ==========================================================
+   ★ EDUCATION SECTION
+========================================================== */
+const EDUCATION = [
+  {
+    degree: "Bachelor of Engineering",
+    field:  "Electronics & Communication Engineering",
+    school: "Tontadarya College of Engineering, Gadag",
+    board:  "Visvesvaraya Technological University (VTU)",
+    year:   "2022 – 2026",
+    grade:  "9.41 CGPA",
+    gradeLabel: "Up to 7th Semester",
+    status: "Final Year",
+    icon:   "🎓",
+    color:  "#a78bfa",
+    highlights: ["Specialization in AI/ML", "Consistent academic excellence", "Active project builder throughout degree"],
+  },
+  {
+    degree: "Pre-University Course (PUC)",
+    field:  "PCMB — Physics, Chemistry, Maths, Biology",
+    school: "Smt. Vidya P Hanchinmani PU College, Dharwad",
+    board:  "Karnataka State Board",
+    year:   "2020 – 2022",
+    grade:  "89%",
+    gradeLabel: "Karnataka State Board",
+    status: "Completed",
+    icon:   "📚",
+    color:  "#60a5fa",
+    highlights: ["Strong foundation in Mathematics & Sciences", "Consistent high scorer"],
+  },
+];
+
+function EducationSection() {
+  return (
+    <section id="education" style={{ padding:"160px 64px", position:"relative", zIndex:2, background:"rgba(255,255,255,0.008)", borderTop:"1px solid rgba(255,255,255,0.03)" }}>
+      <div style={{ maxWidth:1100, margin:"0 auto" }}>
+        <Reveal>
+          <p style={{ fontSize:12, letterSpacing:4, textTransform:"uppercase", color:"rgba(255,255,255,0.36)", marginBottom:16 }}>Academic Background</p>
+          <h2 className="heading-section" style={{ marginBottom:60 }}>
+            Education<span className="text-accent">.</span>
+          </h2>
+        </Reveal>
+
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:28 }} className="responsive-grid">
+          {EDUCATION.map((ed, i) => (
+            <Reveal key={ed.degree} delay={i * 150}>
+              <Tilt style={{
+                borderRadius:24,
+                background:`linear-gradient(135deg,${ed.color}10,rgba(255,255,255,0.02))`,
+                border:`1px solid ${ed.color}28`,
+                padding:40,
+                height:"100%",
+                backdropFilter:"blur(20px)",
+                position:"relative",
+                overflow:"hidden",
+              }}>
+                {/* bg orb */}
+                <div style={{ position:"absolute", top:-60, right:-60, width:200, height:200, borderRadius:"50%", background:`radial-gradient(circle,${ed.color}18,transparent 70%)`, filter:"blur(40px)", pointerEvents:"none" }}/>
+
+                {/* Header */}
+                <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:28, gap:16 }}>
+                  <div style={{ fontSize:42 }}>{ed.icon}</div>
+                  <div style={{ textAlign:"right" }}>
+                    <div style={{ fontFamily:"var(--font-head)", fontSize:28, fontWeight:800, color:"white", lineHeight:1 }}>{ed.grade}</div>
+                    <div style={{ fontSize:11, color:ed.color, letterSpacing:1.5, textTransform:"uppercase", marginTop:6 }}>{ed.gradeLabel}</div>
+                  </div>
+                </div>
+
+                {/* Degree */}
+                <div style={{ marginBottom:20 }}>
+                  <div style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"4px 12px", borderRadius:100, background:`${ed.color}18`, border:`1px solid ${ed.color}33`, marginBottom:14 }}>
+                    <div style={{ width:6, height:6, borderRadius:"50%", background:ed.color }}/>
+                    <span style={{ fontSize:11, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:ed.color }}>{ed.status}</span>
+                  </div>
+                  <h3 style={{ fontFamily:"var(--font-head)", fontSize:20, fontWeight:800, lineHeight:1.25, marginBottom:6 }}>{ed.degree}</h3>
+                  <p style={{ fontSize:14, color:ed.color, fontWeight:600, marginBottom:10 }}>{ed.field}</p>
+                  <p style={{ fontSize:13, color:"rgba(255,255,255,0.45)", lineHeight:1.6 }}>{ed.school}</p>
+                  <p style={{ fontSize:12, color:"rgba(255,255,255,0.3)", marginTop:4 }}>{ed.board}</p>
+                </div>
+
+                {/* Year badge */}
+                <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:24, padding:"12px 16px", background:"rgba(255,255,255,0.03)", borderRadius:12, border:"1px solid rgba(255,255,255,0.07)" }}>
+                  <span style={{ fontSize:12, color:"rgba(255,255,255,0.4)", letterSpacing:1 }}>Duration</span>
+                  <span style={{ fontSize:13, fontWeight:700, fontFamily:"var(--font-head)", color:"white" }}>{ed.year}</span>
+                </div>
+
+                {/* Highlights */}
+                <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+                  {ed.highlights.map((h, j) => (
+                    <div key={j} style={{ display:"flex", alignItems:"center", gap:10 }}>
+                      <div style={{ width:5, height:5, borderRadius:"50%", background:ed.color, flexShrink:0, boxShadow:`0 0 6px ${ed.color}` }}/>
+                      <span style={{ fontSize:13, color:"rgba(255,255,255,0.5)", fontWeight:300 }}>{h}</span>
+                    </div>
+                  ))}
+                </div>
+              </Tilt>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -937,46 +1185,79 @@ export default function Portfolio() {
       {activeProject && <ProjectModal project={activeProject} onClose={()=>setActiveProject(null)}/>}
 
       {/* NAV */}
-      <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:1000,padding:"24px 64px",display:"flex",justifyContent:"space-between",alignItems:"center",background:navBlur?"rgba(5,5,8,0.85)":"transparent",backdropFilter:navBlur?"blur(20px)":"none",borderBottom:navBlur?"1px solid rgba(255,255,255,0.05)":"1px solid transparent",transition:"all 0.4s" }}>
-        <div style={{ fontFamily:"var(--font-head)",fontWeight:800,fontSize:22,letterSpacing:-1 }}>
+      <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:1000,padding:"20px 0",display:"flex",justifyContent:"space-between",alignItems:"center",background:navBlur?"rgba(5,5,8,0.88)":"transparent",backdropFilter:navBlur?"blur(20px)":"none",borderBottom:navBlur?"1px solid rgba(255,255,255,0.05)":"1px solid transparent",transition:"all 0.4s" }}>
+        <div style={{ maxWidth:1100,width:"100%",margin:"0 auto",padding:"0 64px",display:"flex",justifyContent:"space-between",alignItems:"center" }}>
+        <div style={{ fontFamily:"var(--font-head)",fontWeight:800,fontSize:20,letterSpacing:-0.5 }}>
           <span className="text-accent">AI</span><span>shwarya.</span>
         </div>
-        <div className="nav-links" style={{ display:"flex",gap:32,alignItems:"center" }}>
-          {["Work","About","Skills","Experience","Contact"].map(s=>(
+        <div className="nav-links" style={{ display:"flex",gap:28,alignItems:"center" }}>
+          {["Work","About","Skills","Education","Experience","Contact"].map(s=>(
             <a key={s} href={`#${s.toLowerCase()}`} className="nav-link">{s}</a>
           ))}
           <a href={PDF} target="_blank" rel="noopener noreferrer" className="nav-link" style={{ color:"var(--accent)",opacity:0.8 }}>Resume</a>
-          <Mag href="#contact" className="btn-primary" style={{ padding:"10px 24px",fontSize:12,marginLeft:16 }}>Available For Hire</Mag>
+          <Mag href="#contact" className="btn-primary" style={{ padding:"10px 22px",fontSize:12,marginLeft:8 }}>Hire Me</Mag>
+        </div>
         </div>
       </nav>
 
       {/* HERO */}
-      <section style={{ minHeight:"100vh",display:"flex",alignItems:"center",position:"relative",padding:"0 64px" }}>
+      <section style={{ minHeight:"100vh", display:"flex", alignItems:"center", position:"relative", padding:"120px 64px 80px", overflow:"hidden" }}>
         <NeonWaves/>
-        <div style={{ position:"absolute",top:"25%",right:"10%",zIndex:10 }}>
-          <RotBadge text="• AI ENGINEER • AVAILABLE 2026 • " size={160}/>
-        </div>
-        <div style={{ position:"relative",zIndex:5,maxWidth:1000,width:"100%",margin:"0 auto",marginTop:"10vh" }}>
+
+        <div style={{ position:"relative", zIndex:5, width:"100%", maxWidth:1100, margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1fr", gap:64, alignItems:"center" }}>
+
+          {/* LEFT — text content */}
           <div style={{ animation:"revealUp 1s cubic-bezier(0.16,1,0.3,1) both" }}>
-            <div style={{ display:"inline-flex",alignItems:"center",gap:12,padding:"8px 20px",background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:100,marginBottom:40 }}>
-              <div style={{ width:8,height:8,borderRadius:"50%",background:"#4ade80",boxShadow:"0 0 12px rgba(74,222,128,0.8)",animation:"pulseSoft 2s infinite" }}/>
-              <span style={{ fontSize:12,fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:"rgba(255,255,255,0.7)" }}>Graduating June 2026 · Open to Work</span>
+            {/* Status pill */}
+            <div style={{ display:"inline-flex", alignItems:"center", gap:12, padding:"8px 20px", background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:100, marginBottom:36 }}>
+              <div style={{ width:8, height:8, borderRadius:"50%", background:"#4ade80", boxShadow:"0 0 12px rgba(74,222,128,0.8)", animation:"pulseSoft 2s infinite" }}/>
+              <span style={{ fontSize:12, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:"rgba(255,255,255,0.7)" }}>Graduating June 2026 · Open to Work</span>
             </div>
-            <h1 className="heading-display text-gradient" style={{ marginBottom:12 }}>Building</h1>
-            <h1 className="heading-display text-accent"    style={{ marginBottom:12 }}>Intelligent</h1>
-            <h1 className="heading-display text-gradient"  style={{ marginBottom:40 }}>Systems.</h1>
-            <p style={{ fontSize:"clamp(1.1rem,2vw,1.4rem)",color:"rgba(255,255,255,0.5)",lineHeight:1.8,maxWidth:660,marginBottom:48,fontWeight:300 }}>
-              AI/ML Engineer specializing in Deep Learning & Computer Vision. I engineer robust models and deploy them into accessible, production-ready systems.
+
+            <h1 className="heading-display text-gradient" style={{ marginBottom:8 }}>Building</h1>
+            <h1 className="heading-display text-accent"   style={{ marginBottom:8 }}>Intelligent</h1>
+            <h1 className="heading-display text-gradient" style={{ marginBottom:32 }}>Systems.</h1>
+
+            <p style={{ fontSize:15, color:"rgba(255,255,255,0.52)", lineHeight:1.9, marginBottom:14, fontWeight:300 }}>
+              I'm <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>Aishwarya Joshi</strong> — an AI/ML Engineer specializing in <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>Deep Learning</strong>, <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>Computer Vision</strong>, and <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>NLP & RAG systems</strong>.
             </p>
-            <div style={{ display:"flex",gap:20,flexWrap:"wrap" }}>
-              <Mag href="#work"      className="btn-primary">Explore Work</Mag>
+            <p style={{ fontSize:15, color:"rgba(255,255,255,0.42)", lineHeight:1.9, marginBottom:14, fontWeight:300 }}>
+              I don't just train models — I engineer end-to-end systems that are containerized, deployed, and publicly accessible. From real-time industrial defect detection with YOLOv8 to RAG chatbots built with LangChain and FAISS.
+            </p>
+            <p style={{ fontSize:15, color:"rgba(255,255,255,0.35)", lineHeight:1.9, marginBottom:40, fontWeight:300 }}>
+              Final-year B.Tech ECE at VTU · CGPA 9.41 · Seeking AI/ML engineer roles for 2026.
+            </p>
+
+            <div style={{ display:"flex", gap:14, flexWrap:"wrap" }}>
+              <Mag href="#work" className="btn-primary">Explore Work</Mag>
               <Mag href="https://github.com/Aishwarya-J05" target="_blank" rel="noopener noreferrer" className="btn-secondary">GitHub ↗</Mag>
+              <Mag href="mailto:aishwaryajoshi554@gmail.com" className="btn-secondary">Say Hello ↗</Mag>
+            </div>
+          </div>
+
+          {/* RIGHT — terminal */}
+          <div style={{ animation:"revealUp 1s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}>
+            <TerminalBlock/>
+            {/* small stat strip below terminal */}
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10, marginTop:16 }}>
+              {[
+                { val:"3+",    label:"Projects Live" },
+                { val:"9.41",  label:"CGPA · VTU" },
+                { val:"6+",    label:"Frameworks" },
+              ].map(s => (
+                <div key={s.label} style={{ padding:"14px 16px", borderRadius:14, background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", textAlign:"center" }}>
+                  <div style={{ fontFamily:"var(--font-head)", fontSize:22, fontWeight:800, color:"white" }}>{s.val}</div>
+                  <div style={{ fontSize:10, color:"rgba(255,255,255,0.35)", letterSpacing:1.5, textTransform:"uppercase", marginTop:4 }}>{s.label}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-        <div style={{ position:"absolute",bottom:40,left:"50%",transform:"translateX(-50%)",display:"flex",flexDirection:"column",alignItems:"center",gap:12,opacity:0.5,animation:"revealUp 1s ease 1s both" }}>
-          <span style={{ fontSize:10,letterSpacing:4,textTransform:"uppercase",fontFamily:"var(--font-head)" }}>Scroll</span>
-          <div style={{ width:1,height:40,background:"linear-gradient(to bottom,white,transparent)" }}/>
+
+        {/* Scroll cue */}
+        <div style={{ position:"absolute", bottom:36, left:"50%", transform:"translateX(-50%)", display:"flex", flexDirection:"column", alignItems:"center", gap:10, opacity:0.4, animation:"revealUp 1s ease 1.2s both", zIndex:5 }}>
+          <span style={{ fontSize:10, letterSpacing:4, textTransform:"uppercase", fontFamily:"var(--font-head)" }}>Scroll</span>
+          <div style={{ width:1, height:36, background:"linear-gradient(to bottom,white,transparent)" }}/>
         </div>
       </section>
 
@@ -984,7 +1265,7 @@ export default function Portfolio() {
 
       {/* WORK */}
       <section id="work" style={{ padding:"160px 64px",position:"relative",zIndex:2 }}>
-        <div style={{ maxWidth:1200,margin:"0 auto" }}>
+        <div style={{ maxWidth:1100,margin:"0 auto" }}>
           <Reveal>
             <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:16 }}>Selected Projects</p>
             <h2 className="heading-section" style={{ marginBottom:80 }}>
@@ -1001,7 +1282,7 @@ export default function Portfolio() {
 
       {/* ABOUT */}
       <section id="about" style={{ padding:"160px 64px",position:"relative",zIndex:2 }}>
-        <div className="about-layout" style={{ maxWidth:1200,margin:"0 auto",display:"grid",gridTemplateColumns:"1.2fr 0.8fr",gap:100,alignItems:"center" }}>
+        <div className="about-layout" style={{ maxWidth:1100,margin:"0 auto",display:"grid",gridTemplateColumns:"1.2fr 0.8fr",gap:100,alignItems:"center" }}>
           <Reveal>
             <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:16 }}>About Me</p>
             <h2 className="heading-section" style={{ marginBottom:40 }}>Not just models.<br/><span className="text-accent">Systems.</span></h2>
@@ -1029,6 +1310,9 @@ export default function Portfolio() {
 
       {/* TECH STACK — animated tabs */}
       <StackSection/>
+
+      {/* EDUCATION — between Skills and Experience */}
+      <EducationSection/>
 
       {/* EXPERIENCE — interactive timeline */}
       <ExperienceSection/>
