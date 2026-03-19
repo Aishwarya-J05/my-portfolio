@@ -1460,7 +1460,7 @@ export default function Portfolio() {
               I don't just train models — I engineer end-to-end systems that are containerized, deployed, and publicly accessible. From real-time industrial defect detection with YOLOv8 to RAG chatbots built with LangChain and FAISS.
             </p>
             <p style={{ fontSize:15, color:"rgba(255,255,255,0.35)", lineHeight:1.9, marginBottom:40, fontWeight:300 }}>
-              Final-year B.Tech ECE at VTU · CGPA 9.41 · Seeking AI/ML engineer roles for 2026.
+              Final-year B.E ECE at VTU · CGPA 9.41 · Seeking AI/ML engineer roles for 2026.
             </p>
 
             <div style={{ display:"flex", gap:14, flexWrap:"wrap" }}>
@@ -1571,7 +1571,7 @@ export default function Portfolio() {
             <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:16 }}>About Me</p>
             <h2 className="heading-section" style={{ marginBottom:40 }}>Not just models.<br/><span className="text-accent">Systems.</span></h2>
             <div style={{ display:"flex",flexDirection:"column",gap:24,fontSize:16,color:"rgba(255,255,255,0.55)",lineHeight:1.85,fontWeight:300 }}>
-              <p>I'm Aishwarya, a final-year B.Tech (ECE) student at VTU with a 9.41 CGPA. I bridge the gap between theoretical machine learning and scalable engineering.</p>
+              <p>I'm Aishwarya, a final-year B.E (ECE) student at VTU with a 9.41 CGPA. I bridge the gap between theoretical machine learning and scalable engineering.</p>
               <p>Many build notebooks. I build applications. Every project I ship is containerized, deployed, and publicly accessible — from real-time defect detection to RAG chatbots that understand dense research papers.</p>
             </div>
             <div style={{ display:"flex",gap:16,flexWrap:"wrap",marginTop:44 }}>
