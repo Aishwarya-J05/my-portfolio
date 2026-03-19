@@ -1138,34 +1138,110 @@ export default function Portfolio() {
   const mqTop = ["Artificial Intelligence","Computer Vision","Deep Learning","NLP","RAG Systems","Data Science"];
   const mqBot = ["Python","PyTorch","YOLOv8","Docker","Scikit-learn","LangChain","FAISS","Pandas"];
 
-  const projects = [
+  /* ── TOP 3 featured projects ── */
+  const topProjects = [
     {
-      title:"SteelSense AI",tag:"Computer Vision",sub:"YOLOv8",
-      desc:"End-to-end industrial steel surface defect detection. YOLOv8 for real-time bounding box detection, integrated with Gemini Vision API for natural language defect explanation and Supabase for persistent inspection records.",
-      impact:"94%+ classification accuracy with sub-100ms inference time for high-speed manufacturing environments.",
+      title:"SteelSense AI",tag:"Computer Vision",sub:"YOLOv8 · Flask · Docker",
+      desc:"End-to-end industrial steel surface defect detection system. YOLOv8 fine-tuned on steel surface dataset for real-time bounding-box detection across 6 defect types. Gemini Vision API generates natural-language defect explanations; Supabase stores persistent inspection records.",
+      impact:"94%+ classification accuracy with sub-100ms inference time — deployed live on Hugging Face Spaces.",
       stack:["Python","PyTorch","YOLOv8","Flask","Gemini Vision API","Supabase","Docker","HuggingFace"],
-      link:"https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai",ghLink:"https://github.com/Aishwarya-J05",
+      link:"https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai",
+      ghLink:"https://github.com/Aishwarya-J05",
+      badge:"🔬 Live",badgeColor:"#a78bfa",
     },
     {
-      title:"ArXiv RAG Chatbot",tag:"NLP / RAG",sub:"LangChain",
-      desc:"Intelligent retrieval-augmented generation system designed to parse, index, and converse with dense ArXiv research papers. FAISS vector store for semantic search with source-grounded responses.",
-      impact:"Reduces research synthesis time dramatically by extracting exact citations from 1000+ AI papers.",
-      stack:["Python","LangChain","FAISS","HuggingFace Embeddings","Streamlit","LLMs"],
-      link:"https://github.com/Aishwarya-J05",ghLink:"https://github.com/Aishwarya-J05",
+      title:"ArXiv RAG Chatbot",tag:"NLP / RAG",sub:"LangChain · FAISS · Vercel",
+      desc:"Retrieval-Augmented Generation system that ingests dense ArXiv AI research papers, indexes them with FAISS vector search, and answers queries with source-grounded, citation-accurate responses using LangChain and an LLM backend.",
+      impact:"Deployed on Vercel — reduces research synthesis time dramatically across 1000+ papers with exact citations.",
+      stack:["Python","LangChain","FAISS","HuggingFace Embeddings","LLMs","Vercel"],
+      link:"https://rag-ar-xiv-chatbot.vercel.app/",
+      ghLink:"https://github.com/Aishwarya-J05",
+      badge:"🤖 Live",badgeColor:"#60a5fa",
     },
     {
-      title:"BurnoutIQ",tag:"Machine Learning",sub:"Scikit-learn",
-      desc:"Full predictive pipeline evaluating employee burnout risk and productivity scores from workplace and AI adoption metrics. Trained and compared SVM, Random Forest, and Naive Bayes models.",
-      impact:"Automates workforce analytics — deployed highest F1-Score model as live interactive Streamlit dashboard.",
-      stack:["Python","Pandas","Scikit-learn","SVM","Random Forest","Joblib","Streamlit"],
-      link:"https://burnoutiq.streamlit.app",ghLink:"https://github.com/Aishwarya-J05",
+      title:"BurnoutIQ",tag:"Machine Learning",sub:"Scikit-learn · Streamlit",
+      desc:"Full end-to-end predictive ML pipeline evaluating employee burnout risk and productivity scores from workplace habits and AI adoption metrics. Comprehensive EDA, feature engineering, and multi-model benchmarking.",
+      impact:"Best model (Random Forest) selected via F1-Score & RMSLE, serialized with Joblib — live on Streamlit Cloud.",
+      stack:["Python","Pandas","Scikit-learn","SVM","Random Forest","Naive Bayes","Joblib","Streamlit"],
+      link:"https://burnoutiq.streamlit.app",
+      ghLink:"https://github.com/Aishwarya-J05",
+      badge:"📊 Live",badgeColor:"#34d399",
+    },
+  ];
+
+  /* ── All projects grid ── */
+  const allProjects = [
+    {
+      title:"SteelSense AI",
+      tag:"Computer Vision",color:"#a78bfa",icon:"🔬",
+      desc:"Real-time YOLOv8 steel defect detection with Gemini Vision API, Flask REST API, Supabase, and Docker. Deployed on Hugging Face Spaces.",
+      stack:["PyTorch","YOLOv8","Flask","Docker","Supabase"],
+      link:"https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai",
+      ghLink:"https://github.com/Aishwarya-J05",
+      live:true,
     },
     {
-      title:"Foundations of DL",tag:"Deep Learning",sub:"PyTorch",
-      desc:"Core deep learning mechanics from scratch — custom CNN architectures, full training & validation loops, early stopping, model checkpointing, dropout, and transfer learning with ResNet.",
-      impact:"Demonstrates foundational architectural understanding rather than relying solely on high-level APIs.",
-      stack:["PyTorch","CNNs","ResNet","Transfer Learning","NumPy"],
-      link:"https://github.com/Aishwarya-J05",ghLink:"https://github.com/Aishwarya-J05",
+      title:"ArXiv RAG Chatbot",
+      tag:"NLP / RAG",color:"#60a5fa",icon:"🤖",
+      desc:"LangChain + FAISS retrieval-augmented chatbot for ArXiv AI papers. Source-grounded responses with exact citations. Deployed on Vercel.",
+      stack:["LangChain","FAISS","HuggingFace","LLMs","Vercel"],
+      link:"https://rag-ar-xiv-chatbot.vercel.app/",
+      ghLink:"https://github.com/Aishwarya-J05",
+      live:true,
+    },
+    {
+      title:"BurnoutIQ",
+      tag:"Machine Learning",color:"#34d399",icon:"📊",
+      desc:"Employee burnout risk predictor — full ML pipeline with SVM, Random Forest, Naive Bayes. Deployed as interactive Streamlit dashboard.",
+      stack:["Scikit-learn","Pandas","Random Forest","Streamlit"],
+      link:"https://burnoutiq.streamlit.app",
+      ghLink:"https://github.com/Aishwarya-J05",
+      live:true,
+    },
+    {
+      title:"AI Assistant Usage in Student Life",
+      tag:"Data Analytics",color:"#fbbf24",icon:"📈",
+      desc:"Data analytics project exploring how students use AI tools — EDA, trend analysis, visualizations using Pandas, Matplotlib, and Seaborn on real survey data.",
+      stack:["Python","Pandas","Matplotlib","Seaborn","Jupyter"],
+      link:"https://github.com/Aishwarya-J05/Ai-assistant-usage-in-student-life",
+      ghLink:"https://github.com/Aishwarya-J05/Ai-assistant-usage-in-student-life",
+      live:false,
+    },
+    {
+      title:"MNIST CNN Image Classifier",
+      tag:"Deep Learning",color:"#f472b6",icon:"🧠",
+      desc:"CNN image classifier built from scratch on the MNIST dataset using PyTorch — custom architecture with training loops, validation, and accuracy tracking.",
+      stack:["PyTorch","CNN","MNIST","NumPy"],
+      link:"https://github.com/Aishwarya-J05/Image-classifier",
+      ghLink:"https://github.com/Aishwarya-J05/Image-classifier",
+      live:false,
+    },
+    {
+      title:"Vehicle Price Prediction",
+      tag:"Machine Learning",color:"#fb923c",icon:"🚗",
+      desc:"ML regression pipeline predicting vehicle prices from features like mileage, brand, and year. Feature engineering, model comparison, and hyperparameter tuning.",
+      stack:["Python","Scikit-learn","Pandas","Regression","EDA"],
+      link:"https://github.com/Aishwarya-J05/vehicle-price-prediction",
+      ghLink:"https://github.com/Aishwarya-J05/vehicle-price-prediction",
+      live:false,
+    },
+    {
+      title:"Karnataka Districts Game",
+      tag:"Python / Game",color:"#a3e635",icon:"🗺️",
+      desc:"Interactive Python quiz game testing knowledge of Karnataka districts — built with Python, fun CLI interface, score tracking, and replay logic.",
+      stack:["Python","CLI","Game Logic"],
+      link:"https://github.com/Aishwarya-J05/karnataka-districts-game",
+      ghLink:"https://github.com/Aishwarya-J05/karnataka-districts-game",
+      live:false,
+    },
+    {
+      title:"PyTorch Deep Learning Projects",
+      tag:"Deep Learning",color:"#c4b5fd",icon:"🔥",
+      desc:"Core deep learning implemented from scratch — custom CNNs, training loops with validation, early stopping, checkpointing, and transfer learning with ResNet.",
+      stack:["PyTorch","CNNs","ResNet","Transfer Learning"],
+      link:"https://github.com/Aishwarya-J05",
+      ghLink:"https://github.com/Aishwarya-J05",
+      live:false,
     },
   ];
 
@@ -1191,8 +1267,8 @@ export default function Portfolio() {
           <span className="text-accent">AI</span><span>shwarya.</span>
         </div>
         <div className="nav-links" style={{ display:"flex",gap:28,alignItems:"center" }}>
-          {["Work","About","Skills","Education","Experience","Contact"].map(s=>(
-            <a key={s} href={`#${s.toLowerCase()}`} className="nav-link">{s}</a>
+          {["Top Projects","About","Skills","Education","Experience","All Projects","Contact"].map(s=>(
+            <a key={s} href={`#${s.toLowerCase().replace(" ","-")}`} className="nav-link" style={{fontSize:11}}>{s}</a>
           ))}
           <a href={PDF} target="_blank" rel="noopener noreferrer" className="nav-link" style={{ color:"var(--accent)",opacity:0.8 }}>Resume</a>
           <Mag href="#contact" className="btn-primary" style={{ padding:"10px 22px",fontSize:12,marginLeft:8 }}>Hire Me</Mag>
@@ -1263,17 +1339,66 @@ export default function Portfolio() {
 
       <Marquee items={mqTop} speed={50}/>
 
-      {/* WORK */}
-      <section id="work" style={{ padding:"160px 64px",position:"relative",zIndex:2 }}>
-        <div style={{ maxWidth:1100,margin:"0 auto" }}>
+      {/* ══ TOP PROJECTS — 3 featured cards ══ */}
+      <section id="top-projects" style={{ padding:"160px 64px", position:"relative", zIndex:2 }}>
+        <div style={{ maxWidth:1100, margin:"0 auto" }}>
           <Reveal>
-            <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:16 }}>Selected Projects</p>
-            <h2 className="heading-section" style={{ marginBottom:80 }}>
-              Work that <span className="text-accent">matters.</span>
+            <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:12 }}>Featured Work</p>
+            <h2 className="heading-section" style={{ marginBottom:16 }}>
+              Top <span className="text-accent">Projects.</span>
             </h2>
+            <p style={{ fontSize:15,color:"rgba(255,255,255,0.38)",fontWeight:300,marginBottom:72,maxWidth:520 }}>
+              Three production-grade systems — deployed, live, and publicly accessible.
+            </p>
           </Reveal>
-          <div className="responsive-grid" style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:32 }}>
-            {projects.map((p,i)=><ProjectCard key={p.title} project={p} index={i} onOpen={setActiveProject}/>)}
+          <div className="responsive-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:28 }}>
+            {topProjects.map((p,i)=>(
+              <Reveal key={p.title} delay={i*120}>
+                <Tilt style={{ background:"rgba(12,12,18,0.7)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:24, padding:32, display:"flex", flexDirection:"column", gap:20, height:"100%", backdropFilter:"blur(20px)", position:"relative", overflow:"hidden" }}>
+                  {/* accent orb */}
+                  <div style={{ position:"absolute",top:-50,right:-50,width:180,height:180,borderRadius:"50%",background:`radial-gradient(circle,${p.badgeColor}18,transparent 70%)`,filter:"blur(40px)",pointerEvents:"none" }}/>
+
+                  {/* live badge */}
+                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                    <span style={{ fontSize:11,fontWeight:700,letterSpacing:2,textTransform:"uppercase",padding:"4px 12px",borderRadius:100,background:`${p.badgeColor}18`,border:`1px solid ${p.badgeColor}33`,color:p.badgeColor }}>{p.badge}</span>
+                    <span style={{ fontSize:11,color:"rgba(255,255,255,0.3)",letterSpacing:1,textTransform:"uppercase" }}>{p.sub}</span>
+                  </div>
+
+                  <div>
+                    <span style={{ fontSize:11,fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:"rgba(255,255,255,0.35)",display:"block",marginBottom:8 }}>{p.tag}</span>
+                    <h3 style={{ fontFamily:"var(--font-head)", fontSize:22, fontWeight:800, lineHeight:1.2, marginBottom:12 }}>{p.title}</h3>
+                    <p style={{ fontSize:14, color:"rgba(255,255,255,0.48)", lineHeight:1.75, fontWeight:300 }}>{p.desc}</p>
+                  </div>
+
+                  <div style={{ padding:"12px 14px", background:"rgba(255,255,255,0.02)", borderLeft:`2px solid ${p.badgeColor}`, borderRadius:"0 10px 10px 0", fontSize:13, color:"rgba(255,255,255,0.65)", lineHeight:1.6 }}>
+                    <strong style={{ color:p.badgeColor }}>Impact: </strong>{p.impact}
+                  </div>
+
+                  <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
+                    {p.stack.slice(0,4).map(s=>(
+                      <span key={s} style={{ fontSize:11, padding:"4px 10px", borderRadius:6, background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", color:"rgba(255,255,255,0.55)" }}>{s}</span>
+                    ))}
+                  </div>
+
+                  <div style={{ display:"flex", gap:10, marginTop:"auto" }}>
+                    <a href={p.link} target="_blank" rel="noopener noreferrer"
+                      onClick={e=>e.stopPropagation()}
+                      style={{ flex:1, padding:"10px 0", borderRadius:100, background:"white", color:"#050508", fontWeight:700, fontSize:12, textAlign:"center", textDecoration:"none", transition:"all 0.3s", letterSpacing:0.5 }}
+                      onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.boxShadow="0 8px 28px rgba(255,255,255,0.2)"; }}
+                      onMouseLeave={e=>{ e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}>
+                      Live Demo ↗
+                    </a>
+                    <a href={p.ghLink} target="_blank" rel="noopener noreferrer"
+                      onClick={e=>e.stopPropagation()}
+                      style={{ padding:"10px 18px", borderRadius:100, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.14)", color:"rgba(255,255,255,0.8)", fontSize:12, fontWeight:600, textDecoration:"none", transition:"all 0.3s" }}
+                      onMouseEnter={e=>{ e.currentTarget.style.background="rgba(255,255,255,0.12)"; }}
+                      onMouseLeave={e=>{ e.currentTarget.style.background="rgba(255,255,255,0.06)"; }}>
+                      GitHub
+                    </a>
+                  </div>
+                </Tilt>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
@@ -1286,11 +1411,11 @@ export default function Portfolio() {
           <Reveal>
             <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:16 }}>About Me</p>
             <h2 className="heading-section" style={{ marginBottom:40 }}>Not just models.<br/><span className="text-accent">Systems.</span></h2>
-            <div style={{ display:"flex",flexDirection:"column",gap:24,fontSize:17,color:"rgba(255,255,255,0.55)",lineHeight:1.85,fontWeight:300 }}>
+            <div style={{ display:"flex",flexDirection:"column",gap:24,fontSize:16,color:"rgba(255,255,255,0.55)",lineHeight:1.85,fontWeight:300 }}>
               <p>I'm Aishwarya, a final-year B.Tech (ECE) student at VTU with a 9.41 CGPA. I bridge the gap between theoretical machine learning and scalable engineering.</p>
               <p>Many build notebooks. I build applications. Every project I ship is containerized, deployed, and publicly accessible — from real-time defect detection to RAG chatbots that understand dense research papers.</p>
             </div>
-            <div style={{ display:"flex",gap:20,flexWrap:"wrap",marginTop:48 }}>
+            <div style={{ display:"flex",gap:16,flexWrap:"wrap",marginTop:44 }}>
               <Mag href={PDF} target="_blank" rel="noopener noreferrer" className="btn-primary">View Resume</Mag>
               <Mag href="https://linkedin.com/in/aishwaryajoshiaiml" target="_blank" rel="noopener noreferrer" className="btn-secondary">LinkedIn ↗</Mag>
               <Mag href="https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai" target="_blank" rel="noopener noreferrer" className="btn-secondary">HuggingFace ↗</Mag>
@@ -1299,23 +1424,105 @@ export default function Portfolio() {
           <Reveal delay={200}>
             <Tilt style={{ borderRadius:32,padding:16,background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.05)" }}>
               <img src={myPhoto} alt="Aishwarya Joshi" style={{ width:"100%",aspectRatio:"4/5",objectFit:"cover",objectPosition:"center top",borderRadius:24,display:"block" }}/>
-              <div style={{ position:"absolute",bottom:-20,left:-20,padding:"24px",background:"rgba(10,10,15,0.95)",backdropFilter:"blur(16px)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:20 }}>
-                <div style={{ fontFamily:"var(--font-head)",fontSize:40,fontWeight:800,lineHeight:1 }}>9.41</div>
-                <div style={{ fontSize:11,textTransform:"uppercase",letterSpacing:2,color:"var(--accent)",marginTop:8 }}>CGPA · VTU</div>
+              <div style={{ position:"absolute",bottom:-20,left:-20,padding:"20px 24px",background:"rgba(10,10,15,0.95)",backdropFilter:"blur(16px)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:18 }}>
+                <div style={{ fontFamily:"var(--font-head)",fontSize:36,fontWeight:800,lineHeight:1 }}>9.41</div>
+                <div style={{ fontSize:11,textTransform:"uppercase",letterSpacing:2,color:"var(--accent)",marginTop:6 }}>CGPA · VTU</div>
               </div>
             </Tilt>
           </Reveal>
         </div>
       </section>
 
-      {/* TECH STACK — animated tabs */}
+      {/* TECH STACK */}
       <StackSection/>
 
-      {/* EDUCATION — between Skills and Experience */}
+      {/* EDUCATION */}
       <EducationSection/>
 
-      {/* EXPERIENCE — interactive timeline */}
+      {/* EXPERIENCE */}
       <ExperienceSection/>
+
+      {/* ══ ALL PROJECTS ══ */}
+      <section id="all-projects" style={{ padding:"160px 64px", position:"relative", zIndex:2, background:"rgba(255,255,255,0.008)", borderTop:"1px solid rgba(255,255,255,0.03)" }}>
+        <div style={{ maxWidth:1100, margin:"0 auto" }}>
+          <Reveal>
+            <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:12 }}>Full Portfolio</p>
+            <h2 className="heading-section" style={{ marginBottom:16 }}>
+              All <span className="text-accent">Projects.</span>
+            </h2>
+            <p style={{ fontSize:15,color:"rgba(255,255,255,0.38)",fontWeight:300,marginBottom:72,maxWidth:520 }}>
+              Every project I've built — from production AI systems to exploratory data science and Python experiments.
+            </p>
+          </Reveal>
+
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:20 }} className="responsive-grid">
+            {allProjects.map((p,i)=>(
+              <Reveal key={p.title} delay={i*70}>
+                <div
+                  style={{ borderRadius:20, background:"rgba(10,10,16,0.7)", border:`1px solid ${p.color}22`, padding:28, display:"flex", flexDirection:"column", gap:16, height:"100%", backdropFilter:"blur(16px)", transition:"all 0.35s cubic-bezier(0.23,1,0.32,1)", cursor:"default", position:"relative", overflow:"hidden" }}
+                  onMouseEnter={e=>{ e.currentTarget.style.border=`1px solid ${p.color}55`; e.currentTarget.style.transform="translateY(-5px)"; e.currentTarget.style.boxShadow=`0 20px 50px rgba(0,0,0,0.4),0 0 0 1px ${p.color}22`; }}
+                  onMouseLeave={e=>{ e.currentTarget.style.border=`1px solid ${p.color}22`; e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}>
+
+                  {/* top orb */}
+                  <div style={{ position:"absolute",top:-30,right:-30,width:100,height:100,borderRadius:"50%",background:`radial-gradient(circle,${p.color}20,transparent 70%)`,filter:"blur(20px)",pointerEvents:"none" }}/>
+
+                  <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+                    <span style={{ fontSize:28 }}>{p.icon}</span>
+                    {p.live && (
+                      <span style={{ fontSize:9,fontWeight:700,letterSpacing:2,textTransform:"uppercase",padding:"3px 8px",borderRadius:100,background:`${p.color}18`,border:`1px solid ${p.color}44`,color:p.color }}>LIVE</span>
+                    )}
+                  </div>
+
+                  <div>
+                    <span style={{ fontSize:10,fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:p.color,display:"block",marginBottom:6 }}>{p.tag}</span>
+                    <h4 style={{ fontFamily:"var(--font-head)", fontSize:16, fontWeight:800, lineHeight:1.3, marginBottom:8 }}>{p.title}</h4>
+                    <p style={{ fontSize:13, color:"rgba(255,255,255,0.42)", lineHeight:1.7, fontWeight:300 }}>{p.desc}</p>
+                  </div>
+
+                  <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
+                    {p.stack.slice(0,3).map(s=>(
+                      <span key={s} style={{ fontSize:10, padding:"3px 8px", borderRadius:5, background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.07)", color:"rgba(255,255,255,0.45)" }}>{s}</span>
+                    ))}
+                  </div>
+
+                  <div style={{ display:"flex", gap:8, marginTop:"auto" }}>
+                    {p.live ? (
+                      <a href={p.link} target="_blank" rel="noopener noreferrer"
+                        style={{ flex:1, padding:"8px 0", borderRadius:100, background:p.color, color:"#050508", fontWeight:700, fontSize:11, textAlign:"center", textDecoration:"none", transition:"all 0.25s", letterSpacing:0.5 }}
+                        onMouseEnter={e=>e.currentTarget.style.opacity="0.85"}
+                        onMouseLeave={e=>e.currentTarget.style.opacity="1"}>
+                        Live ↗
+                      </a>
+                    ) : (
+                      <a href={p.link} target="_blank" rel="noopener noreferrer"
+                        style={{ flex:1, padding:"8px 0", borderRadius:100, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", color:"rgba(255,255,255,0.7)", fontWeight:600, fontSize:11, textAlign:"center", textDecoration:"none", transition:"all 0.25s" }}
+                        onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.12)"}
+                        onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.06)"}>
+                        GitHub ↗
+                      </a>
+                    )}
+                    <a href={p.ghLink} target="_blank" rel="noopener noreferrer"
+                      style={{ padding:"8px 12px", borderRadius:100, background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", color:"rgba(255,255,255,0.5)", fontSize:11, textDecoration:"none", transition:"all 0.25s" }}
+                      onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.1)"}
+                      onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.04)"}>
+                      ⚡
+                    </a>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* GitHub CTA */}
+          <Reveal delay={200}>
+            <div style={{ textAlign:"center", marginTop:56 }}>
+              <Mag href="https://github.com/Aishwarya-J05" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ padding:"14px 36px", fontSize:13 }}>
+                View All on GitHub ↗
+              </Mag>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       {/* CONTACT — standalone section */}
       <ContactSection/>
