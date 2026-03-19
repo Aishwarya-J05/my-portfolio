@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
 import myPhoto from "./aishwarya.png";
 
 /* ==========================================================
@@ -61,7 +62,7 @@ const GlobalStyles = () => (
       background-size:200%; animation:bgShift 5s ease infinite;
     }
     .noise-bg {
-      position:fixed; inset:0; pointer-events:none; z-index:999;
+      position:fixed; inset:0; pointer-events:none; z-index:1;
       background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
       mix-blend-mode:overlay; opacity:0.18;
     }
@@ -119,25 +120,44 @@ const GlobalStyles = () => (
     @keyframes fadeSlideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
     @keyframes contactOrb  { 0%,100%{transform:scale(1) translate(0,0)} 50%{transform:scale(1.1) translate(20px,-15px)} }
 
+    /* ── Responsive ── */
+    @media(max-width:1280px) {
+      .all-projects-grid { grid-template-columns:repeat(3,1fr) !important; }
+    }
     @media(max-width:1024px) {
-      .responsive-grid { grid-template-columns:1fr !important; }
-      .about-layout    { grid-template-columns:1fr !important; gap:60px !important; }
-      section          { padding:100px 32px !important; }
-      .skills-exp-grid { grid-template-columns:1fr !important; }
+      .responsive-grid    { grid-template-columns:1fr 1fr !important; }
+      .about-layout       { grid-template-columns:1fr !important; gap:48px !important; }
+      .skills-exp-grid    { grid-template-columns:1fr !important; }
+      .top-projects-grid  { grid-template-columns:1fr !important; }
+      .all-projects-grid  { grid-template-columns:repeat(2,1fr) !important; }
+      .hero-grid          { grid-template-columns:1fr !important; gap:40px !important; }
+      .terminal-col       { display:none !important; }
+      section             { padding:80px 40px !important; }
+      .nav-links          { display:none !important; }
+      .mobile-menu-btn    { display:flex !important; }
     }
     @media(max-width:768px) {
-      .nav-links { display:none !important; }
-      section    { padding:80px 24px !important; }
+      .responsive-grid    { grid-template-columns:1fr !important; }
+      .all-projects-grid  { grid-template-columns:1fr 1fr !important; }
+      .edu-grid           { grid-template-columns:1fr !important; }
+      section             { padding:64px 20px !important; }
+      .heading-display    { font-size:2.2rem !important; }
+      .heading-section    { font-size:1.7rem !important; }
+      .contact-links-grid { grid-template-columns:1fr 1fr !important; }
+      .footer-inner       { flex-direction:column !important; gap:20px !important; text-align:center; }
+      .exp-grid           { grid-template-columns:1fr !important; }
+    }
+    @media(max-width:480px) {
+      .all-projects-grid  { grid-template-columns:1fr !important; }
+      .contact-links-grid { grid-template-columns:1fr !important; }
+      section             { padding:56px 16px !important; }
+      .heading-display    { font-size:1.9rem !important; }
+      .heading-section    { font-size:1.5rem !important; }
+      nav                 { padding:0 16px !important; }
     }
 
-    /* Prevent any element from stretching beyond readable width */
-    .section-inner {
-      max-width:1100px;
-      margin-left:auto;
-      margin-right:auto;
-      width:100%;
-    }
-    section { max-width:100%; }
+    /* Prevent stretching */
+    section { max-width:100%; overflow-x:hidden; }
   `}</style>
 );
 
@@ -604,7 +624,7 @@ function StackSection() {
   const active = STACK_GROUPS.find(g=>g.id===activeTab);
 
   return (
-    <section id="skills" style={{ padding:"160px 64px", position:"relative", zIndex:2 }}>
+    <section id="skills" style={{ padding:"160px 64px", position:"relative" }}>
       <div style={{ maxWidth:1100, margin:"0 auto" }}>
         <Reveal>
           <p style={{ fontSize:12, letterSpacing:4, textTransform:"uppercase", color:"rgba(255,255,255,0.36)", marginBottom:16 }}>Arsenal</p>
@@ -725,7 +745,7 @@ function ExperienceSection() {
   const [openIdx, setOpenIdx] = useState(0);
 
   return (
-    <section id="experience" style={{ padding:"160px 64px",position:"relative",zIndex:2,background:"rgba(255,255,255,0.01)",borderTop:"1px solid rgba(255,255,255,0.03)" }}>
+    <section id="experience" style={{ padding:"160px 64px",position:"relative",background:"rgba(255,255,255,0.01)",borderTop:"1px solid rgba(255,255,255,0.03)" }}>
       <div style={{ maxWidth:1100,margin:"0 auto" }}>
         <Reveal>
           <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:16 }}>Journey</p>
@@ -734,7 +754,7 @@ function ExperienceSection() {
           </h2>
         </Reveal>
 
-        <div style={{ display:"grid",gridTemplateColumns:"1fr 1.4fr",gap:48,alignItems:"start" }} className="skills-exp-grid">
+        <div className="exp-grid" style={{ display:"grid",gridTemplateColumns:"1fr 1.4fr",gap:48,alignItems:"start" }}>
           {/* Left — timeline list */}
           <div style={{ display:"flex",flexDirection:"column",gap:4 }}>
             {EXPERIENCES.map((e,i)=>(
@@ -813,7 +833,7 @@ function ContactSection() {
   ];
 
   return (
-    <section id="contact" style={{ padding:"200px 64px",position:"relative",zIndex:2,overflow:"hidden" }}>
+    <section id="contact" style={{ padding:"200px 64px",position:"relative",overflow:"hidden" }}>
       {/* Big background word */}
       <div style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",fontSize:"10rem",fontFamily:"var(--font-head)",fontWeight:800,color:"rgba(255,255,255,0.018)",pointerEvents:"none",whiteSpace:"nowrap",letterSpacing:-10,userSelect:"none" }}>CONNECT</div>
 
@@ -850,7 +870,7 @@ function ContactSection() {
           </div>
 
           {/* 4 link cards */}
-          <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:18,marginBottom:56 }}>
+          <div className="contact-links-grid" style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:18,marginBottom:56 }}>
             {links.map((lk,i)=>(
               <Reveal key={lk.label} delay={i*80}>
                 <a href={lk.href} target={lk.href.startsWith("mailto")?"_self":"_blank"} rel="noopener noreferrer"
@@ -1049,7 +1069,7 @@ const EDUCATION = [
 
 function EducationSection() {
   return (
-    <section id="education" style={{ padding:"160px 64px", position:"relative", zIndex:2, background:"rgba(255,255,255,0.008)", borderTop:"1px solid rgba(255,255,255,0.03)" }}>
+    <section id="education" style={{ padding:"160px 64px", position:"relative", background:"rgba(255,255,255,0.008)", borderTop:"1px solid rgba(255,255,255,0.03)" }}>
       <div style={{ maxWidth:1100, margin:"0 auto" }}>
         <Reveal>
           <p style={{ fontSize:12, letterSpacing:4, textTransform:"uppercase", color:"rgba(255,255,255,0.36)", marginBottom:16 }}>Academic Background</p>
@@ -1058,7 +1078,7 @@ function EducationSection() {
           </h2>
         </Reveal>
 
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:28 }} className="responsive-grid">
+        <div className="edu-grid responsive-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:28 }}>
           {EDUCATION.map((ed, i) => (
             <Reveal key={ed.degree} delay={i * 150}>
               <Tilt style={{
@@ -1116,6 +1136,125 @@ function EducationSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+/* ==========================================================
+   MOBILE NAV — hamburger drawer
+========================================================== */
+function MobileNav({ PDF }) {
+  const [open, setOpen] = useState(false);
+
+  // Lock body scroll when drawer is open
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  const NAV_ITEMS = [
+    ["Top Projects","top-projects"],
+    ["About","about"],
+    ["Skills","skills"],
+    ["Education","education"],
+    ["Experience","experience"],
+    ["All Projects","all-projects"],
+    ["Contact","contact"],
+  ];
+
+  const close = () => setOpen(false);
+
+  const portal = typeof document !== "undefined" ? document.body : null;
+
+  return (
+    <>
+      {/* Hamburger button — only visible on mobile via CSS */}
+      <button
+        onClick={()=>setOpen(o=>!o)}
+        className="mobile-menu-btn"
+        aria-label="Toggle menu"
+        style={{
+          display:"none", flexDirection:"column", justifyContent:"center",
+          gap:5, padding:"8px 4px", background:"transparent", border:"none",
+          cursor:"pointer", zIndex:99999, flexShrink:0,
+        }}>
+        {[0,1,2].map(i=>(
+          <span key={i} style={{
+            display:"block", width:24, height:2, background:"white",
+            borderRadius:2, transition:"all 0.3s cubic-bezier(0.23,1,0.32,1)",
+            transformOrigin:"center",
+            transform: open
+              ? i===0 ? "translateY(7px) rotate(45deg)"
+              : i===1 ? "scaleX(0)"
+              : "translateY(-7px) rotate(-45deg)"
+              : "none",
+            opacity: open && i===1 ? 0 : 1,
+          }}/>
+        ))}
+      </button>
+
+      {/* Portal — renders directly on document.body, escapes ALL stacking contexts */}
+      {portal && ReactDOM.createPortal(
+        <>
+          {/* Full-screen solid overlay */}
+          <div
+            onClick={close}
+            style={{
+              position:"fixed", inset:0,
+              background:"rgba(2,2,6,0.97)",
+              zIndex:999990,
+              opacity: open ? 1 : 0,
+              pointerEvents: open ? "all" : "none",
+              transition:"opacity 0.35s ease",
+            }}
+          />
+
+          {/* Drawer panel */}
+          <div style={{
+            position:"fixed", top:0, right:0, bottom:0, width:300,
+            background:"#0a0a10",
+            borderLeft:"1px solid rgba(255,255,255,0.1)",
+            zIndex:999999,
+            transform: open ? "translateX(0)" : "translateX(100%)",
+            transition:"transform 0.4s cubic-bezier(0.23,1,0.32,1)",
+            display:"flex", flexDirection:"column",
+            padding:"72px 28px 40px",
+            overflowY:"auto",
+          }}>
+            {/* Close X */}
+            <button onClick={close} style={{ position:"absolute",top:18,right:20,background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"50%",width:36,height:36,color:"white",fontSize:18,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.2s" }}
+              onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.14)"}
+              onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.06)"}>✕</button>
+
+            {/* Logo */}
+            <div style={{ fontFamily:"var(--font-head)",fontWeight:800,fontSize:20,marginBottom:36 }}>
+              <span style={{ background:"linear-gradient(130deg,#a78bfa,#60a5fa,#f472b6)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text" }}>AI</span>
+              <span style={{ color:"white" }}>shwarya.</span>
+            </div>
+
+            {/* Nav links */}
+            {NAV_ITEMS.map(([label,id],i)=>(
+              <a key={id} href={`#${id}`} onClick={close}
+                style={{ fontSize:14,fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",color:"rgba(255,255,255,0.6)",textDecoration:"none",padding:"16px 0",borderBottom:"1px solid rgba(255,255,255,0.06)",transition:"color 0.2s, padding-left 0.2s",animation:open?`fadeSlideIn 0.4s cubic-bezier(0.16,1,0.3,1) ${i*50}ms both`:"none" }}
+                onMouseEnter={e=>{ e.currentTarget.style.color="white"; e.currentTarget.style.paddingLeft="8px"; }}
+                onMouseLeave={e=>{ e.currentTarget.style.color="rgba(255,255,255,0.6)"; e.currentTarget.style.paddingLeft="0"; }}>
+                {label}
+              </a>
+            ))}
+
+            <a href={PDF} target="_blank" rel="noopener noreferrer" onClick={close}
+              style={{ fontSize:14,fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",color:"#a78bfa",textDecoration:"none",padding:"16px 0",borderBottom:"1px solid rgba(255,255,255,0.06)",transition:"color 0.2s" }}>
+              Resume ↗
+            </a>
+
+            <a href="mailto:aishwaryajoshi554@gmail.com" onClick={close}
+              style={{ display:"block",padding:"15px 0",borderRadius:100,background:"white",color:"#050508",fontWeight:700,fontSize:13,letterSpacing:1,textTransform:"uppercase",textAlign:"center",textDecoration:"none",marginTop:28 }}>
+              ✉ Hire Me
+            </a>
+          </div>
+        </>,
+        portal
+      )}
+    </>
   );
 }
 
@@ -1261,18 +1400,39 @@ export default function Portfolio() {
       {activeProject && <ProjectModal project={activeProject} onClose={()=>setActiveProject(null)}/>}
 
       {/* NAV */}
-      <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:1000,padding:"20px 0",display:"flex",justifyContent:"space-between",alignItems:"center",background:navBlur?"rgba(5,5,8,0.88)":"transparent",backdropFilter:navBlur?"blur(20px)":"none",borderBottom:navBlur?"1px solid rgba(255,255,255,0.05)":"1px solid transparent",transition:"all 0.4s" }}>
-        <div style={{ maxWidth:1100,width:"100%",margin:"0 auto",padding:"0 64px",display:"flex",justifyContent:"space-between",alignItems:"center" }}>
-        <div style={{ fontFamily:"var(--font-head)",fontWeight:800,fontSize:20,letterSpacing:-0.5 }}>
-          <span className="text-accent">AI</span><span>shwarya.</span>
-        </div>
-        <div className="nav-links" style={{ display:"flex",gap:28,alignItems:"center" }}>
-          {["Top Projects","About","Skills","Education","Experience","All Projects","Contact"].map(s=>(
-            <a key={s} href={`#${s.toLowerCase().replace(" ","-")}`} className="nav-link" style={{fontSize:11}}>{s}</a>
-          ))}
-          <a href={PDF} target="_blank" rel="noopener noreferrer" className="nav-link" style={{ color:"var(--accent)",opacity:0.8 }}>Resume</a>
-          <Mag href="#contact" className="btn-primary" style={{ padding:"10px 22px",fontSize:12,marginLeft:8 }}>Hire Me</Mag>
-        </div>
+      <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:1000,background:navBlur?"rgba(5,5,8,0.92)":"transparent",backdropFilter:navBlur?"blur(20px)":"none",borderBottom:navBlur?"1px solid rgba(255,255,255,0.05)":"1px solid transparent",transition:"all 0.4s" }}>
+        <div style={{ width:"100%",padding:"0 40px",height:60,display:"flex",justifyContent:"space-between",alignItems:"center" }}>
+
+          {/* Logo */}
+          <a href="#" style={{ fontFamily:"var(--font-head)",fontWeight:800,fontSize:18,letterSpacing:-0.5,flexShrink:0,textDecoration:"none",color:"inherit" }}>
+            <span className="text-accent">AI</span><span>shwarya.</span>
+          </a>
+
+          {/* Desktop links */}
+          <div className="nav-links" style={{ display:"flex",gap:18,alignItems:"center",flexWrap:"nowrap" }}>
+            {[["Top Projects","top-projects"],["About","about"],["Skills","skills"],["Education","education"],["Experience","experience"],["All Projects","all-projects"],["Contact","contact"]].map(([label,id])=>(
+              <a key={id} href={`#${id}`} style={{ fontSize:10,fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",opacity:0.55,transition:"opacity 0.2s",whiteSpace:"nowrap",color:"inherit",textDecoration:"none",position:"relative" }}
+                onMouseEnter={e=>e.currentTarget.style.opacity="1"}
+                onMouseLeave={e=>e.currentTarget.style.opacity="0.55"}>
+                {label}
+              </a>
+            ))}
+            <a href={PDF} target="_blank" rel="noopener noreferrer"
+              style={{ fontSize:10,fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",color:"var(--accent)",opacity:0.9,whiteSpace:"nowrap",textDecoration:"none",transition:"opacity 0.2s" }}
+              onMouseEnter={e=>e.currentTarget.style.opacity="1"}
+              onMouseLeave={e=>e.currentTarget.style.opacity="0.9"}>
+              Resume
+            </a>
+            <a href="mailto:aishwaryajoshi554@gmail.com"
+              style={{ padding:"8px 18px",borderRadius:100,background:"white",color:"#050508",fontWeight:700,fontSize:10,letterSpacing:1,textTransform:"uppercase",textDecoration:"none",whiteSpace:"nowrap",transition:"all 0.3s",flexShrink:0 }}
+              onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-1px)"; e.currentTarget.style.boxShadow="0 6px 20px rgba(255,255,255,0.2)"; }}
+              onMouseLeave={e=>{ e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}>
+              Hire Me
+            </a>
+          </div>
+
+          {/* Mobile hamburger */}
+          <MobileNav PDF={PDF}/>
         </div>
       </nav>
 
@@ -1280,8 +1440,7 @@ export default function Portfolio() {
       <section style={{ minHeight:"100vh", display:"flex", alignItems:"center", position:"relative", padding:"120px 64px 80px", overflow:"hidden" }}>
         <NeonWaves/>
 
-        <div style={{ position:"relative", zIndex:5, width:"100%", maxWidth:1100, margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1fr", gap:64, alignItems:"center" }}>
-
+        <div className="hero-grid" style={{ position:"relative", width:"100%", maxWidth:1100, margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1fr", gap:64, alignItems:"center" }}>
           {/* LEFT — text content */}
           <div style={{ animation:"revealUp 1s cubic-bezier(0.16,1,0.3,1) both" }}>
             {/* Status pill */}
@@ -1312,7 +1471,7 @@ export default function Portfolio() {
           </div>
 
           {/* RIGHT — terminal */}
-          <div style={{ animation:"revealUp 1s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}>
+          <div className="terminal-col" style={{ animation:"revealUp 1s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}>
             <TerminalBlock/>
             {/* small stat strip below terminal */}
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10, marginTop:16 }}>
@@ -1331,7 +1490,7 @@ export default function Portfolio() {
         </div>
 
         {/* Scroll cue */}
-        <div style={{ position:"absolute", bottom:36, left:"50%", transform:"translateX(-50%)", display:"flex", flexDirection:"column", alignItems:"center", gap:10, opacity:0.4, animation:"revealUp 1s ease 1.2s both", zIndex:5 }}>
+        <div style={{ position:"absolute", bottom:36, left:"50%", transform:"translateX(-50%)", display:"flex", flexDirection:"column", alignItems:"center", gap:10, opacity:0.4, animation:"revealUp 1s ease 1.2s both" }}>
           <span style={{ fontSize:10, letterSpacing:4, textTransform:"uppercase", fontFamily:"var(--font-head)" }}>Scroll</span>
           <div style={{ width:1, height:36, background:"linear-gradient(to bottom,white,transparent)" }}/>
         </div>
@@ -1340,7 +1499,7 @@ export default function Portfolio() {
       <Marquee items={mqTop} speed={50}/>
 
       {/* ══ TOP PROJECTS — 3 featured cards ══ */}
-      <section id="top-projects" style={{ padding:"160px 64px", position:"relative", zIndex:2 }}>
+      <section id="top-projects" style={{ padding:"160px 64px", position:"relative" }}>
         <div style={{ maxWidth:1100, margin:"0 auto" }}>
           <Reveal>
             <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:12 }}>Featured Work</p>
@@ -1351,7 +1510,7 @@ export default function Portfolio() {
               Three production-grade systems — deployed, live, and publicly accessible.
             </p>
           </Reveal>
-          <div className="responsive-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:28 }}>
+          <div className="top-projects-grid responsive-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:28 }}>
             {topProjects.map((p,i)=>(
               <Reveal key={p.title} delay={i*120}>
                 <Tilt style={{ background:"rgba(12,12,18,0.7)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:24, padding:32, display:"flex", flexDirection:"column", gap:20, height:"100%", backdropFilter:"blur(20px)", position:"relative", overflow:"hidden" }}>
@@ -1406,7 +1565,7 @@ export default function Portfolio() {
       <Marquee items={mqBot} speed={40} reverse/>
 
       {/* ABOUT */}
-      <section id="about" style={{ padding:"160px 64px",position:"relative",zIndex:2 }}>
+      <section id="about" style={{ padding:"160px 64px",position:"relative" }}>
         <div className="about-layout" style={{ maxWidth:1100,margin:"0 auto",display:"grid",gridTemplateColumns:"1.2fr 0.8fr",gap:100,alignItems:"center" }}>
           <Reveal>
             <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:16 }}>About Me</p>
@@ -1443,7 +1602,7 @@ export default function Portfolio() {
       <ExperienceSection/>
 
       {/* ══ ALL PROJECTS ══ */}
-      <section id="all-projects" style={{ padding:"160px 64px", position:"relative", zIndex:2, background:"rgba(255,255,255,0.008)", borderTop:"1px solid rgba(255,255,255,0.03)" }}>
+      <section id="all-projects" style={{ padding:"160px 64px", position:"relative", background:"rgba(255,255,255,0.008)", borderTop:"1px solid rgba(255,255,255,0.03)" }}>
         <div style={{ maxWidth:1100, margin:"0 auto" }}>
           <Reveal>
             <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:12 }}>Full Portfolio</p>
@@ -1455,7 +1614,7 @@ export default function Portfolio() {
             </p>
           </Reveal>
 
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:20 }} className="responsive-grid">
+          <div className="all-projects-grid" style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:20 }}>
             {allProjects.map((p,i)=>(
               <Reveal key={p.title} delay={i*70}>
                 <div
@@ -1528,7 +1687,8 @@ export default function Portfolio() {
       <ContactSection/>
 
       {/* FOOTER */}
-      <footer style={{ padding:"40px 64px",borderTop:"1px solid rgba(255,255,255,0.05)",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:24,position:"relative",zIndex:10 }}>
+      <footer style={{ padding:"40px 40px",borderTop:"1px solid rgba(255,255,255,0.05)",position:"relative" }}>
+        <div className="footer-inner" style={{ display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:20 }}>
         <div style={{ fontFamily:"var(--font-head)",fontSize:20,fontWeight:800 }}>
           <span className="text-accent">AI</span>shwarya.
         </div>
@@ -1543,6 +1703,7 @@ export default function Portfolio() {
             onMouseLeave={e=>e.currentTarget.style.background="rgba(167,139,250,0.12)"}>
             ↓ Download CV
           </a>
+        </div>
         </div>
       </footer>
     </>
