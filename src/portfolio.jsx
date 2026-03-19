@@ -1034,7 +1034,7 @@ const EDUCATION = [
   },
   {
     degree: "Pre-University Course (PUC)",
-    field:  "PCMB — Physics, Chemistry, Maths, Biology",
+    field:  "PCMS — Physics, Chemistry, Maths, Statistics",
     school: "Smt. Vidya P Hanchinmani PU College, Dharwad",
     board:  "Karnataka State Board",
     year:   "2020 – 2022",
