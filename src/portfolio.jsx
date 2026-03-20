@@ -1559,7 +1559,7 @@ export default function Portfolio() {
       impact:"94%+ classification accuracy with sub-100ms inference time — deployed live on Hugging Face Spaces.",
       stack:["Python","PyTorch","YOLOv8","Flask","Gemini Vision API","Supabase","Docker","HuggingFace"],
       link:"https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai",
-      ghLink:"https://github.com/Aishwarya-J05",
+      ghLink:"https://github.com/Aishwarya-J05/SteelSense-AI",
       badge:"🔬 Live", badgeColor:"#a78bfa",
       imgFolder:"steelsense",
       // ── Add your screenshot imports here ──
@@ -1573,7 +1573,7 @@ export default function Portfolio() {
       impact:"Deployed on Vercel — reduces research synthesis time dramatically across 1000+ papers with exact citations.",
       stack:["Python","LangChain","FAISS","HuggingFace Embeddings","LLMs","Vercel"],
       link:"https://rag-ar-xiv-chatbot.vercel.app/",
-      ghLink:"https://github.com/Aishwarya-J05",
+      ghLink:"https://github.com/Aishwarya-J05/RAG-ArXiv-chatbot",
       badge:"🤖 Live", badgeColor:"#60a5fa",
       imgFolder:"rag",
       images: [], // placeholder
@@ -1584,7 +1584,7 @@ export default function Portfolio() {
       impact:"Best model (Random Forest) selected via F1-Score & RMSLE, serialized with Joblib — live on Streamlit Cloud.",
       stack:["Python","Pandas","Scikit-learn","SVM","Random Forest","Naive Bayes","Joblib","Streamlit"],
       link:"https://burnoutiq.streamlit.app",
-      ghLink:"https://github.com/Aishwarya-J05",
+      ghLink:"https://github.com/Aishwarya-J05/Burnout-IQ",
       badge:"📊 Live", badgeColor:"#34d399",
       imgFolder:"burnoutiq",
       images: [], // placeholder
