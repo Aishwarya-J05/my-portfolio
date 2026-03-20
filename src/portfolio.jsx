@@ -1,6 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import myPhoto from "./aishwarya.png";
+// SteelSense AI screenshots
+import ss1 from "./images/steelsense/1.png";
+import ss2 from "./images/steelsense/2.png";
+import ss3 from "./images/steelsense/3.png";
+import ss4 from "./images/steelsense/4.png";
+
+// RAG Chatbot screenshots
+import rag1 from "./images/rag/1.png";
+import rag2 from "./images/rag/2.png";
+import rag3 from "./images/rag/3.png";
+
+// BurnoutIQ screenshots
+import bq1 from "./images/burnoutiq/1.png";
+import bq2 from "./images/burnoutiq/2.png";
 
 /* ==========================================================
    GLOBAL STYLES
@@ -1565,7 +1579,7 @@ export default function Portfolio() {
       // ── Add your screenshot imports here ──
       // import ss1 from "./images/steelsense/1.png"; etc.
       // then: images: [ss1, ss2, ss3]
-      images: [], // placeholder — add imports above
+      images: [ss1, ss2, ss3, ss4], // placeholder — add imports above
     },
     {
       title:"ArXiv RAG Chatbot",tag:"NLP / RAG",sub:"LangChain · FAISS · Vercel",
@@ -1576,7 +1590,7 @@ export default function Portfolio() {
       ghLink:"https://github.com/Aishwarya-J05/RAG-ArXiv-chatbot",
       badge:"🤖 Live", badgeColor:"#60a5fa",
       imgFolder:"rag",
-      images: [], // placeholder
+      images: [rag1, rag2, rag3], // placeholder
     },
     {
       title:"BurnoutIQ",tag:"Machine Learning",sub:"Scikit-learn · Streamlit",
@@ -1587,7 +1601,7 @@ export default function Portfolio() {
       ghLink:"https://github.com/Aishwarya-J05/Burnout-IQ",
       badge:"📊 Live", badgeColor:"#34d399",
       imgFolder:"burnoutiq",
-      images: [], // placeholder
+      images: [bq1, bq2], // placeholder
     },
   ];
 
