@@ -198,8 +198,8 @@ function Cursor() {
 
   return (
     <>
-      <div ref={ring} style={{ position:"fixed",top:0,left:0,width:48,height:48,border:"1.5px solid rgba(255,255,255,0.3)",borderRadius:"50%",pointerEvents:"none",zIndex:9999,mixBlendMode:"difference",transition:"border-color 0.3s" }} />
-      <div ref={dot}  style={{ position:"fixed",top:0,left:0,width:8,height:8,background:"white",borderRadius:"50%",pointerEvents:"none",zIndex:10000,mixBlendMode:"difference",transition:"opacity 0.2s" }} />
+      <div ref={ring} style={{ position:"fixed",top:0,left:0,width:48,height:48,border:"1.5px solid rgba(255,255,255,0.7)",borderRadius:"50%",pointerEvents:"none",zIndex:999998,transition:"border-color 0.3s, transform 0.05s" }} />
+      <div ref={dot}  style={{ position:"fixed",top:0,left:0,width:8,height:8,background:"white",borderRadius:"50%",pointerEvents:"none",zIndex:999999,transition:"opacity 0.2s" }} />
     </>
   );
 }
@@ -1054,7 +1054,7 @@ const EDUCATION = [
   },
   {
     degree: "Pre-University Course (PUC)",
-    field:  "PCMS — Physics, Chemistry, Maths, Statistics",
+    field:  "PCMB — Physics, Chemistry, Maths, Biology",
     school: "Smt. Vidya P Hanchinmani PU College, Dharwad",
     board:  "Karnataka State Board",
     year:   "2020 – 2022",
@@ -1259,11 +1259,285 @@ function MobileNav({ PDF }) {
 }
 
 /* ==========================================================
+   ★ TOP PROJECT CARD — image carousel + show more modal
+========================================================== */
+function TopProjectCard({ p, i, onShowMore }) {
+  const [imgIdx, setImgIdx] = useState(0);
+  const images = p.images || [];
+  const total  = images.length;
+
+  const prev = (e) => { e.stopPropagation(); setImgIdx(v => (v - 1 + total) % total); };
+  const next = (e) => { e.stopPropagation(); setImgIdx(v => (v + 1) % total); };
+
+  return (
+    <Reveal delay={i * 120}>
+      <Tilt style={{
+        background:"rgba(12,12,18,0.7)", border:"1px solid rgba(255,255,255,0.07)",
+        borderRadius:24, padding:0, display:"flex", flexDirection:"column",
+        height:"100%", backdropFilter:"blur(20px)", position:"relative",
+        overflow:"hidden",
+      }}>
+        {/* ── Image Carousel ── */}
+        <div style={{ position:"relative", width:"100%", aspectRatio:"16/9", overflow:"hidden", borderRadius:"24px 24px 0 0", flexShrink:0 }}>
+
+          {/* Images */}
+          {total > 0 ? images.map((src, idx) => (
+            <img key={idx} src={src} alt={`${p.title} screenshot ${idx + 1}`}
+              style={{
+                position:"absolute", inset:0, width:"100%", height:"100%",
+                objectFit:"cover", objectPosition:"top",
+                opacity: idx === imgIdx ? 1 : 0,
+                transition:"opacity 0.45s ease",
+              }}
+            />
+          )) : (
+            /* Placeholder when no images yet */
+            <div style={{
+              position:"absolute", inset:0,
+              background:`linear-gradient(135deg,${p.badgeColor}18,rgba(10,10,16,0.9))`,
+              display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:10,
+            }}>
+              <div style={{ fontSize:48, opacity:0.35 }}>📷</div>
+              <span style={{ fontSize:11, letterSpacing:2, textTransform:"uppercase", color:"rgba(255,255,255,0.25)" }}>
+                Screenshots coming soon
+              </span>
+            </div>
+          )}
+
+          {/* Gradient overlay at bottom of image */}
+          <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"50%", background:"linear-gradient(to top,rgba(12,12,18,0.95),transparent)", pointerEvents:"none" }}/>
+
+          {/* Arrow buttons — only show if images exist */}
+          {total > 1 && (
+            <>
+              <button onClick={prev}
+                style={{ position:"absolute", left:10, top:"50%", transform:"translateY(-50%)", width:32, height:32, borderRadius:"50%", background:"rgba(0,0,0,0.6)", border:"1px solid rgba(255,255,255,0.18)", color:"white", fontSize:16, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", backdropFilter:"blur(8px)", transition:"all 0.2s", zIndex:5 }}
+                onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.15)"}
+                onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.6)"}>
+                ‹
+              </button>
+              <button onClick={next}
+                style={{ position:"absolute", right:10, top:"50%", transform:"translateY(-50%)", width:32, height:32, borderRadius:"50%", background:"rgba(0,0,0,0.6)", border:"1px solid rgba(255,255,255,0.18)", color:"white", fontSize:16, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", backdropFilter:"blur(8px)", transition:"all 0.2s", zIndex:5 }}
+                onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.15)"}
+                onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.6)"}>
+                ›
+              </button>
+            </>
+          )}
+
+          {/* Dot indicators */}
+          {total > 1 && (
+            <div style={{ position:"absolute", bottom:10, left:"50%", transform:"translateX(-50%)", display:"flex", gap:6, zIndex:5 }}>
+              {images.map((_,idx) => (
+                <button key={idx} onClick={e=>{e.stopPropagation();setImgIdx(idx);}}
+                  style={{ width: idx===imgIdx ? 18 : 6, height:6, borderRadius:100, background: idx===imgIdx ? "white" : "rgba(255,255,255,0.35)", border:"none", cursor:"pointer", padding:0, transition:"all 0.3s" }}/>
+              ))}
+            </div>
+          )}
+
+          {/* Live badge top-left */}
+          <div style={{ position:"absolute", top:12, left:12, zIndex:5 }}>
+            <span style={{ fontSize:10, fontWeight:700, letterSpacing:2, textTransform:"uppercase", padding:"4px 10px", borderRadius:100, background:"rgba(0,0,0,0.65)", border:`1px solid ${p.badgeColor}55`, color:p.badgeColor, backdropFilter:"blur(8px)" }}>
+              {p.badge}
+            </span>
+          </div>
+
+          {/* Image counter top-right */}
+          {total > 1 && (
+            <div style={{ position:"absolute", top:12, right:12, zIndex:5, fontSize:10, color:"rgba(255,255,255,0.5)", background:"rgba(0,0,0,0.55)", padding:"3px 8px", borderRadius:100, backdropFilter:"blur(8px)" }}>
+              {imgIdx + 1}/{total}
+            </div>
+          )}
+        </div>
+
+        {/* ── Card body ── */}
+        <div style={{ padding:"22px 28px 24px", display:"flex", flexDirection:"column", gap:14, flex:1 }}>
+          {/* accent orb */}
+          <div style={{ position:"absolute", top:-30, right:-30, width:140, height:140, borderRadius:"50%", background:`radial-gradient(circle,${p.badgeColor}14,transparent 70%)`, filter:"blur(30px)", pointerEvents:"none" }}/>
+
+          <div>
+            <span style={{ fontSize:10, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:"rgba(255,255,255,0.35)", display:"block", marginBottom:6 }}>{p.tag}</span>
+            <h3 style={{ fontFamily:"var(--font-head)", fontSize:20, fontWeight:800, lineHeight:1.2, marginBottom:8 }}>{p.title}</h3>
+            {/* Short teaser only — full desc in modal */}
+            <p style={{ fontSize:13, color:"rgba(255,255,255,0.46)", lineHeight:1.7, fontWeight:300, display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden" }}>{p.desc}</p>
+          </div>
+
+          {/* Stack chips — first 3 */}
+          <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
+            {p.stack.slice(0,4).map(s=>(
+              <span key={s} style={{ fontSize:10, padding:"3px 9px", borderRadius:6, background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", color:"rgba(255,255,255,0.52)" }}>{s}</span>
+            ))}
+          </div>
+
+          {/* Action row */}
+          <div style={{ display:"flex", gap:8, marginTop:"auto" }}>
+            <a href={p.link} target="_blank" rel="noopener noreferrer"
+              onClick={e=>e.stopPropagation()}
+              style={{ flex:1, padding:"9px 0", borderRadius:100, background:"white", color:"#050508", fontWeight:700, fontSize:11, textAlign:"center", textDecoration:"none", transition:"all 0.3s", letterSpacing:0.5 }}
+              onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.boxShadow="0 8px 24px rgba(255,255,255,0.2)"; }}
+              onMouseLeave={e=>{ e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}>
+              Live Demo ↗
+            </a>
+            <a href={p.ghLink} target="_blank" rel="noopener noreferrer"
+              onClick={e=>e.stopPropagation()}
+              style={{ padding:"9px 14px", borderRadius:100, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.14)", color:"rgba(255,255,255,0.75)", fontSize:11, fontWeight:600, textDecoration:"none", transition:"all 0.25s", whiteSpace:"nowrap" }}
+              onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.12)"}
+              onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.06)"}>
+              GitHub
+            </a>
+            <button
+              onClick={e=>{ e.stopPropagation(); onShowMore(p, imgIdx); }}
+              style={{ padding:"9px 14px", borderRadius:100, background:`${p.badgeColor}18`, border:`1px solid ${p.badgeColor}44`, color:p.badgeColor, fontSize:11, fontWeight:700, cursor:"pointer", transition:"all 0.25s", whiteSpace:"nowrap", fontFamily:"inherit" }}
+              onMouseEnter={e=>e.currentTarget.style.background=`${p.badgeColor}30`}
+              onMouseLeave={e=>e.currentTarget.style.background=`${p.badgeColor}18`}>
+              More ›
+            </button>
+          </div>
+        </div>
+      </Tilt>
+    </Reveal>
+  );
+}
+
+/* Modal shown when "More ›" is clicked */
+function TopProjectModal({ project, startImg, onClose }) {
+  const [imgIdx, setImgIdx] = useState(startImg || 0);
+  const images = project.images || [];
+  const total  = images.length;
+
+  useEffect(() => {
+    const esc = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", esc);
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", esc); document.body.style.overflow = ""; };
+  }, [onClose]);
+
+  const prev = () => setImgIdx(v => (v - 1 + total) % total);
+  const next = () => setImgIdx(v => (v + 1) % total);
+
+  const portal = typeof document !== "undefined" ? document.body : null;
+  if (!portal) return null;
+
+  return ReactDOM.createPortal(
+    <div style={{ position:"fixed", inset:0, zIndex:999980, display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
+      {/* Backdrop */}
+      <div onClick={onClose} style={{ position:"absolute", inset:0, background:"rgba(0,0,0,0.88)", backdropFilter:"blur(18px)", cursor:"pointer" }}/>
+
+      {/* Modal box */}
+      <div style={{ position:"relative", zIndex:1, background:"#0a0a10", border:"1px solid rgba(255,255,255,0.1)", borderRadius:28, maxWidth:820, width:"100%", maxHeight:"92vh", overflowY:"auto", animation:"revealUp 0.4s cubic-bezier(0.16,1,0.3,1)" }}>
+
+        {/* Close */}
+        <button onClick={onClose}
+          style={{ position:"absolute", top:16, right:16, zIndex:10, width:36, height:36, borderRadius:"50%", background:"rgba(255,255,255,0.07)", border:"1px solid rgba(255,255,255,0.12)", color:"white", fontSize:18, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}
+          onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.16)"}
+          onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.07)"}>
+          ✕
+        </button>
+
+        {/* ── Image viewer ── */}
+        <div style={{ position:"relative", width:"100%", aspectRatio:"16/9", overflow:"hidden", borderRadius:"28px 28px 0 0", background:`linear-gradient(135deg,${project.badgeColor}20,rgba(10,10,16,0.95))` }}>
+          {total > 0 ? images.map((src, idx) => (
+            <img key={idx} src={src} alt={`${project.title} ${idx+1}`}
+              style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", objectPosition:"top", opacity: idx===imgIdx ? 1 : 0, transition:"opacity 0.4s ease" }}/>
+          )) : (
+            <div style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:12 }}>
+              <div style={{ fontSize:64, opacity:0.25 }}>📷</div>
+              <span style={{ fontSize:12, letterSpacing:2, textTransform:"uppercase", color:"rgba(255,255,255,0.25)" }}>Add screenshots to src/images/{project.imgFolder}/</span>
+            </div>
+          )}
+
+          {/* Gradient */}
+          <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"40%", background:"linear-gradient(to top,rgba(10,10,16,1),transparent)", pointerEvents:"none" }}/>
+
+          {/* Arrows */}
+          {total > 1 && (
+            <>
+              <button onClick={prev} style={{ position:"absolute", left:14, top:"50%", transform:"translateY(-50%)", width:38, height:38, borderRadius:"50%", background:"rgba(0,0,0,0.7)", border:"1px solid rgba(255,255,255,0.2)", color:"white", fontSize:20, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", backdropFilter:"blur(8px)", zIndex:5 }}
+                onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.18)"}
+                onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.7)"}>‹</button>
+              <button onClick={next} style={{ position:"absolute", right:14, top:"50%", transform:"translateY(-50%)", width:38, height:38, borderRadius:"50%", background:"rgba(0,0,0,0.7)", border:"1px solid rgba(255,255,255,0.2)", color:"white", fontSize:20, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", backdropFilter:"blur(8px)", zIndex:5 }}
+                onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.18)"}
+                onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.7)"}>›</button>
+            </>
+          )}
+
+          {/* Dots */}
+          {total > 1 && (
+            <div style={{ position:"absolute", bottom:14, left:"50%", transform:"translateX(-50%)", display:"flex", gap:7, zIndex:5 }}>
+              {images.map((_,idx)=>(
+                <button key={idx} onClick={()=>setImgIdx(idx)}
+                  style={{ width:idx===imgIdx?20:7, height:7, borderRadius:100, background:idx===imgIdx?"white":"rgba(255,255,255,0.38)", border:"none", cursor:"pointer", padding:0, transition:"all 0.3s" }}/>
+              ))}
+            </div>
+          )}
+
+          {/* Counter */}
+          {total > 1 && (
+            <div style={{ position:"absolute", top:14, left:14, fontSize:11, color:"rgba(255,255,255,0.55)", background:"rgba(0,0,0,0.6)", padding:"3px 10px", borderRadius:100, backdropFilter:"blur(8px)", zIndex:5 }}>
+              {imgIdx+1} / {total}
+            </div>
+          )}
+        </div>
+
+        {/* ── Detail body ── */}
+        <div style={{ padding:"32px 36px 36px" }}>
+          {/* Tags row */}
+          <div style={{ display:"flex", gap:10, flexWrap:"wrap", marginBottom:20 }}>
+            <span style={{ padding:"5px 14px", background:`${project.badgeColor}18`, color:project.badgeColor, fontSize:11, fontWeight:700, letterSpacing:1, textTransform:"uppercase", borderRadius:100, border:`1px solid ${project.badgeColor}33` }}>{project.badge}</span>
+            <span style={{ padding:"5px 14px", background:"rgba(255,255,255,0.05)", color:"rgba(255,255,255,0.55)", fontSize:11, fontWeight:700, letterSpacing:1, textTransform:"uppercase", borderRadius:100 }}>{project.tag}</span>
+          </div>
+
+          <h2 style={{ fontFamily:"var(--font-head)", fontSize:"2rem", fontWeight:800, lineHeight:1.15, marginBottom:16 }}>{project.title}</h2>
+          <p style={{ fontSize:15, color:"rgba(255,255,255,0.58)", lineHeight:1.85, marginBottom:24, fontWeight:300 }}>{project.desc}</p>
+
+          {/* Impact */}
+          <div style={{ padding:"16px 20px", background:`${project.badgeColor}08`, border:`1px solid ${project.badgeColor}22`, borderRadius:14, marginBottom:28 }}>
+            <div style={{ fontSize:11, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:project.badgeColor, marginBottom:8 }}>Impact</div>
+            <p style={{ fontSize:14, color:"rgba(255,255,255,0.75)", lineHeight:1.7 }}>{project.impact}</p>
+          </div>
+
+          {/* Full stack */}
+          <div style={{ marginBottom:28 }}>
+            <div style={{ fontSize:11, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:"rgba(255,255,255,0.35)", marginBottom:12 }}>Technologies</div>
+            <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
+              {project.stack.map(s=>(
+                <span key={s} style={{ padding:"6px 14px", borderRadius:8, background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.09)", fontSize:13, color:"rgba(255,255,255,0.75)" }}>{s}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div style={{ display:"flex", gap:12, borderTop:"1px solid rgba(255,255,255,0.07)", paddingTop:24, flexWrap:"wrap" }}>
+            <a href={project.link} target="_blank" rel="noopener noreferrer"
+              style={{ padding:"12px 30px", borderRadius:100, background:"white", color:"#050508", fontWeight:700, fontSize:13, textDecoration:"none", transition:"all 0.3s", letterSpacing:0.5 }}
+              onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.boxShadow="0 8px 28px rgba(255,255,255,0.22)"; }}
+              onMouseLeave={e=>{ e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}>
+              Live Demo ↗
+            </a>
+            <a href={project.ghLink} target="_blank" rel="noopener noreferrer"
+              style={{ padding:"11px 28px", borderRadius:100, background:"transparent", color:"white", fontWeight:600, fontSize:13, border:"1px solid rgba(255,255,255,0.18)", textDecoration:"none", transition:"all 0.3s" }}
+              onMouseEnter={e=>{ e.currentTarget.style.background="rgba(255,255,255,0.08)"; e.currentTarget.style.borderColor="rgba(255,255,255,0.4)"; }}
+              onMouseLeave={e=>{ e.currentTarget.style.background="transparent"; e.currentTarget.style.borderColor="rgba(255,255,255,0.18)"; }}>
+              Source Code ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>,
+    portal
+  );
+}
+
+/* ==========================================================
    MAIN
 ========================================================== */
 export default function Portfolio() {
   const [scroll,setScroll]=useState(0);
   const [activeProject,setActiveProject]=useState(null);
+  const [topModal, setTopModal] = useState(null); // { project, imgIdx }
+
+  const openTopModal = (project, imgIdx) => setTopModal({ project, imgIdx });
+  const closeTopModal = () => setTopModal(null);
 
   useEffect(()=>{
     const fn=()=>setScroll(window.scrollY);
@@ -1286,7 +1560,12 @@ export default function Portfolio() {
       stack:["Python","PyTorch","YOLOv8","Flask","Gemini Vision API","Supabase","Docker","HuggingFace"],
       link:"https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai",
       ghLink:"https://github.com/Aishwarya-J05",
-      badge:"🔬 Live",badgeColor:"#a78bfa",
+      badge:"🔬 Live", badgeColor:"#a78bfa",
+      imgFolder:"steelsense",
+      // ── Add your screenshot imports here ──
+      // import ss1 from "./images/steelsense/1.png"; etc.
+      // then: images: [ss1, ss2, ss3]
+      images: [], // placeholder — add imports above
     },
     {
       title:"ArXiv RAG Chatbot",tag:"NLP / RAG",sub:"LangChain · FAISS · Vercel",
@@ -1295,7 +1574,9 @@ export default function Portfolio() {
       stack:["Python","LangChain","FAISS","HuggingFace Embeddings","LLMs","Vercel"],
       link:"https://rag-ar-xiv-chatbot.vercel.app/",
       ghLink:"https://github.com/Aishwarya-J05",
-      badge:"🤖 Live",badgeColor:"#60a5fa",
+      badge:"🤖 Live", badgeColor:"#60a5fa",
+      imgFolder:"rag",
+      images: [], // placeholder
     },
     {
       title:"BurnoutIQ",tag:"Machine Learning",sub:"Scikit-learn · Streamlit",
@@ -1304,7 +1585,9 @@ export default function Portfolio() {
       stack:["Python","Pandas","Scikit-learn","SVM","Random Forest","Naive Bayes","Joblib","Streamlit"],
       link:"https://burnoutiq.streamlit.app",
       ghLink:"https://github.com/Aishwarya-J05",
-      badge:"📊 Live",badgeColor:"#34d399",
+      badge:"📊 Live", badgeColor:"#34d399",
+      imgFolder:"burnoutiq",
+      images: [], // placeholder
     },
   ];
 
@@ -1398,6 +1681,7 @@ export default function Portfolio() {
       </div>
 
       {activeProject && <ProjectModal project={activeProject} onClose={()=>setActiveProject(null)}/>}
+      {topModal && <TopProjectModal project={topModal.project} startImg={topModal.imgIdx} onClose={closeTopModal}/>}
 
       {/* NAV */}
       <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:1000,background:navBlur?"rgba(5,5,8,0.92)":"transparent",backdropFilter:navBlur?"blur(20px)":"none",borderBottom:navBlur?"1px solid rgba(255,255,255,0.05)":"1px solid transparent",transition:"all 0.4s" }}>
@@ -1460,7 +1744,7 @@ export default function Portfolio() {
               I don't just train models — I engineer end-to-end systems that are containerized, deployed, and publicly accessible. From real-time industrial defect detection with YOLOv8 to RAG chatbots built with LangChain and FAISS.
             </p>
             <p style={{ fontSize:15, color:"rgba(255,255,255,0.35)", lineHeight:1.9, marginBottom:40, fontWeight:300 }}>
-              Final-year B.E ECE at VTU · CGPA 9.41 · Seeking AI/ML engineer roles for 2026.
+              Final-year B.Tech ECE at VTU · CGPA 9.41 · Seeking AI/ML engineer roles for 2026.
             </p>
 
             <div style={{ display:"flex", gap:14, flexWrap:"wrap" }}>
@@ -1512,51 +1796,7 @@ export default function Portfolio() {
           </Reveal>
           <div className="top-projects-grid responsive-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:28 }}>
             {topProjects.map((p,i)=>(
-              <Reveal key={p.title} delay={i*120}>
-                <Tilt style={{ background:"rgba(12,12,18,0.7)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:24, padding:32, display:"flex", flexDirection:"column", gap:20, height:"100%", backdropFilter:"blur(20px)", position:"relative", overflow:"hidden" }}>
-                  {/* accent orb */}
-                  <div style={{ position:"absolute",top:-50,right:-50,width:180,height:180,borderRadius:"50%",background:`radial-gradient(circle,${p.badgeColor}18,transparent 70%)`,filter:"blur(40px)",pointerEvents:"none" }}/>
-
-                  {/* live badge */}
-                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                    <span style={{ fontSize:11,fontWeight:700,letterSpacing:2,textTransform:"uppercase",padding:"4px 12px",borderRadius:100,background:`${p.badgeColor}18`,border:`1px solid ${p.badgeColor}33`,color:p.badgeColor }}>{p.badge}</span>
-                    <span style={{ fontSize:11,color:"rgba(255,255,255,0.3)",letterSpacing:1,textTransform:"uppercase" }}>{p.sub}</span>
-                  </div>
-
-                  <div>
-                    <span style={{ fontSize:11,fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:"rgba(255,255,255,0.35)",display:"block",marginBottom:8 }}>{p.tag}</span>
-                    <h3 style={{ fontFamily:"var(--font-head)", fontSize:22, fontWeight:800, lineHeight:1.2, marginBottom:12 }}>{p.title}</h3>
-                    <p style={{ fontSize:14, color:"rgba(255,255,255,0.48)", lineHeight:1.75, fontWeight:300 }}>{p.desc}</p>
-                  </div>
-
-                  <div style={{ padding:"12px 14px", background:"rgba(255,255,255,0.02)", borderLeft:`2px solid ${p.badgeColor}`, borderRadius:"0 10px 10px 0", fontSize:13, color:"rgba(255,255,255,0.65)", lineHeight:1.6 }}>
-                    <strong style={{ color:p.badgeColor }}>Impact: </strong>{p.impact}
-                  </div>
-
-                  <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
-                    {p.stack.slice(0,4).map(s=>(
-                      <span key={s} style={{ fontSize:11, padding:"4px 10px", borderRadius:6, background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", color:"rgba(255,255,255,0.55)" }}>{s}</span>
-                    ))}
-                  </div>
-
-                  <div style={{ display:"flex", gap:10, marginTop:"auto" }}>
-                    <a href={p.link} target="_blank" rel="noopener noreferrer"
-                      onClick={e=>e.stopPropagation()}
-                      style={{ flex:1, padding:"10px 0", borderRadius:100, background:"white", color:"#050508", fontWeight:700, fontSize:12, textAlign:"center", textDecoration:"none", transition:"all 0.3s", letterSpacing:0.5 }}
-                      onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.boxShadow="0 8px 28px rgba(255,255,255,0.2)"; }}
-                      onMouseLeave={e=>{ e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}>
-                      Live Demo ↗
-                    </a>
-                    <a href={p.ghLink} target="_blank" rel="noopener noreferrer"
-                      onClick={e=>e.stopPropagation()}
-                      style={{ padding:"10px 18px", borderRadius:100, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.14)", color:"rgba(255,255,255,0.8)", fontSize:12, fontWeight:600, textDecoration:"none", transition:"all 0.3s" }}
-                      onMouseEnter={e=>{ e.currentTarget.style.background="rgba(255,255,255,0.12)"; }}
-                      onMouseLeave={e=>{ e.currentTarget.style.background="rgba(255,255,255,0.06)"; }}>
-                      GitHub
-                    </a>
-                  </div>
-                </Tilt>
-              </Reveal>
+              <TopProjectCard key={p.title} p={p} i={i} onShowMore={openTopModal}/>
             ))}
           </div>
         </div>
@@ -1571,7 +1811,7 @@ export default function Portfolio() {
             <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:16 }}>About Me</p>
             <h2 className="heading-section" style={{ marginBottom:40 }}>Not just models.<br/><span className="text-accent">Systems.</span></h2>
             <div style={{ display:"flex",flexDirection:"column",gap:24,fontSize:16,color:"rgba(255,255,255,0.55)",lineHeight:1.85,fontWeight:300 }}>
-              <p>I'm Aishwarya, a final-year B.E (ECE) student at VTU with a 9.41 CGPA. I bridge the gap between theoretical machine learning and scalable engineering.</p>
+              <p>I'm Aishwarya, a final-year B.Tech (ECE) student at VTU with a 9.41 CGPA. I bridge the gap between theoretical machine learning and scalable engineering.</p>
               <p>Many build notebooks. I build applications. Every project I ship is containerized, deployed, and publicly accessible — from real-time defect detection to RAG chatbots that understand dense research papers.</p>
             </div>
             <div style={{ display:"flex",gap:16,flexWrap:"wrap",marginTop:44 }}>
