@@ -1937,6 +1937,9 @@ export default function Portfolio() {
         </div>
       </section>
 
+      <CertificationsSection /> 
+      
+
       {/* CONTACT — standalone section */}
       <ContactSection/>
 
@@ -1961,5 +1964,506 @@ export default function Portfolio() {
         </div>
       </footer>
     </>
+  );
+}
+
+/* ==========================================================
+   ★ CERTIFICATIONS & ACHIEVEMENTS SECTION
+   Drop this between ExperienceSection and ContactSection in Portfolio.jsx
+   
+   USAGE:
+   1. Copy the CERT_DATA, HACKATHONS arrays and the two components below
+   2. Add <CertificationsSection /> and <AchievementsSection /> 
+      inside Portfolio() return, before <ContactSection />
+   3. Add the section ids to your nav links array if desired
+========================================================== */
+
+/* ── Certificate data ──
+   Replace the `link` values with your real verification URLs when you have them.
+   The `certId` is shown as a subtle label on each card.
+*/
+const CERT_DATA = [
+  {
+    id: "udemy",
+    title: "Complete A.I. & Machine Learning, Data Science Bootcamp",
+    issuer: "Udemy",
+    instructors: "Andrei Neagoie, Daniel Bourke",
+    date: "Aug 27, 2025",
+    duration: "44 hours",
+    certId: "UC-bd679731-00fa-4445-9506-eb2a4e00631c",
+    link: "https://ude.my/UC-bd679731-00fa-4445-9506-eb2a4e00631c",
+    color: "#a78bfa",
+    icon: "🎓",
+    tags: ["AI", "Machine Learning", "Data Science"],
+    issuerLogo: "https://cdn.simpleicons.org/udemy/A435F0",
+  },
+  {
+    id: "msgenai",
+    title: "Career Essentials in Generative AI",
+    issuer: "Microsoft & LinkedIn",
+    instructors: "",
+    date: "Oct 15, 2024",
+    duration: "4 hrs 53 min",
+    certId: "54daa6044faf50d0a6dd1a1294d0e1565a87cb40ad27275d5e72260721dfebcb",
+    link: "https://www.linkedin.com/learning/certificates/54daa6044faf50d0a6dd1a1294d0e1565a87cb40ad27275d5e72260721dfebcb",
+    color: "#60a5fa",
+    icon: "🤖",
+    tags: ["Generative AI", "Computer Ethics", "Artificial Intelligence"],
+    issuerLogo: "https://cdn.simpleicons.org/microsoft/00A4EF",
+  },
+  {
+    id: "mlai",
+    title: "Machine Learning & AI",
+    issuer: "PrepInsta",
+    instructors: "Aashay Mishra",
+    date: "Dec 1, 2025",
+    duration: "",
+    certId: "692d708141cb810a142022c6",
+    link: "", // add your PrepInsta link here
+    color: "#34d399",
+    icon: "⚙️",
+    tags: ["Machine Learning", "Artificial Intelligence"],
+    issuerLogo: "https://cdn.simpleicons.org/python/3776AB",
+  },
+  {
+    id: "powerbi",
+    title: "Get Started Building with Power BI",
+    issuer: "Microsoft Learn",
+    instructors: "",
+    date: "Jan 4, 2026",
+    duration: "",
+    certId: "uamprgd3",
+    link: "https://learn.microsoft.com/en-us/users/aishwaryajoshi-5256/achievements/uamprgd3",
+    color: "#fbbf24",
+    icon: "📊",
+    tags: ["Power BI", "Data Visualization", "Business Intelligence"],
+    issuerLogo: "https://cdn.simpleicons.org/powerbi/F2C811",
+  },
+  {
+    id: "python",
+    title: "Python Developer",
+    issuer: "SoloLearn",
+    instructors: "",
+    date: "Sep 24, 2024",
+    duration: "",
+    certId: "CC-VFQ4ZSMF",
+    link: "", // add your SoloLearn profile link here
+    color: "#f472b6",
+    icon: "🐍",
+    tags: ["Python", "Programming", "Development"],
+    issuerLogo: "https://cdn.simpleicons.org/python/3776AB",
+  },
+  {
+    id: "dataanalytics",
+    title: "Data Analytics with AI",
+    issuer: "SoloLearn",
+    instructors: "",
+    date: "Jul 21, 2025",
+    duration: "",
+    certId: "CC-GTC04UDB",
+    link: "", // add your SoloLearn profile link here
+    color: "#fb923c",
+    icon: "📈",
+    tags: ["Data Analytics", "AI", "Data Science"],
+    issuerLogo: "https://cdn.simpleicons.org/python/3776AB",
+  },
+];
+
+/* ── Hackathon / Achievement data ── */
+const HACKATHONS = [
+  {
+    id: "gogte",
+    title: "Top 13 of 25 Finalist Teams",
+    event: "National Level Hackathon",
+    host: "KLS Gogte Institute of Technology, Belagavi",
+    detail: "Qualified as a top finalist among 150+ participating teams in a national-level 24-hour hackathon.",
+    icon: "🏆",
+    color: "#a78bfa",
+    badge: "Top 13 / 150+ Teams",
+    type: "24hr Hackathon",
+  },
+  {
+    id: "tce",
+    title: "2nd Place",
+    event: "6-Hour Hackathon",
+    host: "Tontadarya College of Engineering, Gadag",
+    detail: "Secured 2nd place in a 6-hour hackathon at home institution, competing against peers across engineering disciplines.",
+    icon: "🥈",
+    color: "#fbbf24",
+    badge: "2nd Place",
+    type: "6hr Hackathon",
+  },
+  {
+    id: "national4",
+    title: "4× National Hackathon Participant",
+    event: "National Level Hackathons",
+    host: "Multiple Institutions",
+    detail: "Competed in 4 national-level 24-hour hackathons, consistently building and shipping AI/ML solutions under intense time constraints.",
+    icon: "⚡",
+    color: "#60a5fa",
+    badge: "4 Hackathons",
+    type: "24hr Hackathon",
+  },
+];
+
+/* ── CertCard component ── */
+function CertCard({ cert, index }) {
+  const [hov, setHov] = useState(false);
+  const [imgErr, setImgErr] = useState(false);
+
+  return (
+    <Reveal delay={index * 80}>
+      <div
+        onMouseEnter={() => setHov(true)}
+        onMouseLeave={() => setHov(false)}
+        style={{
+          borderRadius: 22,
+          background: hov
+            ? `linear-gradient(135deg,${cert.color}18,rgba(255,255,255,0.04))`
+            : "rgba(10,10,16,0.7)",
+          border: `1px solid ${hov ? cert.color + "55" : cert.color + "22"}`,
+          padding: 28,
+          display: "flex",
+          flexDirection: "column",
+          gap: 16,
+          height: "100%",
+          backdropFilter: "blur(16px)",
+          transition: "all 0.4s cubic-bezier(0.23,1,0.32,1)",
+          transform: hov ? "translateY(-6px)" : "translateY(0)",
+          boxShadow: hov ? `0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px ${cert.color}22` : "none",
+          position: "relative",
+          overflow: "hidden",
+          cursor: cert.link ? "pointer" : "default",
+        }}
+      >
+        {/* bg orb */}
+        <div style={{
+          position: "absolute", top: -40, right: -40, width: 130, height: 130,
+          borderRadius: "50%",
+          background: `radial-gradient(circle,${cert.color}20,transparent 70%)`,
+          filter: "blur(24px)", pointerEvents: "none",
+          transition: "opacity 0.4s",
+          opacity: hov ? 1 : 0.5,
+        }} />
+
+        {/* Header row */}
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
+          <div style={{
+            width: 48, height: 48, borderRadius: 14, flexShrink: 0,
+            background: imgErr ? `${cert.color}22` : "rgba(255,255,255,0.06)",
+            border: `1px solid ${hov ? cert.color + "55" : "rgba(255,255,255,0.1)"}`,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            overflow: "hidden", padding: imgErr ? 0 : 8,
+            transition: "border-color 0.3s",
+          }}>
+            {imgErr ? (
+              <span style={{ fontSize: 22 }}>{cert.icon}</span>
+            ) : (
+              <img
+                src={cert.issuerLogo}
+                alt={cert.issuer}
+                onError={() => setImgErr(true)}
+                style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              />
+            )}
+          </div>
+
+          {/* Verified / link badge */}
+          {cert.link ? (
+            <a
+              href={cert.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={e => e.stopPropagation()}
+              style={{
+                fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase",
+                padding: "4px 10px", borderRadius: 100,
+                background: `${cert.color}18`, border: `1px solid ${cert.color}44`,
+                color: cert.color, textDecoration: "none",
+                transition: "background 0.2s",
+                whiteSpace: "nowrap", flexShrink: 0,
+              }}
+              onMouseEnter={e => e.currentTarget.style.background = `${cert.color}30`}
+              onMouseLeave={e => e.currentTarget.style.background = `${cert.color}18`}
+            >
+              Verify ↗
+            </a>
+          ) : (
+            <span style={{
+              fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase",
+              padding: "4px 10px", borderRadius: 100,
+              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
+              color: "rgba(255,255,255,0.35)", whiteSpace: "nowrap", flexShrink: 0,
+            }}>
+              Certified
+            </span>
+          )}
+        </div>
+
+        {/* Title + issuer */}
+        <div>
+          <p style={{
+            fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase",
+            color: cert.color, marginBottom: 8,
+          }}>
+            {cert.issuer}
+          </p>
+          <h4 style={{
+            fontFamily: "var(--font-head)", fontSize: 16, fontWeight: 800,
+            lineHeight: 1.3, color: "white", marginBottom: cert.instructors ? 6 : 0,
+          }}>
+            {cert.title}
+          </h4>
+          {cert.instructors && (
+            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", fontWeight: 300 }}>
+              by {cert.instructors}
+            </p>
+          )}
+        </div>
+
+        {/* Tags */}
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          {cert.tags.map(t => (
+            <span key={t} style={{
+              fontSize: 10, padding: "3px 9px", borderRadius: 6,
+              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)",
+              color: "rgba(255,255,255,0.45)",
+            }}>{t}</span>
+          ))}
+        </div>
+
+        {/* Footer — date + cert ID */}
+        <div style={{
+          marginTop: "auto",
+          paddingTop: 14,
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+          gap: 8,
+        }}>
+          <span style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", fontWeight: 500 }}>
+            {cert.date}{cert.duration ? ` · ${cert.duration}` : ""}
+          </span>
+          <span style={{
+            fontSize: 9, color: "rgba(255,255,255,0.2)", fontFamily: "'Fira Code','Courier New',monospace",
+            letterSpacing: 0.5, maxWidth: 120, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+          }}>
+            {cert.certId}
+          </span>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
+/* ── HackathonCard component ── */
+function HackathonCard({ h, index }) {
+  const [hov, setHov] = useState(false);
+  return (
+    <Reveal delay={index * 100}>
+      <div
+        onMouseEnter={() => setHov(true)}
+        onMouseLeave={() => setHov(false)}
+        style={{
+          borderRadius: 22,
+          background: hov
+            ? `linear-gradient(135deg,${h.color}14,rgba(255,255,255,0.03))`
+            : "rgba(10,10,16,0.65)",
+          border: `1px solid ${hov ? h.color + "55" : h.color + "20"}`,
+          padding: "28px 32px",
+          backdropFilter: "blur(16px)",
+          transition: "all 0.4s cubic-bezier(0.23,1,0.32,1)",
+          transform: hov ? "translateY(-5px)" : "translateY(0)",
+          boxShadow: hov ? `0 20px 50px rgba(0,0,0,0.35), 0 0 0 1px ${h.color}18` : "none",
+          position: "relative", overflow: "hidden",
+        }}
+      >
+        {/* bg orb */}
+        <div style={{
+          position: "absolute", top: -50, right: -50, width: 180, height: 180,
+          borderRadius: "50%",
+          background: `radial-gradient(circle,${h.color}18,transparent 70%)`,
+          filter: "blur(40px)", pointerEvents: "none",
+          opacity: hov ? 1 : 0.4, transition: "opacity 0.4s",
+        }} />
+
+        <div style={{ display: "flex", alignItems: "flex-start", gap: 20, position: "relative" }}>
+          {/* Icon blob */}
+          <div style={{
+            width: 56, height: 56, borderRadius: 16, flexShrink: 0,
+            background: `${h.color}18`,
+            border: `1px solid ${h.color}33`,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: 26,
+            transition: "transform 0.3s",
+            transform: hov ? "scale(1.08) rotate(-4deg)" : "scale(1)",
+          }}>
+            {h.icon}
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 8 }}>
+              <span style={{
+                fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase",
+                padding: "3px 10px", borderRadius: 100,
+                background: `${h.color}18`, border: `1px solid ${h.color}33`,
+                color: h.color,
+              }}>
+                {h.type}
+              </span>
+              <span style={{
+                fontSize: 10, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase",
+                padding: "3px 10px", borderRadius: 100,
+                background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)",
+                color: "rgba(255,255,255,0.7)",
+              }}>
+                {h.badge}
+              </span>
+            </div>
+
+            <h4 style={{
+              fontFamily: "var(--font-head)", fontSize: 22, fontWeight: 800,
+              color: "white", marginBottom: 4, lineHeight: 1.2,
+            }}>
+              {h.title}
+            </h4>
+            <p style={{ fontSize: 13, color: h.color, fontWeight: 600, marginBottom: 10, letterSpacing: 0.3 }}>
+              {h.event}
+            </p>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 10 }}>
+              📍 {h.host}
+            </p>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 1.75, fontWeight: 300 }}>
+              {h.detail}
+            </p>
+          </div>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
+/* ── Main Certifications Section ── */
+function CertificationsSection() {
+  return (
+    <section
+      id="certifications"
+      style={{
+        padding: "160px 64px",
+        position: "relative",
+        background: "rgba(255,255,255,0.008)",
+        borderTop: "1px solid rgba(255,255,255,0.03)",
+      }}
+    >
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+
+        {/* ── Section header ── */}
+        <Reveal>
+          <p style={{ fontSize: 12, letterSpacing: 4, textTransform: "uppercase", color: "rgba(255,255,255,0.36)", marginBottom: 16 }}>
+            Credentials
+          </p>
+          <h2 className="heading-section" style={{ marginBottom: 16 }}>
+            Certifications <span className="text-accent">&</span>
+          </h2>
+          <h2 className="heading-section" style={{ marginBottom: 20 }}>
+            <span className="text-accent">Achievements.</span>
+          </h2>
+          <p style={{ fontSize: 16, color: "rgba(255,255,255,0.38)", fontWeight: 300, marginBottom: 72, maxWidth: 520 }}>
+            Verified credentials from industry leaders and competitive hackathon results.
+          </p>
+        </Reveal>
+
+        {/* ── Certificates grid ── */}
+        <Reveal>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
+            <div style={{ width: 32, height: 32, borderRadius: 10, background: "rgba(167,139,250,0.15)", border: "1px solid rgba(167,139,250,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🎓</div>
+            <h3 style={{ fontFamily: "var(--font-head)", fontSize: 20, fontWeight: 700, color: "white" }}>Certifications</h3>
+            <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)" }} />
+            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: 2, textTransform: "uppercase" }}>
+              {CERT_DATA.length} certificates
+            </span>
+          </div>
+        </Reveal>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: 20,
+            marginBottom: 80,
+          }}
+          className="certs-grid"
+        >
+          {CERT_DATA.map((cert, i) => (
+            <CertCard key={cert.id} cert={cert} index={i} />
+          ))}
+        </div>
+
+        {/* ── Achievements header ── */}
+        <Reveal>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
+            <div style={{ width: 32, height: 32, borderRadius: 10, background: "rgba(251,191,36,0.15)", border: "1px solid rgba(251,191,36,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🏆</div>
+            <h3 style={{ fontFamily: "var(--font-head)", fontSize: 20, fontWeight: 700, color: "white" }}>Hackathon Achievements</h3>
+            <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)" }} />
+            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: 2, textTransform: "uppercase" }}>
+              4 hackathons
+            </span>
+          </div>
+        </Reveal>
+
+        {/* Stats strip */}
+        <Reveal delay={100}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: 16,
+              marginBottom: 36,
+              padding: "24px 28px",
+              background: "linear-gradient(135deg,rgba(167,139,250,0.06),rgba(96,165,250,0.04))",
+              border: "1px solid rgba(255,255,255,0.07)",
+              borderRadius: 20,
+            }}
+          >
+            {[
+              { val: "4", label: "National Hackathons", color: "#a78bfa" },
+              { val: "Top 13", label: "of 150+ Teams (Gogte)", color: "#fbbf24" },
+              { val: "2nd", label: "Place at TCE Gadag", color: "#60a5fa" },
+            ].map(s => (
+              <div key={s.label} style={{ textAlign: "center" }}>
+                <div style={{
+                  fontFamily: "var(--font-head)", fontSize: 30, fontWeight: 800,
+                  background: `linear-gradient(130deg,${s.color},white)`,
+                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+                  backgroundClip: "text", lineHeight: 1,
+                }}>
+                  {s.val}
+                </div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.38)", letterSpacing: 1.5, textTransform: "uppercase", marginTop: 8 }}>
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* Hackathon cards */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {HACKATHONS.map((h, i) => (
+            <HackathonCard key={h.id} h={h} index={i} />
+          ))}
+        </div>
+
+      </div>
+
+      {/* ── Responsive styles ── */}
+      <style>{`
+        @media(max-width:1024px) {
+          .certs-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media(max-width:640px) {
+          .certs-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </section>
   );
 }
