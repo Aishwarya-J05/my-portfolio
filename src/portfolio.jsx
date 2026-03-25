@@ -2073,21 +2073,19 @@ const CERT_DATA = [
 const HACKATHONS = [
   {
     id: "gogte",
-    title: "Top 13 of 25 Finalist Teams",
-    event: "National Level Hackathon",
+    title: "National Level Hackathon",
     host: "KLS Gogte Institute of Technology, Belagavi",
-    detail: "Qualified as a top finalist among 150+ participating teams in a national-level 24-hour hackathon.",
+    detail: "Qualified as a finalist (top 13 of ~25 finalist teams) in a 24-hour national hackathon.",
     icon: "🏆",
     color: "#a78bfa",
-    badge: "Top 13 / 150+ Teams",
+    badge: "Finalist",
     type: "24hr Hackathon",
   },
   {
     id: "tce",
-    title: "2nd Place",
-    event: "6-Hour Hackathon",
+    title: "6-Hour Hackathon",
     host: "Tontadarya College of Engineering, Gadag",
-    detail: "Secured 2nd place in a 6-hour hackathon at home institution, competing against peers across engineering disciplines.",
+    detail: "Secured 2nd place in a college-level 6-hour hackathon.",
     icon: "🥈",
     color: "#fbbf24",
     badge: "2nd Place",
@@ -2095,13 +2093,12 @@ const HACKATHONS = [
   },
   {
     id: "national4",
-    title: "4× National Hackathon Participant",
-    event: "National Level Hackathons",
+    title: "National Hackathon Participant",
     host: "Multiple Institutions",
-    detail: "Competed in 4 national-level 24-hour hackathons, consistently building and shipping AI/ML solutions under intense time constraints.",
+    detail: "Participated in 4 national-level 24-hour hackathons.",
     icon: "⚡",
     color: "#60a5fa",
-    badge: "4 Hackathons",
+    badge: "4× Participant",
     type: "24hr Hackathon",
   },
 ];
@@ -2264,78 +2261,31 @@ function HackathonCard({ h, index }) {
         onMouseEnter={() => setHov(true)}
         onMouseLeave={() => setHov(false)}
         style={{
-          borderRadius: 22,
-          background: hov
-            ? `linear-gradient(135deg,${h.color}14,rgba(255,255,255,0.03))`
-            : "rgba(10,10,16,0.65)",
-          border: `1px solid ${hov ? h.color + "55" : h.color + "20"}`,
-          padding: "28px 32px",
+          borderRadius: 18,
+          background: hov ? `rgba(255,255,255,0.04)` : "rgba(10,10,16,0.65)",
+          border: `1px solid ${hov ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.06)"}`,
+          padding: "22px 28px",
           backdropFilter: "blur(16px)",
-          transition: "all 0.4s cubic-bezier(0.23,1,0.32,1)",
-          transform: hov ? "translateY(-5px)" : "translateY(0)",
-          boxShadow: hov ? `0 20px 50px rgba(0,0,0,0.35), 0 0 0 1px ${h.color}18` : "none",
-          position: "relative", overflow: "hidden",
+          transition: "all 0.35s cubic-bezier(0.23,1,0.32,1)",
+          display: "flex",
+          alignItems: "flex-start",
+          gap: 20,
         }}
       >
-        {/* bg orb */}
-        <div style={{
-          position: "absolute", top: -50, right: -50, width: 180, height: 180,
-          borderRadius: "50%",
-          background: `radial-gradient(circle,${h.color}18,transparent 70%)`,
-          filter: "blur(40px)", pointerEvents: "none",
-          opacity: hov ? 1 : 0.4, transition: "opacity 0.4s",
-        }} />
-
-        <div style={{ display: "flex", alignItems: "flex-start", gap: 20, position: "relative" }}>
-          {/* Icon blob */}
-          <div style={{
-            width: 56, height: 56, borderRadius: 16, flexShrink: 0,
-            background: `${h.color}18`,
-            border: `1px solid ${h.color}33`,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 26,
-            transition: "transform 0.3s",
-            transform: hov ? "scale(1.08) rotate(-4deg)" : "scale(1)",
-          }}>
-            {h.icon}
+        <div style={{ fontSize: 22, marginTop: 2, flexShrink: 0 }}>{h.icon}</div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 6 }}>
+            <span style={{
+              fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase",
+              padding: "3px 10px", borderRadius: 100,
+              background: `${h.color}14`, border: `1px solid ${h.color}30`,
+              color: h.color,
+            }}>{h.badge}</span>
+            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: 1 }}>{h.type}</span>
           </div>
-
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 8 }}>
-              <span style={{
-                fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase",
-                padding: "3px 10px", borderRadius: 100,
-                background: `${h.color}18`, border: `1px solid ${h.color}33`,
-                color: h.color,
-              }}>
-                {h.type}
-              </span>
-              <span style={{
-                fontSize: 10, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase",
-                padding: "3px 10px", borderRadius: 100,
-                background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)",
-                color: "rgba(255,255,255,0.7)",
-              }}>
-                {h.badge}
-              </span>
-            </div>
-
-            <h4 style={{
-              fontFamily: "var(--font-head)", fontSize: 22, fontWeight: 800,
-              color: "white", marginBottom: 4, lineHeight: 1.2,
-            }}>
-              {h.title}
-            </h4>
-            <p style={{ fontSize: 13, color: h.color, fontWeight: 600, marginBottom: 10, letterSpacing: 0.3 }}>
-              {h.event}
-            </p>
-            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 10 }}>
-              📍 {h.host}
-            </p>
-            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 1.75, fontWeight: 300 }}>
-              {h.detail}
-            </p>
-          </div>
+          <h4 style={{ fontFamily: "var(--font-head)", fontSize: 16, fontWeight: 700, color: "white", marginBottom: 4 }}>{h.title}</h4>
+          <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 8 }}>📍 {h.host}</p>
+          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, fontWeight: 300 }}>{h.detail}</p>
         </div>
       </div>
     </Reveal>
@@ -2410,41 +2360,7 @@ function CertificationsSection() {
           </div>
         </Reveal>
 
-        {/* Stats strip */}
-        <Reveal delay={100}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 16,
-              marginBottom: 36,
-              padding: "24px 28px",
-              background: "linear-gradient(135deg,rgba(167,139,250,0.06),rgba(96,165,250,0.04))",
-              border: "1px solid rgba(255,255,255,0.07)",
-              borderRadius: 20,
-            }}
-          >
-            {[
-              { val: "4", label: "National Hackathons", color: "#a78bfa" },
-              { val: "Top 13", label: "of 150+ Teams (Gogte)", color: "#fbbf24" },
-              { val: "2nd", label: "Place at TCE Gadag", color: "#60a5fa" },
-            ].map(s => (
-              <div key={s.label} style={{ textAlign: "center" }}>
-                <div style={{
-                  fontFamily: "var(--font-head)", fontSize: 30, fontWeight: 800,
-                  background: `linear-gradient(130deg,${s.color},white)`,
-                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                  backgroundClip: "text", lineHeight: 1,
-                }}>
-                  {s.val}
-                </div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.38)", letterSpacing: 1.5, textTransform: "uppercase", marginTop: 8 }}>
-                  {s.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+        
 
         {/* Hackathon cards */}
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
