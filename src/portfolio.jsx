@@ -843,7 +843,7 @@ function ContactSection() {
     { label:"Email",       val:"aishwaryajoshi554@gmail.com", icon:"✉", href:"mailto:aishwaryajoshi554@gmail.com", color:"#a78bfa" },
     { label:"LinkedIn",    val:"/aishwaryajoshiaiml",         icon:"🔗", href:"https://linkedin.com/in/aishwaryajoshiaiml",                     color:"#60a5fa" },
     { label:"GitHub",      val:"/Aishwarya-J05",              icon:"⚡", href:"https://github.com/Aishwarya-J05",                               color:"#f472b6" },
-    { label:"HuggingFace", val:"/AishwaryaNJ",                icon:"🤗", href:"https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai",         color:"#fbbf24" },
+    { label:"HuggingFace", val:"/AishwaryaNJ",                icon:"🤗", href:"https://huggingface.co/AishwaryaNJ",         color:"#fbbf24" },
   ];
 
   return (
@@ -1832,7 +1832,7 @@ export default function Portfolio() {
             <div style={{ display:"flex",gap:16,flexWrap:"wrap",marginTop:44 }}>
               <Mag href={PDF} target="_blank" rel="noopener noreferrer" className="btn-primary">View Resume</Mag>
               <Mag href="https://linkedin.com/in/aishwaryajoshiaiml" target="_blank" rel="noopener noreferrer" className="btn-secondary">LinkedIn ↗</Mag>
-              <Mag href="https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai" target="_blank" rel="noopener noreferrer" className="btn-secondary">HuggingFace ↗</Mag>
+              <Mag href="https://huggingface.co/AishwaryaNJ" target="_blank" rel="noopener noreferrer" className="btn-secondary">HuggingFace ↗</Mag>
             </div>
           </Reveal>
           <Reveal delay={200}>
@@ -1954,7 +1954,7 @@ export default function Portfolio() {
         <div style={{ display:"flex",gap:24,alignItems:"center" }}>
           <a href={PDF} target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>Resume PDF</a>
           <a href="https://github.com/Aishwarya-J05" target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>GitHub</a>
-          <a href="https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai" target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>HuggingFace</a>
+          <a href="https://huggingface.co/spaces/AishwaryaNJ/" target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>HuggingFace</a>
           <a href={PDF} download="Aishwarya_Joshi_Resume.pdf"
             style={{ padding:"8px 18px",borderRadius:100,background:"rgba(167,139,250,0.12)",border:"1px solid rgba(167,139,250,0.3)",fontSize:11,fontWeight:700,color:"#c4b5fd",letterSpacing:1,textDecoration:"none",transition:"all 0.3s" }}
             onMouseEnter={e=>e.currentTarget.style.background="rgba(167,139,250,0.25)"}
