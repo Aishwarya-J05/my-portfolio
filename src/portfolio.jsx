@@ -1172,6 +1172,7 @@ function MobileNav({ PDF }) {
     ["Education","education"],
     ["Experience","experience"],
     ["All Projects","all-projects"],
+    ["Certifications","certifications"],
     ["Contact","contact"],
   ];
 
@@ -1708,7 +1709,7 @@ export default function Portfolio() {
 
           {/* Desktop links */}
           <div className="nav-links" style={{ display:"flex",gap:18,alignItems:"center",flexWrap:"nowrap" }}>
-            {[["Top Projects","top-projects"],["About","about"],["Skills","skills"],["Education","education"],["Experience","experience"],["All Projects","all-projects"],["Contact","contact"]].map(([label,id])=>(
+            {[["Top Projects","top-projects"],["About","about"],["Skills","skills"],["Education","education"],["Experience","experience"],["All Projects","all-projects"],["Certifications","certifications"],["Contact","contact"]].map(([label,id])=>(
               <a key={id} href={`#${id}`} style={{ fontSize:10,fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",opacity:0.55,transition:"opacity 0.2s",whiteSpace:"nowrap",color:"inherit",textDecoration:"none",position:"relative" }}
                 onMouseEnter={e=>e.currentTarget.style.opacity="1"}
                 onMouseLeave={e=>e.currentTarget.style.opacity="0.55"}>
@@ -2047,7 +2048,7 @@ const CERT_DATA = [
     date: "Sep 24, 2024",
     duration: "",
     certId: "CC-VFQ4ZSMF",
-    link: "", // add your SoloLearn profile link here
+    link: "https://www.sololearn.com/certificates/CC-VFQ4ZSMF", // add your SoloLearn profile link here
     color: "#f472b6",
     icon: "🐍",
     tags: ["Python", "Programming", "Development"],
@@ -2061,7 +2062,7 @@ const CERT_DATA = [
     date: "Jul 21, 2025",
     duration: "",
     certId: "CC-GTC04UDB",
-    link: "", // add your SoloLearn profile link here
+    link: "https://www.sololearn.com/certificates/CC-GTCO4UDB", // add your SoloLearn profile link here
     color: "#fb923c",
     icon: "📈",
     tags: ["Data Analytics", "AI", "Data Science"],
