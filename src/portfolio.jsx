@@ -1,6 +1,2397 @@
+// import React, { useState, useEffect, useRef } from "react";
+// import ReactDOM from "react-dom";
+// import myPhoto from "./aishwarya.png";
+// // SteelSense AI screenshots
+// import ss1 from "./images/steelsense/1.png";
+// import ss2 from "./images/steelsense/2.png";
+// import ss3 from "./images/steelsense/3.png";
+// import ss4 from "./images/steelsense/4.png";
+
+// // RAG Chatbot screenshots
+// import rag1 from "./images/rag/1.png";
+// import rag2 from "./images/rag/2.png";
+// import rag3 from "./images/rag/3.png";
+
+// // BurnoutIQ screenshots
+// import bq1 from "./images/burnoutiq/1.png";
+// import bq2 from "./images/burnoutiq/2.png";
+
+// /* ==========================================================
+//    GLOBAL STYLES
+// ========================================================== */
+// const GlobalStyles = () => (
+//   <style>{`
+//     @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap');
+
+//     :root {
+//       --bg: #050508;
+//       --text: #f0f0f5;
+//       --accent: #a78bfa;
+//       --accent2: #60a5fa;
+//       --accent3: #f472b6;
+//       --font-head: 'Syne', sans-serif;
+//       --font-body: 'DM Sans', sans-serif;
+//     }
+
+//     * { margin:0; padding:0; box-sizing:border-box; }
+//     html { scroll-behavior:smooth; }
+//     body {
+//       background:var(--bg); color:var(--text);
+//       font-family:var(--font-body); min-height:100vh;
+//       overflow-x:hidden; cursor:none;
+//       -webkit-font-smoothing:antialiased;
+//     }
+
+//     ::-webkit-scrollbar { width:3px; }
+//     ::-webkit-scrollbar-track { background:var(--bg); }
+//     ::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.15); border-radius:4px; }
+
+//     a { color:inherit; text-decoration:none; }
+
+//     .heading-display {
+//       font-family:var(--font-head); font-weight:800;
+//       font-size:3.6rem;
+//       line-height:1.1; letter-spacing:-0.01em;
+//     }
+//     .heading-section {
+//       font-family:var(--font-head); font-weight:800;
+//       font-size:2.4rem;
+//       line-height:1.18; letter-spacing:-0.01em;
+//     }
+//     @media(max-width:1024px) {
+//       .heading-display { font-size:2.8rem; }
+//       .heading-section { font-size:2rem; }
+//     }
+//     @media(max-width:768px) {
+//       .heading-display { font-size:2.2rem; }
+//       .heading-section { font-size:1.7rem; }
+//     }
+//     .text-gradient {
+//       background:linear-gradient(130deg,#fff 0%,rgba(255,255,255,0.6) 100%);
+//       -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+//     }
+//     .text-accent {
+//       background:linear-gradient(130deg,var(--accent),var(--accent2),var(--accent3));
+//       -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+//       background-size:200%; animation:bgShift 5s ease infinite;
+//     }
+//     .noise-bg {
+//       position:fixed; inset:0; pointer-events:none; z-index:1;
+//       background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+//       mix-blend-mode:overlay; opacity:0.18;
+//     }
+//     .nav-link {
+//       font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase;
+//       opacity:0.5; transition:opacity 0.3s; position:relative; cursor:pointer;
+//     }
+//     .nav-link:hover { opacity:1; }
+//     .nav-link::after {
+//       content:''; position:absolute; bottom:-4px; right:0; width:0; height:1px;
+//       background:white; transition:width 0.4s cubic-bezier(0.23,1,0.32,1); left:auto;
+//     }
+//     .nav-link:hover::after { width:100%; left:0; right:auto; }
+
+//     .btn-primary {
+//       padding:14px 34px; border-radius:100px; background:white; color:var(--bg);
+//       font-weight:700; font-size:13px; letter-spacing:0.5px; border:none; cursor:pointer;
+//       display:inline-flex; align-items:center; justify-content:center; font-family:inherit;
+//       transition:all 0.4s cubic-bezier(0.23,1,0.32,1); text-transform:uppercase;
+//     }
+//     .btn-primary:hover { transform:translateY(-2px); box-shadow:0 10px 40px rgba(255,255,255,0.25); }
+
+//     .btn-secondary {
+//       padding:13px 32px; border-radius:100px; background:transparent; color:white;
+//       font-weight:600; font-size:13px; letter-spacing:0.5px; border:1px solid rgba(255,255,255,0.15);
+//       cursor:pointer; transition:all 0.4s cubic-bezier(0.23,1,0.32,1);
+//       display:inline-flex; align-items:center; justify-content:center; font-family:inherit; text-transform:uppercase;
+//     }
+//     .btn-secondary:hover { background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.4); transform:translateY(-2px); }
+
+//     @keyframes bgShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+//     @keyframes mLeft   { from{transform:translateX(0)} to{transform:translateX(-33.33%)} }
+//     @keyframes mRight  { from{transform:translateX(-33.33%)} to{transform:translateX(0)} }
+//     @keyframes spin    { to{transform:rotate(360deg)} }
+//     @keyframes floatOrb { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-40px) scale(1.05)} }
+//     @keyframes pulseSoft { 0%,100%{opacity:0.3} 50%{opacity:1} }
+//     @keyframes revealUp { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+//     @keyframes skillBarFill { from{width:0} to{width:var(--w)} }
+//     @keyframes orbFloat {
+//       0%  { transform:translate(0,0)   scale(1); }
+//       33% { transform:translate(30px,-20px) scale(1.05); }
+//       66% { transform:translate(-20px,15px)  scale(0.97); }
+//       100%{ transform:translate(0,0)   scale(1); }
+//     }
+//     @keyframes orbFloat2 {
+//       0%  { transform:translate(0,0)   scale(1); }
+//       33% { transform:translate(-25px,20px)  scale(1.03); }
+//       66% { transform:translate(20px,-15px) scale(0.98); }
+//       100%{ transform:translate(0,0)   scale(1); }
+//     }
+//     @keyframes shimmer {
+//       0%  { transform:translateX(-100%) skewX(-15deg); }
+//       100%{ transform:translateX(300%)  skewX(-15deg); }
+//     }
+//     @keyframes fadeSlideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+//     @keyframes contactOrb  { 0%,100%{transform:scale(1) translate(0,0)} 50%{transform:scale(1.1) translate(20px,-15px)} }
+
+//     /* ── Responsive ── */
+//     @media(max-width:1280px) {
+//       .all-projects-grid { grid-template-columns:repeat(3,1fr) !important; }
+//     }
+//     @media(max-width:1024px) {
+//       .responsive-grid    { grid-template-columns:1fr 1fr !important; }
+//       .about-layout       { grid-template-columns:1fr !important; gap:48px !important; }
+//       .skills-exp-grid    { grid-template-columns:1fr !important; }
+//       .top-projects-grid  { grid-template-columns:1fr !important; }
+//       .all-projects-grid  { grid-template-columns:repeat(2,1fr) !important; }
+//       .hero-grid          { grid-template-columns:1fr !important; gap:40px !important; }
+//       .terminal-col       { display:none !important; }
+//       section             { padding:80px 40px !important; }
+//       .nav-links          { display:none !important; }
+//       .mobile-menu-btn    { display:flex !important; }
+//     }
+//     @media(max-width:768px) {
+//       .responsive-grid    { grid-template-columns:1fr !important; }
+//       .all-projects-grid  { grid-template-columns:1fr 1fr !important; }
+//       .edu-grid           { grid-template-columns:1fr !important; }
+//       section             { padding:64px 20px !important; }
+//       .heading-display    { font-size:2.2rem !important; }
+//       .heading-section    { font-size:1.7rem !important; }
+//       .contact-links-grid { grid-template-columns:1fr 1fr !important; }
+//       .footer-inner       { flex-direction:column !important; gap:20px !important; text-align:center; }
+//       .exp-grid           { grid-template-columns:1fr !important; }
+//     }
+//     @media(max-width:480px) {
+//       .all-projects-grid  { grid-template-columns:1fr !important; }
+//       .contact-links-grid { grid-template-columns:1fr !important; }
+//       section             { padding:56px 16px !important; }
+//       .heading-display    { font-size:1.9rem !important; }
+//       .heading-section    { font-size:1.5rem !important; }
+//       nav                 { padding:0 16px !important; }
+//     }
+
+//     /* Prevent stretching */
+//     section { max-width:100%; overflow-x:hidden; }
+//   `}</style>
+// );
+
+// /* ==========================================================
+//    CURSOR
+// ========================================================== */
+// function Cursor() {
+//   const ring = useRef(null);
+//   const dot  = useRef(null);
+//   const pos  = useRef({ x:0, y:0 });
+//   const tgt  = useRef({ x:0, y:0 });
+//   const [hovered, setHovered] = useState(false);
+
+//   useEffect(() => {
+//     const mv  = (e) => { tgt.current = { x:e.clientX, y:e.clientY }; };
+//     const ov  = (e) => { if (e.target.closest("a,button,.interactive")) setHovered(true); };
+//     const out = ()  => setHovered(false);
+//     window.addEventListener("mousemove", mv);
+//     document.addEventListener("mouseover", ov);
+//     document.addEventListener("mouseout",  out);
+//     let raf;
+//     const loop = () => {
+//       pos.current.x += (tgt.current.x - pos.current.x) * 0.15;
+//       pos.current.y += (tgt.current.y - pos.current.y) * 0.15;
+//       if (ring.current) {
+//         ring.current.style.transform = `translate(${pos.current.x-(hovered?36:24)}px,${pos.current.y-(hovered?36:24)}px) scale(${hovered?1.2:1})`;
+//         ring.current.style.borderColor = hovered ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.3)";
+//       }
+//       if (dot.current) {
+//         dot.current.style.transform = `translate(${tgt.current.x-4}px,${tgt.current.y-4}px)`;
+//         dot.current.style.opacity   = hovered ? 0 : 1;
+//       }
+//       raf = requestAnimationFrame(loop);
+//     };
+//     raf = requestAnimationFrame(loop);
+//     return () => { window.removeEventListener("mousemove",mv); document.removeEventListener("mouseover",ov); document.removeEventListener("mouseout",out); cancelAnimationFrame(raf); };
+//   }, [hovered]);
+
+//   return (
+//     <>
+//       <div ref={ring} style={{ position:"fixed",top:0,left:0,width:48,height:48,border:"1.5px solid rgba(255,255,255,0.7)",borderRadius:"50%",pointerEvents:"none",zIndex:999998,transition:"border-color 0.3s, transform 0.05s" }} />
+//       <div ref={dot}  style={{ position:"fixed",top:0,left:0,width:8,height:8,background:"white",borderRadius:"50%",pointerEvents:"none",zIndex:999999,transition:"opacity 0.2s" }} />
+//     </>
+//   );
+// }
+
+// /* ==========================================================
+//    GLOW GRID
+// ========================================================== */
+// function GlowGrid() {
+//   const canvasRef = useRef(null);
+//   const mouseRef  = useRef({ x:-9999, y:-9999 });
+//   useEffect(() => {
+//     const canvas = canvasRef.current;
+//     const ctx    = canvas.getContext("2d");
+//     const CELL   = 80;
+//     let W, H, cols, rows, raf;
+//     const resize = () => {
+//       W = canvas.width  = window.innerWidth;
+//       H = canvas.height = window.innerHeight;
+//       cols = Math.ceil(W/CELL)+2; rows = Math.ceil(H/CELL)+2;
+//     };
+//     resize();
+//     window.addEventListener("resize", resize);
+//     window.addEventListener("mousemove", (e) => { mouseRef.current = { x:e.clientX, y:e.clientY }; });
+//     const draw = () => {
+//       ctx.clearRect(0,0,W,H);
+//       const {x:mx,y:my} = mouseRef.current;
+//       ctx.lineWidth = 0.5;
+//       for (let c=0;c<cols;c++) {
+//         const x=c*CELL, d=Math.max(0,1-Math.abs(mx-x)/280);
+//         ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H);
+//         ctx.strokeStyle=`rgba(255,255,255,${0.04+d*0.055})`; ctx.stroke();
+//       }
+//       for (let r=0;r<rows;r++) {
+//         const y=r*CELL, d=Math.max(0,1-Math.abs(my-y)/280);
+//         ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y);
+//         ctx.strokeStyle=`rgba(255,255,255,${0.04+d*0.055})`; ctx.stroke();
+//       }
+//       const nx=Math.round(mx/CELL)*CELL, ny=Math.round(my/CELL)*CELL;
+//       const dd=Math.sqrt((mx-nx)**2+(my-ny)**2);
+//       if (dd<CELL*1.5) {
+//         const t=Math.max(0,1-dd/(CELL*1.5));
+//         ctx.beginPath(); ctx.arc(nx,ny,2,0,Math.PI*2); ctx.fillStyle=`rgba(167,139,250,${t*0.6})`; ctx.fill();
+//         ctx.beginPath(); ctx.arc(nx,ny,12*t,0,Math.PI*2); ctx.fillStyle=`rgba(167,139,250,${t*0.15})`; ctx.fill();
+//       }
+//       raf=requestAnimationFrame(draw);
+//     };
+//     raf=requestAnimationFrame(draw);
+//     return () => { window.removeEventListener("resize",resize); cancelAnimationFrame(raf); };
+//   },[]);
+//   return <canvas ref={canvasRef} style={{ position:"fixed",inset:0,pointerEvents:"none",zIndex:0 }} />;
+// }
+
+// /* ==========================================================
+//    NEON WAVES
+// ========================================================== */
+// function NeonWaves() {
+//   const svgRef   = useRef(null);
+//   const mouseRef = useRef({ x:0.5, y:0.5 });
+//   const ptY      = useRef({ x:0.5, y:0.5 });
+//   const frameRef = useRef(null);
+//   const WAVES = [
+//     {color:"#7c3aed",freq:0.008,amp:40,speed:0.0007,phase:0,  opacity:0.08,width:2,  yBase:0.3},
+//     {color:"#4f46e5",freq:0.012,amp:50,speed:0.0005,phase:1.5,opacity:0.06,width:1.5,yBase:0.45},
+//     {color:"#06b6d4",freq:0.010,amp:35,speed:0.0009,phase:2.2,opacity:0.07,width:1.8,yBase:0.6},
+//     {color:"#a855f7",freq:0.014,amp:55,speed:0.0006,phase:0.8,opacity:0.05,width:1.2,yBase:0.75},
+//     {color:"#3b82f6",freq:0.009,amp:45,speed:0.0008,phase:3.1,opacity:0.06,width:1.6,yBase:0.2},
+//   ];
+//   useEffect(() => {
+//     const mv=(e)=>{ mouseRef.current={x:e.clientX/window.innerWidth,y:e.clientY/window.innerHeight}; };
+//     window.addEventListener("mousemove",mv);
+//     const tick=(ts)=>{
+//       if(!svgRef.current){frameRef.current=requestAnimationFrame(tick);return;}
+//       const W=svgRef.current.clientWidth||window.innerWidth;
+//       const H=svgRef.current.clientHeight||window.innerHeight;
+//       ptY.current.x+=(mouseRef.current.x-ptY.current.x)*0.05;
+//       ptY.current.y+=(mouseRef.current.y-ptY.current.y)*0.05;
+//       const mx=ptY.current.x, my=ptY.current.y;
+//       svgRef.current.querySelectorAll("path.wave").forEach((path,i)=>{
+//         const w=WAVES[i], t=ts*w.speed, pts=[];
+//         for(let s=0;s<=150;s++){
+//           const x=(s/150)*W, nx=s/150;
+//           const inf=Math.sin((mx-nx)*Math.PI)*40;
+//           const distY=Math.abs(my-w.yBase);
+//           const fac=Math.max(0,1-distY*2);
+//           const y=H*w.yBase+Math.sin(x*w.freq+t+w.phase)*w.amp+Math.cos(x*w.freq*0.5-t*1.5)*(w.amp*0.3)+(inf*fac);
+//           pts.push(s===0?`M${x.toFixed(1)},${y.toFixed(1)}`:`L${x.toFixed(1)},${y.toFixed(1)}`);
+//         }
+//         path.setAttribute("d",pts.join(" "));
+//       });
+//       frameRef.current=requestAnimationFrame(tick);
+//     };
+//     frameRef.current=requestAnimationFrame(tick);
+//     return ()=>{ window.removeEventListener("mousemove",mv); cancelAnimationFrame(frameRef.current); };
+//   },[]);
+//   return (
+//     <div style={{ position:"absolute",inset:0,zIndex:1,pointerEvents:"none",overflow:"hidden" }}>
+//       <svg ref={svgRef} style={{ width:"100%",height:"100%" }}>
+//         <defs>
+//           {WAVES.map((_,i)=>(
+//             <filter key={i} id={`ng${i}`} x="-20%" y="-20%" width="140%" height="140%">
+//               <feGaussianBlur stdDeviation="8" result="blur"/>
+//               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+//             </filter>
+//           ))}
+//         </defs>
+//         {WAVES.map((w,i)=>(
+//           <path key={i} className="wave" stroke={w.color} fill="none"
+//             strokeWidth={w.width} opacity={w.opacity} filter={`url(#ng${i})`}/>
+//         ))}
+//       </svg>
+//       <div style={{ position:"absolute",top:0,left:0,right:0,height:"30%",background:"linear-gradient(to bottom,#050508,transparent)" }}/>
+//       <div style={{ position:"absolute",bottom:0,left:0,right:0,height:"30%",background:"linear-gradient(to top,#050508,transparent)" }}/>
+//     </div>
+//   );
+// }
+
+// /* ==========================================================
+//    MAGNETIC BUTTON
+// ========================================================== */
+// function Mag({ children, className, href, style, onClick, target, rel, download }) {
+//   const ref = useRef(null);
+//   const mv  = (e) => {
+//     const r=ref.current.getBoundingClientRect();
+//     ref.current.style.transform=`translate(${(e.clientX-r.left-r.width/2)*0.35}px,${(e.clientY-r.top-r.height/2)*0.35}px)`;
+//     ref.current.style.transition="transform 0.1s ease-out";
+//   };
+//   const lv = () => { ref.current.style.transform="translate(0,0)"; ref.current.style.transition="transform 0.6s cubic-bezier(0.23,1,0.32,1)"; };
+//   const Tag = href ? "a" : "button";
+//   return (
+//     <Tag ref={ref} href={href} onClick={onClick} className={`interactive ${className||""}`}
+//       target={target} rel={rel} download={download}
+//       onMouseMove={mv} onMouseLeave={lv}
+//       style={{ display:"inline-block",cursor:"pointer",...style }}>
+//       {children}
+//     </Tag>
+//   );
+// }
+
+// /* ==========================================================
+//    REVEAL + TILT
+// ========================================================== */
+// function Reveal({ children, delay=0, threshold=0.12 }) {
+//   const ref=useRef(null);
+//   const [vis,setVis]=useState(false);
+//   useEffect(()=>{
+//     const obs=new IntersectionObserver(([e])=>{ if(e.isIntersecting) setVis(true); },{threshold});
+//     if(ref.current) obs.observe(ref.current);
+//     return ()=>obs.disconnect();
+//   },[threshold]);
+//   return (
+//     <div ref={ref} style={{ opacity:vis?1:0,transform:vis?"translateY(0)":"translateY(50px)",transition:`all 1s cubic-bezier(0.16,1,0.3,1) ${delay}ms` }}>
+//       {children}
+//     </div>
+//   );
+// }
+
+// function Tilt({ children, style, className }) {
+//   const ref  =useRef(null);
+//   const shine=useRef(null);
+//   const mv=(e)=>{
+//     if(!ref.current) return;
+//     const r=ref.current.getBoundingClientRect();
+//     const x=(e.clientX-r.left)/r.width-0.5, y=(e.clientY-r.top)/r.height-0.5;
+//     ref.current.style.transform=`perspective(1000px) rotateX(${-y*8}deg) rotateY(${x*8}deg) scale3d(1.02,1.02,1.02)`;
+//     if(shine.current){ shine.current.style.opacity=1; shine.current.style.background=`radial-gradient(circle at ${(x+0.5)*100}% ${(y+0.5)*100}%,rgba(255,255,255,0.1) 0%,transparent 60%)`; }
+//   };
+//   const lv=()=>{
+//     if(!ref.current) return;
+//     ref.current.style.transform="perspective(1000px) rotateX(0) rotateY(0) scale3d(1,1,1)";
+//     if(shine.current) shine.current.style.opacity=0;
+//   };
+//   return (
+//     <div ref={ref} onMouseMove={mv} onMouseLeave={lv} className={`interactive tilt-card ${className||""}`}
+//       style={{ transition:"transform 0.4s cubic-bezier(0.23,1,0.32,1)",position:"relative",...style }}>
+//       <div ref={shine} style={{ position:"absolute",inset:0,borderRadius:"inherit",pointerEvents:"none",zIndex:10,opacity:0,transition:"opacity 0.4s" }}/>
+//       {children}
+//     </div>
+//   );
+// }
+
+// function RotBadge({ text="• AVAILABLE •", size=140 }) {
+//   const chars=text.split(""), step=360/chars.length;
+//   return (
+//     <div className="interactive" style={{ width:size,height:size,position:"relative",animation:"spin 15s linear infinite" }}>
+//       {chars.map((ch,i)=>(
+//         <span key={i} style={{ position:"absolute",top:"50%",left:"50%",transform:`translate(-50%,-50%) rotate(${i*step}deg) translateY(${-(size/2-12)}px)`,fontSize:10,fontWeight:700,letterSpacing:2,color:"rgba(255,255,255,0.7)",fontFamily:"var(--font-head)" }}>{ch}</span>
+//       ))}
+//       <div style={{ position:"absolute",inset:"25%",borderRadius:"50%",background:"linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.02))",backdropFilter:"blur(12px)",border:"1px solid rgba(255,255,255,0.1)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:24 }}>✧</div>
+//     </div>
+//   );
+// }
+
+// function Marquee({ items, speed=40, reverse=false }) {
+//   const arr=[...items,...items,...items,...items];
+//   return (
+//     <div style={{ overflow:"hidden",display:"flex",width:"100%",background:"rgba(255,255,255,0.02)",borderTop:"1px solid rgba(255,255,255,0.05)",borderBottom:"1px solid rgba(255,255,255,0.05)",padding:"24px 0" }}>
+//       <div style={{ display:"flex",gap:60,animation:`${reverse?"mRight":"mLeft"} ${speed}s linear infinite`,willChange:"transform" }}>
+//         {arr.map((it,i)=>(
+//           <span key={i} style={{ fontSize:14,fontWeight:700,opacity:0.6,letterSpacing:3,textTransform:"uppercase",whiteSpace:"nowrap",fontFamily:"var(--font-head)",display:"flex",alignItems:"center",gap:60 }}>
+//             {it} <span style={{ opacity:0.5,color:"var(--accent)" }}>✧</span>
+//           </span>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
+// /* ==========================================================
+//    PROJECT CARD + MODAL
+// ========================================================== */
+// function ProjectCard({ project, index, onOpen }) {
+//   return (
+//     <Reveal delay={index*150}>
+//       <Tilt style={{ background:"rgba(15,15,20,0.6)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:24,padding:32,display:"flex",flexDirection:"column",gap:24,height:"100%",backdropFilter:"blur(20px)" }}>
+//         <div onClick={()=>onOpen(project)} style={{ aspectRatio:"16/9",borderRadius:16,background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.05)",position:"relative",overflow:"hidden",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>
+//           <div style={{ fontSize:40,opacity:0.2 }}>📷</div>
+//           <div style={{ position:"absolute",inset:0,background:"linear-gradient(to top,rgba(0,0,0,0.8),transparent)",opacity:0.6 }}/>
+//           <div style={{ position:"absolute",bottom:16,right:16,padding:"8px 16px",background:"rgba(255,255,255,0.1)",backdropFilter:"blur(10px)",borderRadius:100,fontSize:11,fontWeight:700,letterSpacing:1,textTransform:"uppercase",color:"white",border:"1px solid rgba(255,255,255,0.2)" }}>View Details ↗</div>
+//           <div style={{ position:"absolute",top:16,left:16,fontSize:12,fontWeight:800,fontFamily:"var(--font-head)",color:"rgba(255,255,255,0.4)" }}>0{index+1}</div>
+//         </div>
+//         <div style={{ flex:1,display:"flex",flexDirection:"column" }}>
+//           <div style={{ display:"flex",gap:8,flexWrap:"wrap",marginBottom:16 }}>
+//             <span style={{ padding:"4px 12px",background:"rgba(167,139,250,0.1)",color:"#c4b5fd",fontSize:11,fontWeight:700,letterSpacing:1,textTransform:"uppercase",borderRadius:100,border:"1px solid rgba(167,139,250,0.2)" }}>{project.tag}</span>
+//             <span style={{ padding:"4px 12px",background:"rgba(255,255,255,0.05)",color:"rgba(255,255,255,0.6)",fontSize:11,fontWeight:700,letterSpacing:1,textTransform:"uppercase",borderRadius:100 }}>{project.sub}</span>
+//           </div>
+//           <h3 style={{ fontFamily:"var(--font-head)",fontSize:24,fontWeight:800,lineHeight:1.2,marginBottom:12 }}>{project.title}</h3>
+//           <p style={{ fontSize:15,color:"rgba(255,255,255,0.5)",lineHeight:1.6,marginBottom:20,fontWeight:300 }}>{project.desc}</p>
+//           <div style={{ padding:"12px 16px",background:"rgba(255,255,255,0.02)",borderLeft:"2px solid var(--accent)",borderRadius:"0 8px 8px 0",fontSize:13,color:"rgba(255,255,255,0.7)",fontStyle:"italic",marginBottom:28 }}>
+//             <strong style={{ color:"white",fontStyle:"normal" }}>Impact: </strong>{project.impact}
+//           </div>
+//           <div style={{ display:"flex",gap:12,marginTop:"auto",flexWrap:"wrap" }}>
+//             {project.link&&<a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-primary interactive" style={{ padding:"10px 24px",fontSize:12 }}>Live Demo ↗</a>}
+//             {project.ghLink&&<a href={project.ghLink} target="_blank" rel="noopener noreferrer" className="btn-secondary interactive" style={{ padding:"10px 24px",fontSize:12 }}>GitHub ↗</a>}
+//           </div>
+//         </div>
+//       </Tilt>
+//     </Reveal>
+//   );
+// }
+
+// function ProjectModal({ project, onClose }) {
+//   useEffect(()=>{
+//     const esc=(e)=>{ if(e.key==="Escape") onClose(); };
+//     window.addEventListener("keydown",esc);
+//     document.body.style.overflow="hidden";
+//     return ()=>{ window.removeEventListener("keydown",esc); document.body.style.overflow=""; };
+//   },[onClose]);
+//   return (
+//     <div style={{ position:"fixed",inset:0,zIndex:10000,display:"flex",alignItems:"center",justifyContent:"center",padding:20 }}>
+//       <div className="interactive" onClick={onClose} style={{ position:"absolute",inset:0,background:"rgba(0,0,0,0.8)",backdropFilter:"blur(16px)",cursor:"pointer" }}/>
+//       <div style={{ position:"relative",zIndex:1,background:"#0c0c11",border:"1px solid rgba(255,255,255,0.1)",borderRadius:24,maxWidth:800,width:"100%",maxHeight:"90vh",overflowY:"auto",padding:48,boxShadow:"0 40px 100px rgba(0,0,0,0.8)",animation:"revealUp 0.4s cubic-bezier(0.16,1,0.3,1)" }}>
+//         <button className="interactive" onClick={onClose} style={{ position:"absolute",top:24,right:24,width:40,height:40,borderRadius:"50%",background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",color:"white",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }} onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.15)"} onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.05)"}>✕</button>
+//         <div style={{ display:"flex",gap:12,marginBottom:24,flexWrap:"wrap" }}>
+//           <span style={{ padding:"6px 16px",background:"rgba(167,139,250,0.15)",color:"#c4b5fd",fontSize:12,fontWeight:700,letterSpacing:1,textTransform:"uppercase",borderRadius:100 }}>{project.tag}</span>
+//           <span style={{ padding:"6px 16px",background:"rgba(255,255,255,0.05)",color:"rgba(255,255,255,0.6)",fontSize:12,fontWeight:700,letterSpacing:1,textTransform:"uppercase",borderRadius:100 }}>{project.sub}</span>
+//         </div>
+//         <h2 style={{ fontFamily:"var(--font-head)",fontSize:"2.2rem",fontWeight:800,lineHeight:1.1,marginBottom:20 }}>{project.title}</h2>
+//         <p style={{ fontSize:16,color:"rgba(255,255,255,0.6)",lineHeight:1.8,marginBottom:32,fontWeight:300 }}>{project.desc}</p>
+//         <div style={{ padding:24,background:"rgba(167,139,250,0.05)",border:"1px solid rgba(167,139,250,0.15)",borderRadius:16,marginBottom:40 }}>
+//           <h4 style={{ fontFamily:"var(--font-head)",fontSize:14,textTransform:"uppercase",letterSpacing:2,color:"#a78bfa",marginBottom:12 }}>Metrics & Impact</h4>
+//           <p style={{ fontSize:15,color:"white",lineHeight:1.6 }}>{project.impact}</p>
+//         </div>
+//         <div style={{ marginBottom:40 }}>
+//           <h4 style={{ fontFamily:"var(--font-head)",fontSize:12,textTransform:"uppercase",letterSpacing:2,color:"rgba(255,255,255,0.4)",marginBottom:16 }}>Technologies</h4>
+//           <div style={{ display:"flex",gap:10,flexWrap:"wrap" }}>
+//             {project.stack.map(s=><span key={s} style={{ padding:"8px 16px",background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:8,fontSize:13,color:"rgba(255,255,255,0.8)" }}>{s}</span>)}
+//           </div>
+//         </div>
+//         <div style={{ display:"flex",gap:16,borderTop:"1px solid rgba(255,255,255,0.1)",paddingTop:32 }}>
+//           {project.link&&<Mag className="btn-primary" href={project.link} target="_blank" rel="noopener noreferrer">View Live ↗</Mag>}
+//           {project.ghLink&&<Mag className="btn-secondary" href={project.ghLink} target="_blank" rel="noopener noreferrer">Source Code ↗</Mag>}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// /* ==========================================================
+//    ★ ANIMATED TECH STACK — icon-based chips
+//    Icons via https://cdn.simpleicons.org/<slug>/<hex>
+// ========================================================== */
+// const STACK_GROUPS = [
+//   {
+//     id:"dl", label:"Deep Learning & CV",
+//     color:"rgba(167,139,250,0.12)", border:"rgba(167,139,250,0.25)", accent:"#a78bfa", icon:"🧠",
+//     skills:[
+//       { name:"PyTorch",          note:"Primary DL framework",   logo:"https://cdn.simpleicons.org/pytorch/EE4C2C" },
+//       { name:"TensorFlow",       note:"Model deployment",       logo:"https://cdn.simpleicons.org/tensorflow/FF6F00" },
+//       { name:"YOLOv8",           note:"Object detection",       logo:"https://cdn.simpleicons.org/yolo/00FFFF" },
+//       { name:"OpenCV",           note:"Computer vision",        logo:"https://cdn.simpleicons.org/opencv/5C3EE8" },
+//       { name:"CNNs / ResNet",    note:"Architecture design",    logo:"https://cdn.simpleicons.org/pytorch/EE4C2C" },
+//       { name:"HuggingFace",      note:"Model hub & transformers",logo:"https://cdn.simpleicons.org/huggingface/FFD21E" },
+//     ],
+//   },
+//   {
+//     id:"nlp", label:"NLP & RAG",
+//     color:"rgba(96,165,250,0.12)", border:"rgba(96,165,250,0.25)", accent:"#60a5fa", icon:"⛓️",
+//     skills:[
+//       { name:"LangChain",        note:"RAG pipelines",          logo:"https://cdn.simpleicons.org/langchain/1C3C3C" },
+//       { name:"FAISS",            note:"Vector search",          logo:"https://cdn.simpleicons.org/meta/0081FB" },
+//       { name:"HuggingFace",      note:"Transformers / Hub",     logo:"https://cdn.simpleicons.org/huggingface/FFD21E" },
+//       { name:"Streamlit",        note:"ML app deployment",      logo:"https://cdn.simpleicons.org/streamlit/FF4B4B" },
+//       { name:"Google Gemini",    note:"Multimodal LLM API",     logo:"https://cdn.simpleicons.org/googlegemini/8E75B2" },
+//       { name:"OpenAI",           note:"GPT integration",        logo:"https://cdn.simpleicons.org/openai/412991" },
+//     ],
+//   },
+//   {
+//     id:"ml", label:"Machine Learning",
+//     color:"rgba(52,211,153,0.10)", border:"rgba(52,211,153,0.22)", accent:"#34d399", icon:"⚙️",
+//     skills:[
+//       { name:"Scikit-learn",     note:"ML swiss army knife",    logo:"https://cdn.simpleicons.org/scikitlearn/F7931E" },
+//       { name:"Random Forest",    note:"Ensemble methods",       logo:"https://cdn.simpleicons.org/scikitlearn/F7931E" },
+//       { name:"SVM / KNN",        note:"Classification",         logo:"https://cdn.simpleicons.org/scikitlearn/F7931E" },
+//       { name:"Logistic Reg",     note:"Regression & classification", logo:"https://cdn.simpleicons.org/scikitlearn/F7931E" },
+//       { name:"Decision Trees",   note:"Interpretable ML",       logo:"https://cdn.simpleicons.org/scikitlearn/F7931E" },
+//       { name:"XGBoost",          note:"Gradient boosting",      logo:"https://cdn.simpleicons.org/xgboost/189FDD" },
+//     ],
+//   },
+//   {
+//     id:"ds", label:"Data Science & Analytics",
+//     color:"rgba(251,191,36,0.10)", border:"rgba(251,191,36,0.22)", accent:"#fbbf24", icon:"📊",
+//     skills:[
+//       { name:"NumPy",            note:"Numerical ops",          logo:"https://cdn.simpleicons.org/numpy/013243" },
+//       { name:"Pandas",           note:"EDA & data cleaning",    logo:"https://cdn.simpleicons.org/pandas/150458" },
+//       { name:"Matplotlib",       note:"Data visualization",     logo:"https://cdn.simpleicons.org/matplotlib/11557C" },
+//       { name:"Seaborn",          note:"Statistical plots",      logo:"https://cdn.simpleicons.org/python/3776AB" },
+//       { name:"Power BI",         note:"Business dashboards",    logo:"https://cdn.simpleicons.org/powerbi/F2C811" },
+//       { name:"Jupyter Notebook", note:"Research & experimentation", logo:"https://cdn.simpleicons.org/jupyter/F37626" },
+//     ],
+//   },
+//   {
+//     id:"mlops", label:"MLOps & Backend",
+//     color:"rgba(244,114,182,0.10)", border:"rgba(244,114,182,0.22)", accent:"#f472b6", icon:"🐳",
+//     skills:[
+//       { name:"Docker",           note:"Containerization",       logo:"https://cdn.simpleicons.org/docker/2496ED" },
+//       { name:"Flask",            note:"Web backend / API",      logo:"https://cdn.simpleicons.org/flask/FFFFFF" },
+//       { name:"FastAPI",          note:"High-perf API serving",  logo:"https://cdn.simpleicons.org/fastapi/009688" },
+//       { name:"Supabase",         note:"Database + auth",        logo:"https://cdn.simpleicons.org/supabase/3ECF8E" },
+//       { name:"Hugging Face Spaces", note:"Model hosting",       logo:"https://cdn.simpleicons.org/huggingface/FFD21E" },
+//       { name:"Joblib",           note:"Model serialization",    logo:"https://cdn.simpleicons.org/python/3776AB" },
+//     ],
+//   },
+//   {
+//     id:"tools", label:"Languages & Tools",
+//     color:"rgba(167,139,250,0.08)", border:"rgba(167,139,250,0.18)", accent:"#c4b5fd", icon:"🛠️",
+//     skills:[
+//       { name:"Python",           note:"Core language",          logo:"https://cdn.simpleicons.org/python/3776AB" },
+//       { name:"SQL",              note:"Data queries",           logo:"https://cdn.simpleicons.org/mysql/4479A1" },
+//       { name:"Git & GitHub",     note:"Version control",        logo:"https://cdn.simpleicons.org/github/FFFFFF" },
+//       { name:"Google Colab",     note:"Cloud notebooks",        logo:"https://cdn.simpleicons.org/googlecolab/F9AB00" },
+//       { name:"VS Code",          note:"Primary IDE",            logo:"https://cdn.simpleicons.org/visualstudiocode/007ACC" },
+//       { name:"Streamlit",        note:"ML app deployment",      logo:"https://cdn.simpleicons.org/streamlit/FF4B4B" },
+//     ],
+//   },
+// ];
+
+// /* SkillChip — icon + name + note, no bar, no percentage */
+// function SkillChip({ name, note, logo, accent, delay }) {
+//   const [hov, setHov] = useState(false);
+//   const [imgErr, setImgErr] = useState(false);
+//   const ref = useRef(null);
+//   const [vis, setVis] = useState(false);
+
+//   useEffect(()=>{
+//     const obs = new IntersectionObserver(([e])=>{ if(e.isIntersecting) setVis(true); },{ threshold:0.1 });
+//     if(ref.current) obs.observe(ref.current);
+//     return ()=>obs.disconnect();
+//   },[]);
+
+//   // derive a single-letter fallback from name
+//   const fallbackLetter = name.charAt(0).toUpperCase();
+
+//   return (
+//     <div ref={ref}
+//       onMouseEnter={()=>setHov(true)}
+//       onMouseLeave={()=>setHov(false)}
+//       style={{
+//         display:"flex", alignItems:"center", gap:14,
+//         padding:"14px 18px", borderRadius:16,
+//         background: hov ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.03)",
+//         border: `1px solid ${hov ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.07)"}`,
+//         transition:"all 0.35s cubic-bezier(0.23,1,0.32,1)",
+//         cursor:"default",
+//         transform: vis ? (hov ? "translateY(-3px) scale(1.02)" : "translateY(0) scale(1)") : "translateY(16px) scale(0.95)",
+//         opacity: vis ? 1 : 0,
+//         transitionDelay: vis ? `${delay}ms` : "0ms",
+//         boxShadow: hov ? `0 8px 28px rgba(0,0,0,0.35), 0 0 0 1px ${accent}33` : "none",
+//       }}>
+
+//       {/* Logo or fallback */}
+//       <div style={{
+//         width:38, height:38, borderRadius:10, flexShrink:0,
+//         background: imgErr ? `${accent}22` : "rgba(255,255,255,0.06)",
+//         border:`1px solid ${hov ? accent+"44" : "rgba(255,255,255,0.08)"}`,
+//         display:"flex", alignItems:"center", justifyContent:"center",
+//         overflow:"hidden", transition:"border-color 0.3s",
+//         padding: imgErr ? 0 : 6,
+//       }}>
+//         {imgErr ? (
+//           <span style={{ fontSize:16, fontWeight:800, color:accent, fontFamily:"var(--font-head)" }}>{fallbackLetter}</span>
+//         ) : (
+//           <img
+//             src={logo}
+//             alt={name}
+//             onError={()=>setImgErr(true)}
+//             style={{ width:"100%", height:"100%", objectFit:"contain", filter: hov ? "none" : "brightness(0.85)" }}
+//           />
+//         )}
+//       </div>
+
+//       {/* Text */}
+//       <div style={{ minWidth:0 }}>
+//         <div style={{ fontSize:13, fontWeight:700, color: hov ? "white" : "rgba(255,255,255,0.85)", transition:"color 0.3s", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{name}</div>
+//         <div style={{ fontSize:11, color:"rgba(255,255,255,0.36)", marginTop:3, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{note}</div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// function StackSection() {
+//   const [activeTab, setActiveTab] = useState("dl");
+//   const active = STACK_GROUPS.find(g=>g.id===activeTab);
+
+//   return (
+//     <section id="skills" style={{ padding:"160px 64px", position:"relative" }}>
+//       <div style={{ maxWidth:1100, margin:"0 auto" }}>
+//         <Reveal>
+//           <p style={{ fontSize:12, letterSpacing:4, textTransform:"uppercase", color:"rgba(255,255,255,0.36)", marginBottom:16 }}>Arsenal</p>
+//           <h2 className="heading-section" style={{ marginBottom:16 }}>
+//             Tech <span className="text-accent">Stack.</span>
+//           </h2>
+//           <p style={{ fontSize:16, color:"rgba(255,255,255,0.4)", fontWeight:300, marginBottom:56, maxWidth:520 }}>
+//             Tools I've used to build, train, and ship production AI systems.
+//           </p>
+//         </Reveal>
+
+//         {/* Tab pills */}
+//         <div style={{ display:"flex", gap:10, flexWrap:"wrap", marginBottom:48 }}>
+//           {STACK_GROUPS.map(g=>(
+//             <button key={g.id} onClick={()=>setActiveTab(g.id)}
+//               style={{
+//                 padding:"10px 22px", borderRadius:100, fontSize:12, fontWeight:700,
+//                 letterSpacing:1, textTransform:"uppercase", cursor:"pointer",
+//                 fontFamily:"var(--font-head)", border:"none",
+//                 background: activeTab===g.id ? g.accent : "rgba(255,255,255,0.05)",
+//                 color:      activeTab===g.id ? "#050508" : "rgba(255,255,255,0.55)",
+//                 boxShadow:  activeTab===g.id ? `0 0 28px ${g.accent}55` : "none",
+//                 transition:"all 0.3s cubic-bezier(0.23,1,0.32,1)",
+//                 transform:  activeTab===g.id ? "scale(1.06)" : "scale(1)",
+//               }}>
+//               {g.icon} {g.label}
+//             </button>
+//           ))}
+//         </div>
+
+//         {/* Active panel */}
+//         <div key={activeTab} style={{
+//           background:`linear-gradient(135deg,${active.color},rgba(255,255,255,0.02))`,
+//           border:`1px solid ${active.border}`,
+//           borderRadius:28, padding:48, backdropFilter:"blur(24px)",
+//           animation:"fadeSlideIn 0.45s cubic-bezier(0.16,1,0.3,1)",
+//           position:"relative", overflow:"hidden",
+//         }}>
+//           {/* bg orb */}
+//           <div style={{ position:"absolute", top:-80, right:-80, width:320, height:320, borderRadius:"50%", background:`radial-gradient(circle,${active.accent}22,transparent 70%)`, filter:"blur(60px)", pointerEvents:"none" }}/>
+
+//           {/* Panel header */}
+//           <div style={{ display:"flex", alignItems:"center", gap:16, marginBottom:36 }}>
+//             <span style={{ fontSize:36 }}>{active.icon}</span>
+//             <div>
+//               <h3 style={{ fontFamily:"var(--font-head)", fontSize:26, fontWeight:800, color:active.accent }}>{active.label}</h3>
+//               <p style={{ fontSize:13, color:"rgba(255,255,255,0.4)", marginTop:4 }}>{active.skills.length} tools</p>
+//             </div>
+//           </div>
+
+//           {/* Chip grid — 3 columns for wider feel */}
+//           <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:12 }}>
+//             {active.skills.map((s,i)=>(
+//               <SkillChip key={s.name} {...s} accent={active.accent} delay={i*60} />
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+// /* ==========================================================
+//    ★ ANIMATED EXPERIENCE TIMELINE
+// ========================================================== */
+// const EXPERIENCES = [
+//   {
+//     period:"2024",
+//     role:"Artificial Intelligence Intern",
+//     co:"GlowLogics Solutions",
+//     type:"Internship",
+//     color:"#a78bfa",
+//     bullets:[
+//       "Developed supervised learning pipelines — classification & regression using Scikit-learn and Python for internal ML proof-of-concept projects.",
+//       "Applied unsupervised techniques: K-Means clustering and PCA-based dimensionality reduction to extract patterns from unlabelled datasets.",
+//       "Built and trained deep learning models using PyTorch — feed-forward networks and CNNs for image classification tasks.",
+//       "End-to-end ML workflow: data preprocessing, feature engineering, cross-validation, and performance evaluation (ROC-AUC, F1-Score).",
+//     ],
+//   },
+//   {
+//     period:"2024",
+//     role:"Lead ML Engineer",
+//     co:"SteelSense AI",
+//     type:"Project",
+//     color:"#60a5fa",
+//     bullets:[
+//       "Engineered real-time steel surface defect detection using YOLOv8 — classifies 6 defect types with confidence scoring.",
+//       "Built production REST API with Flask; integrated Gemini Vision API for intelligent defect explanation.",
+//       "Containerized with Docker and deployed on Hugging Face Spaces — publicly live and accessible.",
+//     ],
+//   },
+//   {
+//     period:"2024",
+//     role:"ML Engineer",
+//     co:"BurnoutIQ Predictor",
+//     type:"Project",
+//     color:"#34d399",
+//     bullets:[
+//       "End-to-end ML pipeline predicting employee burnout risk from workplace and AI adoption data.",
+//       "Evaluated SVM, Random Forest, and Naive Bayes — selected best model via F1-Score & RMSLE, serialized with Joblib.",
+//       "Deployed as an interactive Streamlit dashboard on Streamlit Cloud.",
+//     ],
+//   },
+//   {
+//     period:"2024",
+//     role:"Deep Learning Researcher",
+//     co:"PyTorch DL Projects",
+//     type:"Research",
+//     color:"#f472b6",
+//     bullets:[
+//       "Implemented CNN architectures, training loops with validation, early stopping, and model checkpointing from scratch.",
+//       "Applied transfer learning with ResNet for image classification; studied autograd, gradient descent, and loss functions in depth.",
+//     ],
+//   },
+// ];
+
+// function ExperienceSection() {
+//   const [openIdx, setOpenIdx] = useState(0);
+
+//   return (
+//     <section id="experience" style={{ padding:"160px 64px",position:"relative",background:"rgba(255,255,255,0.01)",borderTop:"1px solid rgba(255,255,255,0.03)" }}>
+//       <div style={{ maxWidth:1100,margin:"0 auto" }}>
+//         <Reveal>
+//           <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:16 }}>Journey</p>
+//           <h2 className="heading-section" style={{ marginBottom:60 }}>
+//             Engineering <span className="text-accent">Experience.</span>
+//           </h2>
+//         </Reveal>
+
+//         <div className="exp-grid" style={{ display:"grid",gridTemplateColumns:"1fr 1.4fr",gap:48,alignItems:"start" }}>
+//           {/* Left — timeline list */}
+//           <div style={{ display:"flex",flexDirection:"column",gap:4 }}>
+//             {EXPERIENCES.map((e,i)=>(
+//               <Reveal key={i} delay={i*80}>
+//                 <div onClick={()=>setOpenIdx(i)}
+//                   style={{
+//                     padding:"24px 28px",borderRadius:20,cursor:"pointer",position:"relative",
+//                     background: openIdx===i ? `linear-gradient(135deg,${e.color}18,rgba(255,255,255,0.04))` : "rgba(255,255,255,0.02)",
+//                     border: openIdx===i ? `1px solid ${e.color}44` : "1px solid rgba(255,255,255,0.06)",
+//                     transition:"all 0.4s cubic-bezier(0.23,1,0.32,1)",
+//                     transform: openIdx===i ? "translateX(6px)" : "translateX(0)",
+//                     marginBottom:8,
+//                   }}>
+//                   {/* Active indicator bar */}
+//                   {openIdx===i && (
+//                     <div style={{ position:"absolute",left:0,top:"20%",bottom:"20%",width:3,borderRadius:100,background:e.color,boxShadow:`0 0 12px ${e.color}88` }}/>
+//                   )}
+//                   <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:6 }}>
+//                     <span style={{ fontSize:11,fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:e.color,
+//                       padding:"3px 10px",borderRadius:100,background:`${e.color}18`,border:`1px solid ${e.color}33` }}>
+//                       {e.type}
+//                     </span>
+//                     <span style={{ fontSize:12,color:"rgba(255,255,255,0.3)" }}>{e.period}</span>
+//                   </div>
+//                   <h4 style={{ fontFamily:"var(--font-head)",fontSize:18,fontWeight:700,color:openIdx===i?"white":"rgba(255,255,255,0.7)",transition:"color 0.3s",marginBottom:4 }}>{e.role}</h4>
+//                   <p style={{ fontSize:13,color:openIdx===i?e.color:"rgba(255,255,255,0.35)",transition:"color 0.3s",fontWeight:500 }}>{e.co}</p>
+//                 </div>
+//               </Reveal>
+//             ))}
+//           </div>
+
+//           {/* Right — detail panel */}
+//           <div key={openIdx} style={{
+//             background:`linear-gradient(135deg,${EXPERIENCES[openIdx].color}14,rgba(255,255,255,0.02))`,
+//             border:`1px solid ${EXPERIENCES[openIdx].color}33`,
+//             borderRadius:28,padding:44,backdropFilter:"blur(24px)",
+//             animation:"fadeSlideIn 0.5s cubic-bezier(0.16,1,0.3,1)",
+//             position:"sticky",top:120,
+//           }}>
+//             {/* Header */}
+//             <div style={{ marginBottom:32 }}>
+//               <div style={{ display:"inline-flex",alignItems:"center",gap:10,padding:"6px 16px",borderRadius:100,background:`${EXPERIENCES[openIdx].color}18`,border:`1px solid ${EXPERIENCES[openIdx].color}33`,marginBottom:20 }}>
+//                 <div style={{ width:8,height:8,borderRadius:"50%",background:EXPERIENCES[openIdx].color,boxShadow:`0 0 10px ${EXPERIENCES[openIdx].color}` }}/>
+//                 <span style={{ fontSize:11,fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:EXPERIENCES[openIdx].color }}>{EXPERIENCES[openIdx].type} · {EXPERIENCES[openIdx].period}</span>
+//               </div>
+//               <h3 style={{ fontFamily:"var(--font-head)",fontSize:"1.8rem",fontWeight:800,lineHeight:1.15,marginBottom:8 }}>{EXPERIENCES[openIdx].role}</h3>
+//               <p style={{ fontSize:15,color:EXPERIENCES[openIdx].color,fontWeight:600,letterSpacing:0.5 }}>{EXPERIENCES[openIdx].co}</p>
+//             </div>
+
+//             {/* Bullets */}
+//             <div style={{ display:"flex",flexDirection:"column",gap:16 }}>
+//               {EXPERIENCES[openIdx].bullets.map((b,j)=>(
+//                 <div key={j} style={{ display:"flex",gap:16,alignItems:"flex-start",padding:"16px 20px",background:"rgba(255,255,255,0.03)",borderRadius:14,border:"1px solid rgba(255,255,255,0.06)",
+//                   animation:`fadeSlideIn 0.5s cubic-bezier(0.16,1,0.3,1) ${j*80}ms both` }}>
+//                   <div style={{ width:6,height:6,borderRadius:"50%",background:EXPERIENCES[openIdx].color,flexShrink:0,marginTop:7,boxShadow:`0 0 8px ${EXPERIENCES[openIdx].color}` }}/>
+//                   <p style={{ fontSize:14,color:"rgba(255,255,255,0.65)",lineHeight:1.8,fontWeight:300 }}>{b}</p>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+// /* ==========================================================
+//    ★ CONTACT SECTION — standalone, full links
+// ========================================================== */
+// function ContactSection() {
+//   const links = [
+//     { label:"Email",       val:"aishwaryajoshi554@gmail.com", icon:"✉", href:"mailto:aishwaryajoshi554@gmail.com", color:"#a78bfa" },
+//     { label:"LinkedIn",    val:"/aishwaryajoshiaiml",         icon:"🔗", href:"https://linkedin.com/in/aishwaryajoshiaiml",                     color:"#60a5fa" },
+//     { label:"GitHub",      val:"/Aishwarya-J05",              icon:"⚡", href:"https://github.com/Aishwarya-J05",                               color:"#f472b6" },
+//     { label:"HuggingFace", val:"/AishwaryaNJ",                icon:"🤗", href:"https://huggingface.co/AishwaryaNJ",         color:"#fbbf24" },
+//   ];
+
+//   return (
+//     <section id="contact" style={{ padding:"200px 64px",position:"relative",overflow:"hidden" }}>
+//       {/* Big background word */}
+//       <div style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",fontSize:"10rem",fontFamily:"var(--font-head)",fontWeight:800,color:"rgba(255,255,255,0.018)",pointerEvents:"none",whiteSpace:"nowrap",letterSpacing:-10,userSelect:"none" }}>CONNECT</div>
+
+//       {/* Decorative orbs */}
+//       <div style={{ position:"absolute",top:"20%",left:"5%",width:350,height:350,borderRadius:"50%",background:"radial-gradient(circle,rgba(167,139,250,0.1),transparent 70%)",filter:"blur(80px)",animation:"contactOrb 10s ease-in-out infinite",pointerEvents:"none" }}/>
+//       <div style={{ position:"absolute",bottom:"15%",right:"5%",width:300,height:300,borderRadius:"50%",background:"radial-gradient(circle,rgba(96,165,250,0.08),transparent 70%)",filter:"blur(80px)",animation:"contactOrb 14s ease-in-out infinite reverse",pointerEvents:"none" }}/>
+
+//       <div style={{ maxWidth:900,margin:"0 auto",position:"relative",zIndex:1 }}>
+//         <Reveal>
+//           <div style={{ display:"flex",justifyContent:"center",marginBottom:40 }}>
+//             <RotBadge text="• OPEN FOR ROLES • LET'S COLLABORATE • " size={120}/>
+//           </div>
+//           <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",textAlign:"center",marginBottom:20 }}>Get In Touch</p>
+//           <h2 className="heading-section" style={{ textAlign:"center",marginBottom:24 }}>
+//             Ready to engineer<br/>the <span className="text-accent">future.</span>
+//           </h2>
+//           <p style={{ fontSize:18,color:"rgba(255,255,255,0.45)",textAlign:"center",fontWeight:300,lineHeight:1.7,marginBottom:20 }}>
+//             Actively seeking AI/ML engineer roles & internships for 2026.
+//           </p>
+
+//           {/* Big email link */}
+//           <div style={{ textAlign:"center",marginBottom:72 }}>
+//             <a href="mailto:aishwaryajoshi554@gmail.com"
+//               style={{ display:"inline-block",fontSize:"1.5rem",fontFamily:"var(--font-head)",fontWeight:800,
+//                 background:"linear-gradient(130deg,#a78bfa,#60a5fa,#f472b6)",
+//                 WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text",
+//                 backgroundSize:"200%",animation:"bgShift 5s ease infinite",
+//                 letterSpacing:-0.5,borderBottom:"2px solid rgba(167,139,250,0.3)",paddingBottom:6,
+//                 transition:"border-color 0.3s" }}
+//               onMouseEnter={e=>e.currentTarget.style.borderColor="rgba(167,139,250,0.8)"}
+//               onMouseLeave={e=>e.currentTarget.style.borderColor="rgba(167,139,250,0.3)"}>
+//               aishwaryajoshi554@gmail.com ↗
+//             </a>
+//           </div>
+
+//           {/* 4 link cards */}
+//           <div className="contact-links-grid" style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:18,marginBottom:56 }}>
+//             {links.map((lk,i)=>(
+//               <Reveal key={lk.label} delay={i*80}>
+//                 <a href={lk.href} target={lk.href.startsWith("mailto")?"_self":"_blank"} rel="noopener noreferrer"
+//                   style={{ display:"block",textDecoration:"none" }}>
+//                   <Tilt style={{
+//                     padding:"28px 32px",borderRadius:22,
+//                     background:`linear-gradient(135deg,${lk.color}0f,rgba(255,255,255,0.02))`,
+//                     border:`1px solid ${lk.color}33`,backdropFilter:"blur(16px)",
+//                     transition:"all 0.35s cubic-bezier(0.23,1,0.32,1)",cursor:"pointer",
+//                   }}
+//                   onMouseEnter={e=>{ e.currentTarget.style.borderColor=`${lk.color}66`; e.currentTarget.style.boxShadow=`0 20px 60px ${lk.color}22`; }}
+//                   onMouseLeave={e=>{ e.currentTarget.style.borderColor=`${lk.color}33`; e.currentTarget.style.boxShadow="none"; }}>
+//                     <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14 }}>
+//                       <span style={{ fontSize:30 }}>{lk.icon}</span>
+//                       <span style={{ fontSize:20,color:"rgba(255,255,255,0.25)",transition:"color 0.3s" }}>↗</span>
+//                     </div>
+//                     <div style={{ fontSize:11,letterSpacing:2.5,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:8 }}>{lk.label}</div>
+//                     <div style={{ fontSize:14,fontWeight:600,color:"rgba(255,255,255,0.82)",wordBreak:"break-all" }}>{lk.val}</div>
+//                     <div style={{ marginTop:16,height:2,borderRadius:100,background:`linear-gradient(90deg,${lk.color},transparent)`,opacity:0.5 }}/>
+//                   </Tilt>
+//                 </a>
+//               </Reveal>
+//             ))}
+//           </div>
+
+//           {/* CTA buttons */}
+//           <div style={{ display:"flex",justifyContent:"center",gap:16,flexWrap:"wrap" }}>
+//             <Mag href="mailto:aishwaryajoshi554@gmail.com" className="btn-primary" style={{ padding:"16px 44px",fontSize:14 }}>✉ Send Email</Mag>
+//             <Mag href="https://linkedin.com/in/aishwaryajoshiaiml" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ padding:"16px 40px" }}>LinkedIn ↗</Mag>
+//             <Mag href="https://github.com/Aishwarya-J05" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ padding:"16px 40px" }}>GitHub ↗</Mag>
+//           </div>
+//         </Reveal>
+//       </div>
+//     </section>
+//   );
+// }
+
+// /* ==========================================================
+//    ★ TERMINAL BLOCK — animated typewriter hero right panel
+// ========================================================== */
+// const TERMINAL_LINES = [
+//   { delay:0,    type:"comment",  text:"# SteelSense AI — defect detection" },
+//   { delay:600,  type:"import",   text:"import torch, cv2" },
+//   { delay:900,  type:"import",   text:"from ultralytics import YOLO" },
+//   { delay:1300, type:"blank",    text:"" },
+//   { delay:1500, type:"code",     text:"model = YOLO('steelsense_v2.pt')" },
+//   { delay:2000, type:"code",     text:"results = model.predict(frame," },
+//   { delay:2300, type:"code",     text:"    conf=0.72, device='cuda')" },
+//   { delay:2800, type:"blank",    text:"" },
+//   { delay:3000, type:"comment",  text:"# Live defect output ↓" },
+//   { delay:3400, type:"output",   text:"✦ defects_found : 2" },
+//   { delay:3700, type:"output",   text:"✦ type          : ['scratch','pit']" },
+//   { delay:4000, type:"output",   text:"✦ confidence    : [0.94, 0.88]" },
+//   { delay:4300, type:"output",   text:"✦ inference_ms  : 87ms" },
+//   { delay:4700, type:"blank",    text:"" },
+//   { delay:4900, type:"success",  text:"✔ Deployed · HuggingFace Spaces" },
+// ];
+
+// const LINE_COLORS = {
+//   comment: "rgba(127,176,105,0.85)",
+//   import:  "#60a5fa",
+//   code:    "#f0f0f5",
+//   output:  "#a78bfa",
+//   success: "#4ade80",
+//   blank:   "transparent",
+// };
+
+// function TerminalBlock() {
+//   const [visibleLines, setVisibleLines] = useState(0);
+//   const [started, setStarted] = useState(false);
+//   const [cursor, setCursor] = useState(true);
+//   const ref = useRef(null);
+
+//   // start once in viewport
+//   useEffect(() => {
+//     const obs = new IntersectionObserver(([e]) => {
+//       if (e.isIntersecting) { setStarted(true); obs.disconnect(); }
+//     }, { threshold: 0.3 });
+//     if (ref.current) obs.observe(ref.current);
+//     return () => obs.disconnect();
+//   }, []);
+
+//   useEffect(() => {
+//     if (!started) return;
+//     TERMINAL_LINES.forEach((_, i) => {
+//       setTimeout(() => setVisibleLines(v => Math.max(v, i + 1)),
+//         TERMINAL_LINES[i].delay);
+//     });
+//   }, [started]);
+
+//   // blinking cursor
+//   useEffect(() => {
+//     const id = setInterval(() => setCursor(c => !c), 530);
+//     return () => clearInterval(id);
+//   }, []);
+
+//   return (
+//     <div ref={ref} style={{
+//       background:"rgba(8,8,14,0.92)",
+//       border:"1px solid rgba(255,255,255,0.1)",
+//       borderRadius:20,
+//       overflow:"hidden",
+//       boxShadow:"0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(167,139,250,0.08)",
+//       fontFamily:"'Fira Code','Courier New',monospace",
+//       fontSize:13,
+//       lineHeight:1.7,
+//       backdropFilter:"blur(20px)",
+//     }}>
+//       {/* Window chrome */}
+//       <div style={{ padding:"14px 20px", background:"rgba(255,255,255,0.03)", borderBottom:"1px solid rgba(255,255,255,0.07)", display:"flex", alignItems:"center", gap:10 }}>
+//         {["#ff5f57","#ffbd2e","#28c840"].map(c => (
+//           <div key={c} style={{ width:12, height:12, borderRadius:"50%", background:c, opacity:0.85 }}/>
+//         ))}
+//         <span style={{ marginLeft:12, fontSize:11, color:"rgba(255,255,255,0.35)", letterSpacing:1 }}>
+//           steelsense_ai.py — python3
+//         </span>
+//         <div style={{ marginLeft:"auto", display:"flex", gap:6 }}>
+//           {["PyTorch","YOLO","Flask"].map(t => (
+//             <span key={t} style={{ fontSize:10, padding:"2px 8px", borderRadius:4, background:"rgba(167,139,250,0.12)", color:"#c4b5fd", letterSpacing:0.5 }}>{t}</span>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* Code body */}
+//       <div style={{ padding:"22px 28px", minHeight:320 }}>
+//         {TERMINAL_LINES.slice(0, visibleLines).map((line, i) => (
+//           <div key={i} style={{
+//             color: LINE_COLORS[line.type] || "#f0f0f5",
+//             marginBottom: line.type === "blank" ? 8 : 2,
+//             display:"flex",
+//             alignItems:"baseline",
+//             gap:12,
+//             animation:"fadeSlideIn 0.25s ease both",
+//           }}>
+//             {/* Line number */}
+//             <span style={{ color:"rgba(255,255,255,0.18)", fontSize:11, minWidth:20, textAlign:"right", userSelect:"none" }}>
+//               {line.type !== "blank" ? i + 1 : ""}
+//             </span>
+//             {/* Content */}
+//             <span>{line.text}
+//               {/* blinking cursor on last line */}
+//               {i === visibleLines - 1 && (
+//                 <span style={{ display:"inline-block", width:8, height:14, background: cursor ? "rgba(255,255,255,0.7)" : "transparent", marginLeft:2, verticalAlign:"middle", transition:"background 0.1s" }}/>
+//               )}
+//             </span>
+//           </div>
+//         ))}
+//       </div>
+
+//       {/* Status bar */}
+//       <div style={{ padding:"10px 28px", background:"rgba(167,139,250,0.08)", borderTop:"1px solid rgba(255,255,255,0.06)", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+//         <div style={{ display:"flex", gap:16 }}>
+//           <span style={{ fontSize:11, color:"#4ade80" }}>● RUNNING</span>
+//           <span style={{ fontSize:11, color:"rgba(255,255,255,0.3)" }}>Python 3.11</span>
+//         </div>
+//         <div style={{ display:"flex", gap:12 }}>
+//           <span style={{ fontSize:11, color:"rgba(255,255,255,0.3)" }}>UTF-8</span>
+//           <span style={{ fontSize:11, color:"#a78bfa" }}>CUDA:0</span>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// /* ==========================================================
+//    ★ EDUCATION SECTION
+// ========================================================== */
+// const EDUCATION = [
+//   {
+//     degree: "Bachelor of Engineering",
+//     field:  "Electronics & Communication Engineering",
+//     school: "Tontadarya College of Engineering, Gadag",
+//     board:  "Visvesvaraya Technological University (VTU)",
+//     year:   "2022 – 2026",
+//     grade:  "9.41 CGPA",
+//     gradeLabel: "Up to 7th Semester",
+//     status: "Final Year",
+//     icon:   "🎓",
+//     color:  "#a78bfa",
+//     highlights: ["Specialization in AI/ML", "Consistent academic excellence", "Active project builder throughout degree"],
+//   },
+//   {
+//     degree: "Pre-University Course (PUC)",
+//     field:  "PCMB — Physics, Chemistry, Maths, Biology",
+//     school: "Smt. Vidya P Hanchinmani PU College, Dharwad",
+//     board:  "Karnataka State Board",
+//     year:   "2020 – 2022",
+//     grade:  "89%",
+//     gradeLabel: "Karnataka State Board",
+//     status: "Completed",
+//     icon:   "📚",
+//     color:  "#60a5fa",
+//     highlights: ["Strong foundation in Mathematics & Sciences", "Consistent high scorer"],
+//   },
+// ];
+
+// function EducationSection() {
+//   return (
+//     <section id="education" style={{ padding:"160px 64px", position:"relative", background:"rgba(255,255,255,0.008)", borderTop:"1px solid rgba(255,255,255,0.03)" }}>
+//       <div style={{ maxWidth:1100, margin:"0 auto" }}>
+//         <Reveal>
+//           <p style={{ fontSize:12, letterSpacing:4, textTransform:"uppercase", color:"rgba(255,255,255,0.36)", marginBottom:16 }}>Academic Background</p>
+//           <h2 className="heading-section" style={{ marginBottom:60 }}>
+//             Education<span className="text-accent">.</span>
+//           </h2>
+//         </Reveal>
+
+//         <div className="edu-grid responsive-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:28 }}>
+//           {EDUCATION.map((ed, i) => (
+//             <Reveal key={ed.degree} delay={i * 150}>
+//               <Tilt style={{
+//                 borderRadius:24,
+//                 background:`linear-gradient(135deg,${ed.color}10,rgba(255,255,255,0.02))`,
+//                 border:`1px solid ${ed.color}28`,
+//                 padding:40,
+//                 height:"100%",
+//                 backdropFilter:"blur(20px)",
+//                 position:"relative",
+//                 overflow:"hidden",
+//               }}>
+//                 {/* bg orb */}
+//                 <div style={{ position:"absolute", top:-60, right:-60, width:200, height:200, borderRadius:"50%", background:`radial-gradient(circle,${ed.color}18,transparent 70%)`, filter:"blur(40px)", pointerEvents:"none" }}/>
+
+//                 {/* Header */}
+//                 <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:28, gap:16 }}>
+//                   <div style={{ fontSize:42 }}>{ed.icon}</div>
+//                   <div style={{ textAlign:"right" }}>
+//                     <div style={{ fontFamily:"var(--font-head)", fontSize:28, fontWeight:800, color:"white", lineHeight:1 }}>{ed.grade}</div>
+//                     <div style={{ fontSize:11, color:ed.color, letterSpacing:1.5, textTransform:"uppercase", marginTop:6 }}>{ed.gradeLabel}</div>
+//                   </div>
+//                 </div>
+
+//                 {/* Degree */}
+//                 <div style={{ marginBottom:20 }}>
+//                   <div style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"4px 12px", borderRadius:100, background:`${ed.color}18`, border:`1px solid ${ed.color}33`, marginBottom:14 }}>
+//                     <div style={{ width:6, height:6, borderRadius:"50%", background:ed.color }}/>
+//                     <span style={{ fontSize:11, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:ed.color }}>{ed.status}</span>
+//                   </div>
+//                   <h3 style={{ fontFamily:"var(--font-head)", fontSize:20, fontWeight:800, lineHeight:1.25, marginBottom:6 }}>{ed.degree}</h3>
+//                   <p style={{ fontSize:14, color:ed.color, fontWeight:600, marginBottom:10 }}>{ed.field}</p>
+//                   <p style={{ fontSize:13, color:"rgba(255,255,255,0.45)", lineHeight:1.6 }}>{ed.school}</p>
+//                   <p style={{ fontSize:12, color:"rgba(255,255,255,0.3)", marginTop:4 }}>{ed.board}</p>
+//                 </div>
+
+//                 {/* Year badge */}
+//                 <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:24, padding:"12px 16px", background:"rgba(255,255,255,0.03)", borderRadius:12, border:"1px solid rgba(255,255,255,0.07)" }}>
+//                   <span style={{ fontSize:12, color:"rgba(255,255,255,0.4)", letterSpacing:1 }}>Duration</span>
+//                   <span style={{ fontSize:13, fontWeight:700, fontFamily:"var(--font-head)", color:"white" }}>{ed.year}</span>
+//                 </div>
+
+//                 {/* Highlights */}
+//                 <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+//                   {ed.highlights.map((h, j) => (
+//                     <div key={j} style={{ display:"flex", alignItems:"center", gap:10 }}>
+//                       <div style={{ width:5, height:5, borderRadius:"50%", background:ed.color, flexShrink:0, boxShadow:`0 0 6px ${ed.color}` }}/>
+//                       <span style={{ fontSize:13, color:"rgba(255,255,255,0.5)", fontWeight:300 }}>{h}</span>
+//                     </div>
+//                   ))}
+//                 </div>
+//               </Tilt>
+//             </Reveal>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+// /* ==========================================================
+//    MOBILE NAV — hamburger drawer
+// ========================================================== */
+// function MobileNav({ PDF }) {
+//   const [open, setOpen] = useState(false);
+
+//   // Lock body scroll when drawer is open
+//   useEffect(() => {
+//     document.body.style.overflow = open ? "hidden" : "";
+//     return () => { document.body.style.overflow = ""; };
+//   }, [open]);
+
+//   const NAV_ITEMS = [
+//     ["Top Projects","top-projects"],
+//     ["About","about"],
+//     ["Skills","skills"],
+//     ["Education","education"],
+//     ["Experience","experience"],
+//     ["All Projects","all-projects"],
+//     ["Achievements","certifications"],
+//     ["Contact","contact"],
+//   ];
+
+//   const close = () => setOpen(false);
+
+//   const portal = typeof document !== "undefined" ? document.body : null;
+
+//   return (
+//     <>
+//       {/* Hamburger button — only visible on mobile via CSS */}
+//       <button
+//         onClick={()=>setOpen(o=>!o)}
+//         className="mobile-menu-btn"
+//         aria-label="Toggle menu"
+//         style={{
+//           display:"none", flexDirection:"column", justifyContent:"center",
+//           gap:5, padding:"8px 4px", background:"transparent", border:"none",
+//           cursor:"pointer", zIndex:99999, flexShrink:0,
+//         }}>
+//         {[0,1,2].map(i=>(
+//           <span key={i} style={{
+//             display:"block", width:24, height:2, background:"white",
+//             borderRadius:2, transition:"all 0.3s cubic-bezier(0.23,1,0.32,1)",
+//             transformOrigin:"center",
+//             transform: open
+//               ? i===0 ? "translateY(7px) rotate(45deg)"
+//               : i===1 ? "scaleX(0)"
+//               : "translateY(-7px) rotate(-45deg)"
+//               : "none",
+//             opacity: open && i===1 ? 0 : 1,
+//           }}/>
+//         ))}
+//       </button>
+
+//       {/* Portal — renders directly on document.body, escapes ALL stacking contexts */}
+//       {portal && ReactDOM.createPortal(
+//         <>
+//           {/* Full-screen solid overlay */}
+//           <div
+//             onClick={close}
+//             style={{
+//               position:"fixed", inset:0,
+//               background:"rgba(2,2,6,0.97)",
+//               zIndex:999990,
+//               opacity: open ? 1 : 0,
+//               pointerEvents: open ? "all" : "none",
+//               transition:"opacity 0.35s ease",
+//             }}
+//           />
+
+//           {/* Drawer panel */}
+//           <div style={{
+//             position:"fixed", top:0, right:0, bottom:0, width:300,
+//             background:"#0a0a10",
+//             borderLeft:"1px solid rgba(255,255,255,0.1)",
+//             zIndex:999999,
+//             transform: open ? "translateX(0)" : "translateX(100%)",
+//             transition:"transform 0.4s cubic-bezier(0.23,1,0.32,1)",
+//             display:"flex", flexDirection:"column",
+//             padding:"72px 28px 40px",
+//             overflowY:"auto",
+//           }}>
+//             {/* Close X */}
+//             <button onClick={close} style={{ position:"absolute",top:18,right:20,background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"50%",width:36,height:36,color:"white",fontSize:18,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.2s" }}
+//               onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.14)"}
+//               onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.06)"}>✕</button>
+
+//             {/* Logo */}
+//             <div style={{ fontFamily:"var(--font-head)",fontWeight:800,fontSize:20,marginBottom:36 }}>
+//               <span style={{ background:"linear-gradient(130deg,#a78bfa,#60a5fa,#f472b6)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text" }}>AI</span>
+//               <span style={{ color:"white" }}>shwarya.</span>
+//             </div>
+
+//             {/* Nav links */}
+//             {NAV_ITEMS.map(([label,id],i)=>(
+//               <a key={id} href={`#${id}`} onClick={close}
+//                 style={{ fontSize:14,fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",color:"rgba(255,255,255,0.6)",textDecoration:"none",padding:"16px 0",borderBottom:"1px solid rgba(255,255,255,0.06)",transition:"color 0.2s, padding-left 0.2s",animation:open?`fadeSlideIn 0.4s cubic-bezier(0.16,1,0.3,1) ${i*50}ms both`:"none" }}
+//                 onMouseEnter={e=>{ e.currentTarget.style.color="white"; e.currentTarget.style.paddingLeft="8px"; }}
+//                 onMouseLeave={e=>{ e.currentTarget.style.color="rgba(255,255,255,0.6)"; e.currentTarget.style.paddingLeft="0"; }}>
+//                 {label}
+//               </a>
+//             ))}
+
+//             <a href={PDF} target="_blank" rel="noopener noreferrer" onClick={close}
+//               style={{ fontSize:14,fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",color:"#a78bfa",textDecoration:"none",padding:"16px 0",borderBottom:"1px solid rgba(255,255,255,0.06)",transition:"color 0.2s" }}>
+//               Resume ↗
+//             </a>
+
+//             <a href="mailto:aishwaryajoshi554@gmail.com" onClick={close}
+//               style={{ display:"block",padding:"15px 0",borderRadius:100,background:"white",color:"#050508",fontWeight:700,fontSize:13,letterSpacing:1,textTransform:"uppercase",textAlign:"center",textDecoration:"none",marginTop:28 }}>
+//               ✉ Hire Me
+//             </a>
+//           </div>
+//         </>,
+//         portal
+//       )}
+//     </>
+//   );
+// }
+
+// /* ==========================================================
+//    ★ TOP PROJECT CARD — image carousel + show more modal
+// ========================================================== */
+// function TopProjectCard({ p, i, onShowMore }) {
+//   const [imgIdx, setImgIdx] = useState(0);
+//   const images = p.images || [];
+//   const total  = images.length;
+
+//   const prev = (e) => { e.stopPropagation(); setImgIdx(v => (v - 1 + total) % total); };
+//   const next = (e) => { e.stopPropagation(); setImgIdx(v => (v + 1) % total); };
+
+//   return (
+//     <Reveal delay={i * 120}>
+//       <Tilt style={{
+//         background:"rgba(12,12,18,0.7)", border:"1px solid rgba(255,255,255,0.07)",
+//         borderRadius:24, padding:0, display:"flex", flexDirection:"column",
+//         height:"100%", backdropFilter:"blur(20px)", position:"relative",
+//         overflow:"hidden",
+//       }}>
+//         {/* ── Image Carousel ── */}
+//         <div style={{ position:"relative", width:"100%", aspectRatio:"16/9", overflow:"hidden", borderRadius:"24px 24px 0 0", flexShrink:0 }}>
+
+//           {/* Images */}
+//           {total > 0 ? images.map((src, idx) => (
+//             <img key={idx} src={src} alt={`${p.title} screenshot ${idx + 1}`}
+//               style={{
+//                 position:"absolute", inset:0, width:"100%", height:"100%",
+//                 objectFit:"cover", objectPosition:"top",
+//                 opacity: idx === imgIdx ? 1 : 0,
+//                 transition:"opacity 0.45s ease",
+//               }}
+//             />
+//           )) : (
+//             /* Placeholder when no images yet */
+//             <div style={{
+//               position:"absolute", inset:0,
+//               background:`linear-gradient(135deg,${p.badgeColor}18,rgba(10,10,16,0.9))`,
+//               display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:10,
+//             }}>
+//               <div style={{ fontSize:48, opacity:0.35 }}>📷</div>
+//               <span style={{ fontSize:11, letterSpacing:2, textTransform:"uppercase", color:"rgba(255,255,255,0.25)" }}>
+//                 Screenshots coming soon
+//               </span>
+//             </div>
+//           )}
+
+//           {/* Gradient overlay at bottom of image */}
+//           <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"50%", background:"linear-gradient(to top,rgba(12,12,18,0.95),transparent)", pointerEvents:"none" }}/>
+
+//           {/* Arrow buttons — only show if images exist */}
+//           {total > 1 && (
+//             <>
+//               <button onClick={prev}
+//                 style={{ position:"absolute", left:10, top:"50%", transform:"translateY(-50%)", width:32, height:32, borderRadius:"50%", background:"rgba(0,0,0,0.6)", border:"1px solid rgba(255,255,255,0.18)", color:"white", fontSize:16, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", backdropFilter:"blur(8px)", transition:"all 0.2s", zIndex:5 }}
+//                 onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.15)"}
+//                 onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.6)"}>
+//                 ‹
+//               </button>
+//               <button onClick={next}
+//                 style={{ position:"absolute", right:10, top:"50%", transform:"translateY(-50%)", width:32, height:32, borderRadius:"50%", background:"rgba(0,0,0,0.6)", border:"1px solid rgba(255,255,255,0.18)", color:"white", fontSize:16, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", backdropFilter:"blur(8px)", transition:"all 0.2s", zIndex:5 }}
+//                 onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.15)"}
+//                 onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.6)"}>
+//                 ›
+//               </button>
+//             </>
+//           )}
+
+//           {/* Dot indicators */}
+//           {total > 1 && (
+//             <div style={{ position:"absolute", bottom:10, left:"50%", transform:"translateX(-50%)", display:"flex", gap:6, zIndex:5 }}>
+//               {images.map((_,idx) => (
+//                 <button key={idx} onClick={e=>{e.stopPropagation();setImgIdx(idx);}}
+//                   style={{ width: idx===imgIdx ? 18 : 6, height:6, borderRadius:100, background: idx===imgIdx ? "white" : "rgba(255,255,255,0.35)", border:"none", cursor:"pointer", padding:0, transition:"all 0.3s" }}/>
+//               ))}
+//             </div>
+//           )}
+
+//           {/* Live badge top-left */}
+//           <div style={{ position:"absolute", top:12, left:12, zIndex:5 }}>
+//             <span style={{ fontSize:10, fontWeight:700, letterSpacing:2, textTransform:"uppercase", padding:"4px 10px", borderRadius:100, background:"rgba(0,0,0,0.65)", border:`1px solid ${p.badgeColor}55`, color:p.badgeColor, backdropFilter:"blur(8px)" }}>
+//               {p.badge}
+//             </span>
+//           </div>
+
+//           {/* Image counter top-right */}
+//           {total > 1 && (
+//             <div style={{ position:"absolute", top:12, right:12, zIndex:5, fontSize:10, color:"rgba(255,255,255,0.5)", background:"rgba(0,0,0,0.55)", padding:"3px 8px", borderRadius:100, backdropFilter:"blur(8px)" }}>
+//               {imgIdx + 1}/{total}
+//             </div>
+//           )}
+//         </div>
+
+//         {/* ── Card body ── */}
+//         <div style={{ padding:"22px 28px 24px", display:"flex", flexDirection:"column", gap:14, flex:1 }}>
+//           {/* accent orb */}
+//           <div style={{ position:"absolute", top:-30, right:-30, width:140, height:140, borderRadius:"50%", background:`radial-gradient(circle,${p.badgeColor}14,transparent 70%)`, filter:"blur(30px)", pointerEvents:"none" }}/>
+
+//           <div>
+//             <span style={{ fontSize:10, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:"rgba(255,255,255,0.35)", display:"block", marginBottom:6 }}>{p.tag}</span>
+//             <h3 style={{ fontFamily:"var(--font-head)", fontSize:20, fontWeight:800, lineHeight:1.2, marginBottom:8 }}>{p.title}</h3>
+//             {/* Short teaser only — full desc in modal */}
+//             <p style={{ fontSize:13, color:"rgba(255,255,255,0.46)", lineHeight:1.7, fontWeight:300, display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden" }}>{p.desc}</p>
+//           </div>
+
+//           {/* Stack chips — first 3 */}
+//           <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
+//             {p.stack.slice(0,4).map(s=>(
+//               <span key={s} style={{ fontSize:10, padding:"3px 9px", borderRadius:6, background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", color:"rgba(255,255,255,0.52)" }}>{s}</span>
+//             ))}
+//           </div>
+
+//           {/* Action row */}
+//           <div style={{ display:"flex", gap:8, marginTop:"auto" }}>
+//             <a href={p.link} target="_blank" rel="noopener noreferrer"
+//               onClick={e=>e.stopPropagation()}
+//               style={{ flex:1, padding:"9px 0", borderRadius:100, background:"white", color:"#050508", fontWeight:700, fontSize:11, textAlign:"center", textDecoration:"none", transition:"all 0.3s", letterSpacing:0.5 }}
+//               onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.boxShadow="0 8px 24px rgba(255,255,255,0.2)"; }}
+//               onMouseLeave={e=>{ e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}>
+//               Live Demo ↗
+//             </a>
+//             <a href={p.ghLink} target="_blank" rel="noopener noreferrer"
+//               onClick={e=>e.stopPropagation()}
+//               style={{ padding:"9px 14px", borderRadius:100, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.14)", color:"rgba(255,255,255,0.75)", fontSize:11, fontWeight:600, textDecoration:"none", transition:"all 0.25s", whiteSpace:"nowrap" }}
+//               onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.12)"}
+//               onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.06)"}>
+//               GitHub
+//             </a>
+//             <button
+//               onClick={e=>{ e.stopPropagation(); onShowMore(p, imgIdx); }}
+//               style={{ padding:"9px 14px", borderRadius:100, background:`${p.badgeColor}18`, border:`1px solid ${p.badgeColor}44`, color:p.badgeColor, fontSize:11, fontWeight:700, cursor:"pointer", transition:"all 0.25s", whiteSpace:"nowrap", fontFamily:"inherit" }}
+//               onMouseEnter={e=>e.currentTarget.style.background=`${p.badgeColor}30`}
+//               onMouseLeave={e=>e.currentTarget.style.background=`${p.badgeColor}18`}>
+//               More ›
+//             </button>
+//           </div>
+//         </div>
+//       </Tilt>
+//     </Reveal>
+//   );
+// }
+
+// /* Modal shown when "More ›" is clicked */
+// function TopProjectModal({ project, startImg, onClose }) {
+//   const [imgIdx, setImgIdx] = useState(startImg || 0);
+//   const images = project.images || [];
+//   const total  = images.length;
+
+//   useEffect(() => {
+//     const esc = (e) => { if (e.key === "Escape") onClose(); };
+//     window.addEventListener("keydown", esc);
+//     document.body.style.overflow = "hidden";
+//     return () => { window.removeEventListener("keydown", esc); document.body.style.overflow = ""; };
+//   }, [onClose]);
+
+//   const prev = () => setImgIdx(v => (v - 1 + total) % total);
+//   const next = () => setImgIdx(v => (v + 1) % total);
+
+//   const portal = typeof document !== "undefined" ? document.body : null;
+//   if (!portal) return null;
+
+//   return ReactDOM.createPortal(
+//     <div style={{ position:"fixed", inset:0, zIndex:999980, display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
+//       {/* Backdrop */}
+//       <div onClick={onClose} style={{ position:"absolute", inset:0, background:"rgba(0,0,0,0.88)", backdropFilter:"blur(18px)", cursor:"pointer" }}/>
+
+//       {/* Modal box */}
+//       <div style={{ position:"relative", zIndex:1, background:"#0a0a10", border:"1px solid rgba(255,255,255,0.1)", borderRadius:28, maxWidth:820, width:"100%", maxHeight:"92vh", overflowY:"auto", animation:"revealUp 0.4s cubic-bezier(0.16,1,0.3,1)" }}>
+
+//         {/* Close */}
+//         <button onClick={onClose}
+//           style={{ position:"absolute", top:16, right:16, zIndex:10, width:36, height:36, borderRadius:"50%", background:"rgba(255,255,255,0.07)", border:"1px solid rgba(255,255,255,0.12)", color:"white", fontSize:18, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}
+//           onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.16)"}
+//           onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.07)"}>
+//           ✕
+//         </button>
+
+//         {/* ── Image viewer ── */}
+//         <div style={{ position:"relative", width:"100%", aspectRatio:"16/9", overflow:"hidden", borderRadius:"28px 28px 0 0", background:`linear-gradient(135deg,${project.badgeColor}20,rgba(10,10,16,0.95))` }}>
+//           {total > 0 ? images.map((src, idx) => (
+//             <img key={idx} src={src} alt={`${project.title} ${idx+1}`}
+//               style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", objectPosition:"top", opacity: idx===imgIdx ? 1 : 0, transition:"opacity 0.4s ease" }}/>
+//           )) : (
+//             <div style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:12 }}>
+//               <div style={{ fontSize:64, opacity:0.25 }}>📷</div>
+//               <span style={{ fontSize:12, letterSpacing:2, textTransform:"uppercase", color:"rgba(255,255,255,0.25)" }}>Add screenshots to src/images/{project.imgFolder}/</span>
+//             </div>
+//           )}
+
+//           {/* Gradient */}
+//           <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"40%", background:"linear-gradient(to top,rgba(10,10,16,1),transparent)", pointerEvents:"none" }}/>
+
+//           {/* Arrows */}
+//           {total > 1 && (
+//             <>
+//               <button onClick={prev} style={{ position:"absolute", left:14, top:"50%", transform:"translateY(-50%)", width:38, height:38, borderRadius:"50%", background:"rgba(0,0,0,0.7)", border:"1px solid rgba(255,255,255,0.2)", color:"white", fontSize:20, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", backdropFilter:"blur(8px)", zIndex:5 }}
+//                 onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.18)"}
+//                 onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.7)"}>‹</button>
+//               <button onClick={next} style={{ position:"absolute", right:14, top:"50%", transform:"translateY(-50%)", width:38, height:38, borderRadius:"50%", background:"rgba(0,0,0,0.7)", border:"1px solid rgba(255,255,255,0.2)", color:"white", fontSize:20, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", backdropFilter:"blur(8px)", zIndex:5 }}
+//                 onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.18)"}
+//                 onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.7)"}>›</button>
+//             </>
+//           )}
+
+//           {/* Dots */}
+//           {total > 1 && (
+//             <div style={{ position:"absolute", bottom:14, left:"50%", transform:"translateX(-50%)", display:"flex", gap:7, zIndex:5 }}>
+//               {images.map((_,idx)=>(
+//                 <button key={idx} onClick={()=>setImgIdx(idx)}
+//                   style={{ width:idx===imgIdx?20:7, height:7, borderRadius:100, background:idx===imgIdx?"white":"rgba(255,255,255,0.38)", border:"none", cursor:"pointer", padding:0, transition:"all 0.3s" }}/>
+//               ))}
+//             </div>
+//           )}
+
+//           {/* Counter */}
+//           {total > 1 && (
+//             <div style={{ position:"absolute", top:14, left:14, fontSize:11, color:"rgba(255,255,255,0.55)", background:"rgba(0,0,0,0.6)", padding:"3px 10px", borderRadius:100, backdropFilter:"blur(8px)", zIndex:5 }}>
+//               {imgIdx+1} / {total}
+//             </div>
+//           )}
+//         </div>
+
+//         {/* ── Detail body ── */}
+//         <div style={{ padding:"32px 36px 36px" }}>
+//           {/* Tags row */}
+//           <div style={{ display:"flex", gap:10, flexWrap:"wrap", marginBottom:20 }}>
+//             <span style={{ padding:"5px 14px", background:`${project.badgeColor}18`, color:project.badgeColor, fontSize:11, fontWeight:700, letterSpacing:1, textTransform:"uppercase", borderRadius:100, border:`1px solid ${project.badgeColor}33` }}>{project.badge}</span>
+//             <span style={{ padding:"5px 14px", background:"rgba(255,255,255,0.05)", color:"rgba(255,255,255,0.55)", fontSize:11, fontWeight:700, letterSpacing:1, textTransform:"uppercase", borderRadius:100 }}>{project.tag}</span>
+//           </div>
+
+//           <h2 style={{ fontFamily:"var(--font-head)", fontSize:"2rem", fontWeight:800, lineHeight:1.15, marginBottom:16 }}>{project.title}</h2>
+//           <p style={{ fontSize:15, color:"rgba(255,255,255,0.58)", lineHeight:1.85, marginBottom:24, fontWeight:300 }}>{project.desc}</p>
+
+//           {/* Impact */}
+//           <div style={{ padding:"16px 20px", background:`${project.badgeColor}08`, border:`1px solid ${project.badgeColor}22`, borderRadius:14, marginBottom:28 }}>
+//             <div style={{ fontSize:11, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:project.badgeColor, marginBottom:8 }}>Impact</div>
+//             <p style={{ fontSize:14, color:"rgba(255,255,255,0.75)", lineHeight:1.7 }}>{project.impact}</p>
+//           </div>
+
+//           {/* Full stack */}
+//           <div style={{ marginBottom:28 }}>
+//             <div style={{ fontSize:11, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:"rgba(255,255,255,0.35)", marginBottom:12 }}>Technologies</div>
+//             <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
+//               {project.stack.map(s=>(
+//                 <span key={s} style={{ padding:"6px 14px", borderRadius:8, background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.09)", fontSize:13, color:"rgba(255,255,255,0.75)" }}>{s}</span>
+//               ))}
+//             </div>
+//           </div>
+
+//           {/* CTA */}
+//           <div style={{ display:"flex", gap:12, borderTop:"1px solid rgba(255,255,255,0.07)", paddingTop:24, flexWrap:"wrap" }}>
+//             <a href={project.link} target="_blank" rel="noopener noreferrer"
+//               style={{ padding:"12px 30px", borderRadius:100, background:"white", color:"#050508", fontWeight:700, fontSize:13, textDecoration:"none", transition:"all 0.3s", letterSpacing:0.5 }}
+//               onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.boxShadow="0 8px 28px rgba(255,255,255,0.22)"; }}
+//               onMouseLeave={e=>{ e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}>
+//               Live Demo ↗
+//             </a>
+//             <a href={project.ghLink} target="_blank" rel="noopener noreferrer"
+//               style={{ padding:"11px 28px", borderRadius:100, background:"transparent", color:"white", fontWeight:600, fontSize:13, border:"1px solid rgba(255,255,255,0.18)", textDecoration:"none", transition:"all 0.3s" }}
+//               onMouseEnter={e=>{ e.currentTarget.style.background="rgba(255,255,255,0.08)"; e.currentTarget.style.borderColor="rgba(255,255,255,0.4)"; }}
+//               onMouseLeave={e=>{ e.currentTarget.style.background="transparent"; e.currentTarget.style.borderColor="rgba(255,255,255,0.18)"; }}>
+//               Source Code ↗
+//             </a>
+//           </div>
+//         </div>
+//       </div>
+//     </div>,
+//     portal
+//   );
+// }
+
+// /* ==========================================================
+//    MAIN
+// ========================================================== */
+// export default function Portfolio() {
+//   const [scroll,setScroll]=useState(0);
+//   const [activeProject,setActiveProject]=useState(null);
+//   const [topModal, setTopModal] = useState(null); // { project, imgIdx }
+
+//   const openTopModal = (project, imgIdx) => setTopModal({ project, imgIdx });
+//   const closeTopModal = () => setTopModal(null);
+
+//   useEffect(()=>{
+//     const fn=()=>setScroll(window.scrollY);
+//     window.addEventListener("scroll",fn,{passive:true});
+//     return ()=>window.removeEventListener("scroll",fn);
+//   },[]);
+
+//   const navBlur = scroll>50;
+//   const PDF     = "/Aishwarya_Joshi_Resume.pdf";
+
+//   const mqTop = ["Artificial Intelligence","Computer Vision","Deep Learning","NLP","RAG Systems","Data Science"];
+//   const mqBot = ["Python","PyTorch","YOLOv8","Docker","Scikit-learn","LangChain","FAISS","Pandas"];
+
+//   /* ── TOP 3 featured projects ── */
+//   const topProjects = [
+//     {
+//       title:"SteelSense AI",tag:"Computer Vision",sub:"YOLOv8 · Flask · Docker",
+//       desc:"End-to-end industrial steel surface defect detection system. YOLOv8 fine-tuned on steel surface dataset for real-time bounding-box detection across 6 defect types. Gemini Vision API generates natural-language defect explanations; Supabase stores persistent inspection records.",
+//       impact:"94%+ classification accuracy with sub-100ms inference time — deployed live on Hugging Face Spaces.",
+//       stack:["Python","PyTorch","YOLOv8","Flask","Gemini Vision API","Supabase","Docker","HuggingFace"],
+//       link:"https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai",
+//       ghLink:"https://github.com/Aishwarya-J05/SteelSense-AI",
+//       badge:"🔬 Live", badgeColor:"#a78bfa",
+//       imgFolder:"steelsense",
+//       // ── Add your screenshot imports here ──
+//       // import ss1 from "./images/steelsense/1.png"; etc.
+//       // then: images: [ss1, ss2, ss3]
+//       images: [ss1, ss2, ss3, ss4], // placeholder — add imports above
+//     },
+//     {
+//       title:"ArXiv RAG Chatbot",tag:"NLP / RAG",sub:"LangChain · FAISS · Vercel",
+//       desc:"Retrieval-Augmented Generation system that ingests dense ArXiv AI research papers, indexes them with FAISS vector search, and answers queries with source-grounded, citation-accurate responses using LangChain and an LLM backend.",
+//       impact:"Deployed on Vercel — reduces research synthesis time dramatically across 1000+ papers with exact citations.",
+//       stack:["Python","LangChain","FAISS","HuggingFace Embeddings","LLMs","Vercel"],
+//       link:"https://rag-ar-xiv-chatbot.vercel.app/",
+//       ghLink:"https://github.com/Aishwarya-J05/RAG-ArXiv-chatbot",
+//       badge:"🤖 Live", badgeColor:"#60a5fa",
+//       imgFolder:"rag",
+//       images: [rag1, rag2, rag3], // placeholder
+//     },
+//     {
+//       title:"BurnoutIQ",tag:"Machine Learning",sub:"Scikit-learn · Streamlit",
+//       desc:"Full end-to-end predictive ML pipeline evaluating employee burnout risk and productivity scores from workplace habits and AI adoption metrics. Comprehensive EDA, feature engineering, and multi-model benchmarking.",
+//       impact:"Best model (Random Forest) selected via F1-Score & RMSLE, serialized with Joblib — live on Streamlit Cloud.",
+//       stack:["Python","Pandas","Scikit-learn","SVM","Random Forest","Naive Bayes","Joblib","Streamlit"],
+//       link:"https://burnoutiq.streamlit.app",
+//       ghLink:"https://github.com/Aishwarya-J05/Burnout-IQ",
+//       badge:"📊 Live", badgeColor:"#34d399",
+//       imgFolder:"burnoutiq",
+//       images: [bq1, bq2], // placeholder
+//     },
+//   ];
+
+//   /* ── All projects grid ── */
+//   const allProjects = [
+//     {
+//       title:"SteelSense AI",
+//       tag:"Computer Vision",color:"#a78bfa",icon:"🔬",
+//       desc:"Real-time YOLOv8 steel defect detection with Gemini Vision API, Flask REST API, Supabase, and Docker. Deployed on Hugging Face Spaces.",
+//       stack:["PyTorch","YOLOv8","Flask","Docker","Supabase"],
+//       link:"https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai",
+//       ghLink:"https://github.com/Aishwarya-J05",
+//       live:true,
+//     },
+//     {
+//       title:"ArXiv RAG Chatbot",
+//       tag:"NLP / RAG",color:"#60a5fa",icon:"🤖",
+//       desc:"LangChain + FAISS retrieval-augmented chatbot for ArXiv AI papers. Source-grounded responses with exact citations. Deployed on Vercel.",
+//       stack:["LangChain","FAISS","HuggingFace","LLMs","Vercel"],
+//       link:"https://rag-ar-xiv-chatbot.vercel.app/",
+//       ghLink:"https://github.com/Aishwarya-J05",
+//       live:true,
+//     },
+//     {
+//       title:"BurnoutIQ",
+//       tag:"Machine Learning",color:"#34d399",icon:"📊",
+//       desc:"Employee burnout risk predictor — full ML pipeline with SVM, Random Forest, Naive Bayes. Deployed as interactive Streamlit dashboard.",
+//       stack:["Scikit-learn","Pandas","Random Forest","Streamlit"],
+//       link:"https://burnoutiq.streamlit.app",
+//       ghLink:"https://github.com/Aishwarya-J05",
+//       live:true,
+//     },
+//     {
+//       title:"AI Assistant Usage in Student Life",
+//       tag:"Data Analytics",color:"#fbbf24",icon:"📈",
+//       desc:"Data analytics project exploring how students use AI tools — EDA, trend analysis, visualizations using Pandas, Matplotlib, and Seaborn on real survey data.",
+//       stack:["Python","Pandas","Matplotlib","Seaborn","Jupyter"],
+//       link:"https://github.com/Aishwarya-J05/Ai-assistant-usage-in-student-life",
+//       ghLink:"https://github.com/Aishwarya-J05/Ai-assistant-usage-in-student-life",
+//       live:false,
+//     },
+//     {
+//       title:"MNIST CNN Image Classifier",
+//       tag:"Deep Learning",color:"#f472b6",icon:"🧠",
+//       desc:"CNN image classifier built from scratch on the MNIST dataset using PyTorch — custom architecture with training loops, validation, and accuracy tracking.",
+//       stack:["PyTorch","CNN","MNIST","NumPy"],
+//       link:"https://github.com/Aishwarya-J05/Image-classifier",
+//       ghLink:"https://github.com/Aishwarya-J05/Image-classifier",
+//       live:false,
+//     },
+//     {
+//       title:"Vehicle Price Prediction",
+//       tag:"Machine Learning",color:"#fb923c",icon:"🚗",
+//       desc:"ML regression pipeline predicting vehicle prices from features like mileage, brand, and year. Feature engineering, model comparison, and hyperparameter tuning.",
+//       stack:["Python","Scikit-learn","Pandas","Regression","EDA"],
+//       link:"https://github.com/Aishwarya-J05/vehicle-price-prediction",
+//       ghLink:"https://github.com/Aishwarya-J05/vehicle-price-prediction",
+//       live:false,
+//     },
+//     {
+//       title:"Karnataka Districts Game",
+//       tag:"Python / Game",color:"#a3e635",icon:"🗺️",
+//       desc:"Interactive Python quiz game testing knowledge of Karnataka districts — built with Python, fun CLI interface, score tracking, and replay logic.",
+//       stack:["Python","CLI","Game Logic"],
+//       link:"https://github.com/Aishwarya-J05/karnataka-districts-game",
+//       ghLink:"https://github.com/Aishwarya-J05/karnataka-districts-game",
+//       live:false,
+//     },
+//     {
+//       title:"PyTorch Deep Learning Projects",
+//       tag:"Deep Learning",color:"#c4b5fd",icon:"🔥",
+//       desc:"Core deep learning implemented from scratch — custom CNNs, training loops with validation, early stopping, checkpointing, and transfer learning with ResNet.",
+//       stack:["PyTorch","CNNs","ResNet","Transfer Learning"],
+//       link:"https://github.com/Aishwarya-J05",
+//       ghLink:"https://github.com/Aishwarya-J05",
+//       live:false,
+//     },
+//   ];
+
+//   return (
+//     <>
+//       <GlobalStyles/>
+//       <GlowGrid/>
+//       <div className="noise-bg"/>
+//       <Cursor/>
+
+//       {/* Orbs */}
+//       <div style={{ position:"fixed",inset:0,pointerEvents:"none",zIndex:0,overflow:"hidden" }}>
+//         <div style={{ position:"absolute",top:"-10%",right:"10%",width:"50vw",height:"50vw",background:"radial-gradient(circle,rgba(96,165,250,0.06),transparent 70%)",borderRadius:"50%",filter:"blur(80px)",animation:"floatOrb 12s ease-in-out infinite" }}/>
+//         <div style={{ position:"absolute",bottom:"-10%",left:"0%",width:"40vw",height:"40vw",background:"radial-gradient(circle,rgba(167,139,250,0.06),transparent 70%)",borderRadius:"50%",filter:"blur(80px)",animation:"floatOrb 15s ease-in-out infinite reverse" }}/>
+//       </div>
+
+//       {activeProject && <ProjectModal project={activeProject} onClose={()=>setActiveProject(null)}/>}
+//       {topModal && <TopProjectModal project={topModal.project} startImg={topModal.imgIdx} onClose={closeTopModal}/>}
+
+//       {/* NAV */}
+//       <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:1000,background:navBlur?"rgba(5,5,8,0.92)":"transparent",backdropFilter:navBlur?"blur(20px)":"none",borderBottom:navBlur?"1px solid rgba(255,255,255,0.05)":"1px solid transparent",transition:"all 0.4s" }}>
+//         <div style={{ width:"100%",padding:"0 40px",height:60,display:"flex",justifyContent:"space-between",alignItems:"center" }}>
+
+//           {/* Logo */}
+//           <a href="#" style={{ fontFamily:"var(--font-head)",fontWeight:800,fontSize:18,letterSpacing:-0.5,flexShrink:0,textDecoration:"none",color:"inherit" }}>
+//             <span className="text-accent">AI</span><span>shwarya.</span>
+//           </a>
+
+//           {/* Desktop links */}
+//           <div className="nav-links" style={{ display:"flex",gap:18,alignItems:"center",flexWrap:"nowrap" }}>
+//             {[["Top Projects","top-projects"],["About","about"],["Skills","skills"],["Education","education"],["Experience","experience"],["All Projects","all-projects"],["Achievements","certifications"],["Contact","contact"]].map(([label,id])=>(
+//               <a key={id} href={`#${id}`} style={{ fontSize:10,fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",opacity:0.55,transition:"opacity 0.2s",whiteSpace:"nowrap",color:"inherit",textDecoration:"none",position:"relative" }}
+//                 onMouseEnter={e=>e.currentTarget.style.opacity="1"}
+//                 onMouseLeave={e=>e.currentTarget.style.opacity="0.55"}>
+//                 {label}
+//               </a>
+//             ))}
+//             <a href={PDF} target="_blank" rel="noopener noreferrer"
+//               style={{ fontSize:10,fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",color:"var(--accent)",opacity:0.9,whiteSpace:"nowrap",textDecoration:"none",transition:"opacity 0.2s" }}
+//               onMouseEnter={e=>e.currentTarget.style.opacity="1"}
+//               onMouseLeave={e=>e.currentTarget.style.opacity="0.9"}>
+//               Resume
+//             </a>
+//             <a href="mailto:aishwaryajoshi554@gmail.com"
+//               style={{ padding:"8px 18px",borderRadius:100,background:"white",color:"#050508",fontWeight:700,fontSize:10,letterSpacing:1,textTransform:"uppercase",textDecoration:"none",whiteSpace:"nowrap",transition:"all 0.3s",flexShrink:0 }}
+//               onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-1px)"; e.currentTarget.style.boxShadow="0 6px 20px rgba(255,255,255,0.2)"; }}
+//               onMouseLeave={e=>{ e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}>
+//               Hire Me
+//             </a>
+//           </div>
+
+//           {/* Mobile hamburger */}
+//           <MobileNav PDF={PDF}/>
+//         </div>
+//       </nav>
+
+//       {/* HERO */}
+//       <section style={{ minHeight:"100vh", display:"flex", alignItems:"center", position:"relative", padding:"120px 64px 80px", overflow:"hidden" }}>
+//         <NeonWaves/>
+
+//         <div className="hero-grid" style={{ position:"relative", width:"100%", maxWidth:1100, margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1fr", gap:64, alignItems:"center" }}>
+//           {/* LEFT — text content */}
+//           <div style={{ animation:"revealUp 1s cubic-bezier(0.16,1,0.3,1) both" }}>
+//             {/* Status pill */}
+//             <div style={{ display:"inline-flex", alignItems:"center", gap:12, padding:"8px 20px", background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:100, marginBottom:36 }}>
+//               <div style={{ width:8, height:8, borderRadius:"50%", background:"#4ade80", boxShadow:"0 0 12px rgba(74,222,128,0.8)", animation:"pulseSoft 2s infinite" }}/>
+//               <span style={{ fontSize:12, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:"rgba(255,255,255,0.7)" }}>Graduating June 2026 · Open to Work</span>
+//             </div>
+
+//             <h1 className="heading-display text-gradient" style={{ marginBottom:8 }}>Building</h1>
+//             <h1 className="heading-display text-accent"   style={{ marginBottom:8 }}>Intelligent</h1>
+//             <h1 className="heading-display text-gradient" style={{ marginBottom:32 }}>Systems.</h1>
+
+//             <p style={{ fontSize:15, color:"rgba(255,255,255,0.52)", lineHeight:1.9, marginBottom:14, fontWeight:300 }}>
+//               I'm <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>Aishwarya Joshi</strong> — an AI/ML Engineer specializing in <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>Deep Learning</strong>, <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>Computer Vision</strong>, and <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>NLP & RAG systems</strong>.
+//             </p>
+//             <p style={{ fontSize:15, color:"rgba(255,255,255,0.42)", lineHeight:1.9, marginBottom:14, fontWeight:300 }}>
+//               I don't just train models — I engineer end-to-end systems that are containerized, deployed, and publicly accessible. From real-time industrial defect detection with YOLOv8 to RAG chatbots built with LangChain and FAISS.
+//             </p>
+//             <p style={{ fontSize:15, color:"rgba(255,255,255,0.35)", lineHeight:1.9, marginBottom:40, fontWeight:300 }}>
+//               Final-year B.Tech ECE at VTU · CGPA 9.41 · Seeking AI/ML engineer roles for 2026.
+//             </p>
+
+//             <div style={{ display:"flex", gap:14, flexWrap:"wrap" }}>
+//               <Mag href="#work" className="btn-primary">Explore Work</Mag>
+//               <Mag href="https://github.com/Aishwarya-J05" target="_blank" rel="noopener noreferrer" className="btn-secondary">GitHub ↗</Mag>
+//               <Mag href="mailto:aishwaryajoshi554@gmail.com" className="btn-secondary">Say Hello ↗</Mag>
+//             </div>
+//           </div>
+
+//           {/* RIGHT — terminal */}
+//           <div className="terminal-col" style={{ animation:"revealUp 1s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}>
+//             <TerminalBlock/>
+//             {/* small stat strip below terminal */}
+//             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10, marginTop:16 }}>
+//               {[
+//                 { val:"3+",    label:"Projects Live" },
+//                 { val:"9.41",  label:"CGPA · VTU" },
+//                 { val:"6+",    label:"Frameworks" },
+//               ].map(s => (
+//                 <div key={s.label} style={{ padding:"14px 16px", borderRadius:14, background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", textAlign:"center" }}>
+//                   <div style={{ fontFamily:"var(--font-head)", fontSize:22, fontWeight:800, color:"white" }}>{s.val}</div>
+//                   <div style={{ fontSize:10, color:"rgba(255,255,255,0.35)", letterSpacing:1.5, textTransform:"uppercase", marginTop:4 }}>{s.label}</div>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Scroll cue */}
+//         <div style={{ position:"absolute", bottom:36, left:"50%", transform:"translateX(-50%)", display:"flex", flexDirection:"column", alignItems:"center", gap:10, opacity:0.4, animation:"revealUp 1s ease 1.2s both" }}>
+//           <span style={{ fontSize:10, letterSpacing:4, textTransform:"uppercase", fontFamily:"var(--font-head)" }}>Scroll</span>
+//           <div style={{ width:1, height:36, background:"linear-gradient(to bottom,white,transparent)" }}/>
+//         </div>
+//       </section>
+
+//       <Marquee items={mqTop} speed={50}/>
+
+//       {/* ══ TOP PROJECTS — 3 featured cards ══ */}
+//       <section id="top-projects" style={{ padding:"160px 64px", position:"relative" }}>
+//         <div style={{ maxWidth:1100, margin:"0 auto" }}>
+//           <Reveal>
+//             <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:12 }}>Featured Work</p>
+//             <h2 className="heading-section" style={{ marginBottom:16 }}>
+//               Top <span className="text-accent">Projects.</span>
+//             </h2>
+//             <p style={{ fontSize:15,color:"rgba(255,255,255,0.38)",fontWeight:300,marginBottom:72,maxWidth:520 }}>
+//               Three production-grade systems — deployed, live, and publicly accessible.
+//             </p>
+//           </Reveal>
+//           <div className="top-projects-grid responsive-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:28 }}>
+//             {topProjects.map((p,i)=>(
+//               <TopProjectCard key={p.title} p={p} i={i} onShowMore={openTopModal}/>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+
+//       <Marquee items={mqBot} speed={40} reverse/>
+
+//       {/* ABOUT */}
+//       <section id="about" style={{ padding:"160px 64px",position:"relative" }}>
+//         <div className="about-layout" style={{ maxWidth:1100,margin:"0 auto",display:"grid",gridTemplateColumns:"1.2fr 0.8fr",gap:100,alignItems:"center" }}>
+//           <Reveal>
+//             <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:16 }}>About Me</p>
+//             <h2 className="heading-section" style={{ marginBottom:40 }}>Not just models.<br/><span className="text-accent">Systems.</span></h2>
+//             <div style={{ display:"flex",flexDirection:"column",gap:24,fontSize:16,color:"rgba(255,255,255,0.55)",lineHeight:1.85,fontWeight:300 }}>
+//               <p>I'm Aishwarya, a final-year B.Tech (ECE) student at VTU with a 9.41 CGPA. I bridge the gap between theoretical machine learning and scalable engineering.</p>
+//               <p>Many build notebooks. I build applications. Every project I ship is containerized, deployed, and publicly accessible — from real-time defect detection to RAG chatbots that understand dense research papers.</p>
+//             </div>
+//             <div style={{ display:"flex",gap:16,flexWrap:"wrap",marginTop:44 }}>
+//               <Mag href={PDF} target="_blank" rel="noopener noreferrer" className="btn-primary">View Resume</Mag>
+//               <Mag href="https://linkedin.com/in/aishwaryajoshiaiml" target="_blank" rel="noopener noreferrer" className="btn-secondary">LinkedIn ↗</Mag>
+//               <Mag href="https://huggingface.co/AishwaryaNJ" target="_blank" rel="noopener noreferrer" className="btn-secondary">HuggingFace ↗</Mag>
+//             </div>
+//           </Reveal>
+//           <Reveal delay={200}>
+//             <Tilt style={{ borderRadius:32,padding:16,background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.05)" }}>
+//               <img src={myPhoto} alt="Aishwarya Joshi" style={{ width:"100%",aspectRatio:"4/5",objectFit:"cover",objectPosition:"center top",borderRadius:24,display:"block" }}/>
+//               <div style={{ position:"absolute",bottom:-20,left:-20,padding:"20px 24px",background:"rgba(10,10,15,0.95)",backdropFilter:"blur(16px)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:18 }}>
+//                 <div style={{ fontFamily:"var(--font-head)",fontSize:36,fontWeight:800,lineHeight:1 }}>9.41</div>
+//                 <div style={{ fontSize:11,textTransform:"uppercase",letterSpacing:2,color:"var(--accent)",marginTop:6 }}>CGPA · VTU</div>
+//               </div>
+//             </Tilt>
+//           </Reveal>
+//         </div>
+//       </section>
+
+//       {/* TECH STACK */}
+//       <StackSection/>
+
+//       {/* EDUCATION */}
+//       <EducationSection/>
+
+//       {/* EXPERIENCE */}
+//       <ExperienceSection/>
+
+//       {/* ══ ALL PROJECTS ══ */}
+//       <section id="all-projects" style={{ padding:"160px 64px", position:"relative", background:"rgba(255,255,255,0.008)", borderTop:"1px solid rgba(255,255,255,0.03)" }}>
+//         <div style={{ maxWidth:1100, margin:"0 auto" }}>
+//           <Reveal>
+//             <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:12 }}>Full Portfolio</p>
+//             <h2 className="heading-section" style={{ marginBottom:16 }}>
+//               All <span className="text-accent">Projects.</span>
+//             </h2>
+//             <p style={{ fontSize:15,color:"rgba(255,255,255,0.38)",fontWeight:300,marginBottom:72,maxWidth:520 }}>
+//               Every project I've built — from production AI systems to exploratory data science and Python experiments.
+//             </p>
+//           </Reveal>
+
+//           <div className="all-projects-grid" style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:20 }}>
+//             {allProjects.map((p,i)=>(
+//               <Reveal key={p.title} delay={i*70}>
+//                 <div
+//                   style={{ borderRadius:20, background:"rgba(10,10,16,0.7)", border:`1px solid ${p.color}22`, padding:28, display:"flex", flexDirection:"column", gap:16, height:"100%", backdropFilter:"blur(16px)", transition:"all 0.35s cubic-bezier(0.23,1,0.32,1)", cursor:"default", position:"relative", overflow:"hidden" }}
+//                   onMouseEnter={e=>{ e.currentTarget.style.border=`1px solid ${p.color}55`; e.currentTarget.style.transform="translateY(-5px)"; e.currentTarget.style.boxShadow=`0 20px 50px rgba(0,0,0,0.4),0 0 0 1px ${p.color}22`; }}
+//                   onMouseLeave={e=>{ e.currentTarget.style.border=`1px solid ${p.color}22`; e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}>
+
+//                   {/* top orb */}
+//                   <div style={{ position:"absolute",top:-30,right:-30,width:100,height:100,borderRadius:"50%",background:`radial-gradient(circle,${p.color}20,transparent 70%)`,filter:"blur(20px)",pointerEvents:"none" }}/>
+
+//                   <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+//                     <span style={{ fontSize:28 }}>{p.icon}</span>
+//                     {p.live && (
+//                       <span style={{ fontSize:9,fontWeight:700,letterSpacing:2,textTransform:"uppercase",padding:"3px 8px",borderRadius:100,background:`${p.color}18`,border:`1px solid ${p.color}44`,color:p.color }}>LIVE</span>
+//                     )}
+//                   </div>
+
+//                   <div>
+//                     <span style={{ fontSize:10,fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:p.color,display:"block",marginBottom:6 }}>{p.tag}</span>
+//                     <h4 style={{ fontFamily:"var(--font-head)", fontSize:16, fontWeight:800, lineHeight:1.3, marginBottom:8 }}>{p.title}</h4>
+//                     <p style={{ fontSize:13, color:"rgba(255,255,255,0.42)", lineHeight:1.7, fontWeight:300 }}>{p.desc}</p>
+//                   </div>
+
+//                   <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
+//                     {p.stack.slice(0,3).map(s=>(
+//                       <span key={s} style={{ fontSize:10, padding:"3px 8px", borderRadius:5, background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.07)", color:"rgba(255,255,255,0.45)" }}>{s}</span>
+//                     ))}
+//                   </div>
+
+//                   <div style={{ display:"flex", gap:8, marginTop:"auto" }}>
+//                     {p.live ? (
+//                       <a href={p.link} target="_blank" rel="noopener noreferrer"
+//                         style={{ flex:1, padding:"8px 0", borderRadius:100, background:p.color, color:"#050508", fontWeight:700, fontSize:11, textAlign:"center", textDecoration:"none", transition:"all 0.25s", letterSpacing:0.5 }}
+//                         onMouseEnter={e=>e.currentTarget.style.opacity="0.85"}
+//                         onMouseLeave={e=>e.currentTarget.style.opacity="1"}>
+//                         Live ↗
+//                       </a>
+//                     ) : (
+//                       <a href={p.link} target="_blank" rel="noopener noreferrer"
+//                         style={{ flex:1, padding:"8px 0", borderRadius:100, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", color:"rgba(255,255,255,0.7)", fontWeight:600, fontSize:11, textAlign:"center", textDecoration:"none", transition:"all 0.25s" }}
+//                         onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.12)"}
+//                         onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.06)"}>
+//                         GitHub ↗
+//                       </a>
+//                     )}
+//                     <a href={p.ghLink} target="_blank" rel="noopener noreferrer"
+//                       style={{ padding:"8px 12px", borderRadius:100, background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", color:"rgba(255,255,255,0.5)", fontSize:11, textDecoration:"none", transition:"all 0.25s" }}
+//                       onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.1)"}
+//                       onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.04)"}>
+//                       ⚡
+//                     </a>
+//                   </div>
+//                 </div>
+//               </Reveal>
+//             ))}
+//           </div>
+
+//           {/* GitHub CTA */}
+//           <Reveal delay={200}>
+//             <div style={{ textAlign:"center", marginTop:56 }}>
+//               <Mag href="https://github.com/Aishwarya-J05" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ padding:"14px 36px", fontSize:13 }}>
+//                 View All on GitHub ↗
+//               </Mag>
+//             </div>
+//           </Reveal>
+//         </div>
+//       </section>
+
+//       <CertificationsSection /> 
+      
+
+//       {/* CONTACT — standalone section */}
+//       <ContactSection/>
+
+//       {/* FOOTER */}
+//       <footer style={{ padding:"40px 40px",borderTop:"1px solid rgba(255,255,255,0.05)",position:"relative" }}>
+//         <div className="footer-inner" style={{ display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:20 }}>
+//         <div style={{ fontFamily:"var(--font-head)",fontSize:20,fontWeight:800 }}>
+//           <span className="text-accent">AI</span>shwarya.
+//         </div>
+//         <div style={{ fontSize:13,color:"rgba(255,255,255,0.4)",letterSpacing:1 }}>© 2026 · Crafted with Intent.</div>
+//         <div style={{ display:"flex",gap:24,alignItems:"center" }}>
+//           <a href={PDF} target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>Resume PDF</a>
+//           <a href="https://github.com/Aishwarya-J05" target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>GitHub</a>
+//           <a href="https://huggingface.co/spaces/AishwaryaNJ/" target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>HuggingFace</a>
+//           <a href={PDF} download="Aishwarya_Joshi_Resume.pdf"
+//             style={{ padding:"8px 18px",borderRadius:100,background:"rgba(167,139,250,0.12)",border:"1px solid rgba(167,139,250,0.3)",fontSize:11,fontWeight:700,color:"#c4b5fd",letterSpacing:1,textDecoration:"none",transition:"all 0.3s" }}
+//             onMouseEnter={e=>e.currentTarget.style.background="rgba(167,139,250,0.25)"}
+//             onMouseLeave={e=>e.currentTarget.style.background="rgba(167,139,250,0.12)"}>
+//             ↓ Download CV
+//           </a>
+//         </div>
+//         </div>
+//       </footer>
+//     </>
+//   );
+// }
+
+// /* ==========================================================
+//    ★ CERTIFICATIONS & ACHIEVEMENTS SECTION
+//    Drop this between ExperienceSection and ContactSection in Portfolio.jsx
+   
+//    USAGE:
+//    1. Copy the CERT_DATA, HACKATHONS arrays and the two components below
+//    2. Add <CertificationsSection /> and <AchievementsSection /> 
+//       inside Portfolio() return, before <ContactSection />
+//    3. Add the section ids to your nav links array if desired
+// ========================================================== */
+
+// /* ── Certificate data ──
+//    Replace the `link` values with your real verification URLs when you have them.
+//    The `certId` is shown as a subtle label on each card.
+// */
+// const CERT_DATA = [
+//   {
+//     id: "udemy",
+//     title: "Complete A.I. & Machine Learning, Data Science Bootcamp",
+//     issuer: "Udemy",
+//     instructors: "Andrei Neagoie, Daniel Bourke",
+//     date: "Aug 27, 2025",
+//     duration: "44 hours",
+//     certId: "UC-bd679731-00fa-4445-9506-eb2a4e00631c",
+//     link: "https://ude.my/UC-bd679731-00fa-4445-9506-eb2a4e00631c",
+//     color: "#a78bfa",
+//     icon: "🎓",
+//     tags: ["AI", "Machine Learning", "Data Science"],
+//     issuerLogo: "https://cdn.simpleicons.org/udemy/A435F0",
+//   },
+//   {
+//     id: "msgenai",
+//     title: "Career Essentials in Generative AI",
+//     issuer: "Microsoft & LinkedIn",
+//     instructors: "",
+//     date: "Oct 15, 2024",
+//     duration: "4 hrs 53 min",
+//     certId: "54daa6044faf50d0a6dd1a1294d0e1565a87cb40ad27275d5e72260721dfebcb",
+//     link: "https://www.linkedin.com/learning/certificates/54daa6044faf50d0a6dd1a1294d0e1565a87cb40ad27275d5e72260721dfebcb",
+//     color: "#60a5fa",
+//     icon: "🤖",
+//     tags: ["Generative AI", "Computer Ethics", "Artificial Intelligence"],
+//     issuerLogo: "https://cdn.simpleicons.org/microsoft/00A4EF",
+//   },
+//   {
+//     id: "mlai",
+//     title: "Machine Learning & AI",
+//     issuer: "PrepInsta",
+//     instructors: "Aashay Mishra",
+//     date: "Dec 1, 2025",
+//     duration: "",
+//     certId: "692d708141cb810a142022c6",
+//     link: "", // add your PrepInsta link here
+//     color: "#34d399",
+//     icon: "⚙️",
+//     tags: ["Machine Learning", "Artificial Intelligence"],
+//     issuerLogo: "https://cdn.simpleicons.org/python/3776AB",
+//   },
+//   {
+//     id: "powerbi",
+//     title: "Get Started Building with Power BI",
+//     issuer: "Microsoft Learn",
+//     instructors: "",
+//     date: "Jan 4, 2026",
+//     duration: "",
+//     certId: "uamprgd3",
+//     link: "https://learn.microsoft.com/en-us/users/aishwaryajoshi-5256/achievements/uamprgd3",
+//     color: "#fbbf24",
+//     icon: "📊",
+//     tags: ["Power BI", "Data Visualization", "Business Intelligence"],
+//     issuerLogo: "https://cdn.simpleicons.org/powerbi/F2C811",
+//   },
+//   {
+//     id: "python",
+//     title: "Python Developer",
+//     issuer: "SoloLearn",
+//     instructors: "",
+//     date: "Sep 24, 2024",
+//     duration: "",
+//     certId: "CC-VFQ4ZSMF",
+//     link: "https://www.sololearn.com/certificates/CC-VFQ4ZSMF", // add your SoloLearn profile link here
+//     color: "#f472b6",
+//     icon: "🐍",
+//     tags: ["Python", "Programming", "Development"],
+//     issuerLogo: "https://cdn.simpleicons.org/python/3776AB",
+//   },
+//   {
+//     id: "dataanalytics",
+//     title: "Data Analytics with AI",
+//     issuer: "SoloLearn",
+//     instructors: "",
+//     date: "Jul 21, 2025",
+//     duration: "",
+//     certId: "CC-GTC04UDB",
+//     link: "https://www.sololearn.com/certificates/CC-GTCO4UDB", // add your SoloLearn profile link here
+//     color: "#fb923c",
+//     icon: "📈",
+//     tags: ["Data Analytics", "AI", "Data Science"],
+//     issuerLogo: "https://cdn.simpleicons.org/python/3776AB",
+//   },
+// ];
+
+// /* ── Hackathon / Achievement data ── */
+// const HACKATHONS = [
+//   {
+//     id: "gogte",
+//     title: "National Level Hackathon",
+//     host: "KLS Gogte Institute of Technology, Belagavi",
+//     detail: "Qualified as a finalist (top 13 of ~25 finalist teams) in a 24-hour national hackathon.",
+//     icon: "🏆",
+//     color: "#a78bfa",
+//     badge: "Finalist",
+//     type: "24hr Hackathon",
+//   },
+//   {
+//     id: "tce",
+//     title: "6-Hour Hackathon",
+//     host: "Tontadarya College of Engineering, Gadag",
+//     detail: "Secured 2nd place in a college-level 6-hour hackathon.",
+//     icon: "🥈",
+//     color: "#fbbf24",
+//     badge: "2nd Place",
+//     type: "6hr Hackathon",
+//   },
+//   {
+//     id: "national4",
+//     title: "National Hackathon Participant",
+//     host: "Multiple Institutions",
+//     detail: "Participated in 4 national-level 24-hour hackathons.",
+//     icon: "⚡",
+//     color: "#60a5fa",
+//     badge: "4× Participant",
+//     type: "24hr Hackathon",
+//   },
+// ];
+
+// /* ── CertCard component ── */
+// function CertCard({ cert, index }) {
+//   const [hov, setHov] = useState(false);
+//   const [imgErr, setImgErr] = useState(false);
+
+//   return (
+//     <Reveal delay={index * 80}>
+//       <div
+//         onMouseEnter={() => setHov(true)}
+//         onMouseLeave={() => setHov(false)}
+//         style={{
+//           borderRadius: 22,
+//           background: hov
+//             ? `linear-gradient(135deg,${cert.color}18,rgba(255,255,255,0.04))`
+//             : "rgba(10,10,16,0.7)",
+//           border: `1px solid ${hov ? cert.color + "55" : cert.color + "22"}`,
+//           padding: 28,
+//           display: "flex",
+//           flexDirection: "column",
+//           gap: 16,
+//           height: "100%",
+//           backdropFilter: "blur(16px)",
+//           transition: "all 0.4s cubic-bezier(0.23,1,0.32,1)",
+//           transform: hov ? "translateY(-6px)" : "translateY(0)",
+//           boxShadow: hov ? `0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px ${cert.color}22` : "none",
+//           position: "relative",
+//           overflow: "hidden",
+//           cursor: cert.link ? "pointer" : "default",
+//         }}
+//       >
+//         {/* bg orb */}
+//         <div style={{
+//           position: "absolute", top: -40, right: -40, width: 130, height: 130,
+//           borderRadius: "50%",
+//           background: `radial-gradient(circle,${cert.color}20,transparent 70%)`,
+//           filter: "blur(24px)", pointerEvents: "none",
+//           transition: "opacity 0.4s",
+//           opacity: hov ? 1 : 0.5,
+//         }} />
+
+//         {/* Header row */}
+//         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
+//           <div style={{
+//             width: 48, height: 48, borderRadius: 14, flexShrink: 0,
+//             background: imgErr ? `${cert.color}22` : "rgba(255,255,255,0.06)",
+//             border: `1px solid ${hov ? cert.color + "55" : "rgba(255,255,255,0.1)"}`,
+//             display: "flex", alignItems: "center", justifyContent: "center",
+//             overflow: "hidden", padding: imgErr ? 0 : 8,
+//             transition: "border-color 0.3s",
+//           }}>
+//             {imgErr ? (
+//               <span style={{ fontSize: 22 }}>{cert.icon}</span>
+//             ) : (
+//               <img
+//                 src={cert.issuerLogo}
+//                 alt={cert.issuer}
+//                 onError={() => setImgErr(true)}
+//                 style={{ width: "100%", height: "100%", objectFit: "contain" }}
+//               />
+//             )}
+//           </div>
+
+//           {/* Verified / link badge */}
+//           {cert.link ? (
+//             <a
+//               href={cert.link}
+//               target="_blank"
+//               rel="noopener noreferrer"
+//               onClick={e => e.stopPropagation()}
+//               style={{
+//                 fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase",
+//                 padding: "4px 10px", borderRadius: 100,
+//                 background: `${cert.color}18`, border: `1px solid ${cert.color}44`,
+//                 color: cert.color, textDecoration: "none",
+//                 transition: "background 0.2s",
+//                 whiteSpace: "nowrap", flexShrink: 0,
+//               }}
+//               onMouseEnter={e => e.currentTarget.style.background = `${cert.color}30`}
+//               onMouseLeave={e => e.currentTarget.style.background = `${cert.color}18`}
+//             >
+//               Verify ↗
+//             </a>
+//           ) : (
+//             <span style={{
+//               fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase",
+//               padding: "4px 10px", borderRadius: 100,
+//               background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
+//               color: "rgba(255,255,255,0.35)", whiteSpace: "nowrap", flexShrink: 0,
+//             }}>
+//               Certified
+//             </span>
+//           )}
+//         </div>
+
+//         {/* Title + issuer */}
+//         <div>
+//           <p style={{
+//             fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase",
+//             color: cert.color, marginBottom: 8,
+//           }}>
+//             {cert.issuer}
+//           </p>
+//           <h4 style={{
+//             fontFamily: "var(--font-head)", fontSize: 16, fontWeight: 800,
+//             lineHeight: 1.3, color: "white", marginBottom: cert.instructors ? 6 : 0,
+//           }}>
+//             {cert.title}
+//           </h4>
+//           {cert.instructors && (
+//             <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", fontWeight: 300 }}>
+//               by {cert.instructors}
+//             </p>
+//           )}
+//         </div>
+
+//         {/* Tags */}
+//         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+//           {cert.tags.map(t => (
+//             <span key={t} style={{
+//               fontSize: 10, padding: "3px 9px", borderRadius: 6,
+//               background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)",
+//               color: "rgba(255,255,255,0.45)",
+//             }}>{t}</span>
+//           ))}
+//         </div>
+
+//         {/* Footer — date + cert ID */}
+//         <div style={{
+//           marginTop: "auto",
+//           paddingTop: 14,
+//           borderTop: "1px solid rgba(255,255,255,0.06)",
+//           display: "flex", justifyContent: "space-between", alignItems: "center",
+//           gap: 8,
+//         }}>
+//           <span style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", fontWeight: 500 }}>
+//             {cert.date}{cert.duration ? ` · ${cert.duration}` : ""}
+//           </span>
+//           <span style={{
+//             fontSize: 9, color: "rgba(255,255,255,0.2)", fontFamily: "'Fira Code','Courier New',monospace",
+//             letterSpacing: 0.5, maxWidth: 120, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+//           }}>
+//             {cert.certId}
+//           </span>
+//         </div>
+//       </div>
+//     </Reveal>
+//   );
+// }
+
+// /* ── HackathonCard component ── */
+// function HackathonCard({ h, index }) {
+//   const [hov, setHov] = useState(false);
+//   return (
+//     <Reveal delay={index * 100}>
+//       <div
+//         onMouseEnter={() => setHov(true)}
+//         onMouseLeave={() => setHov(false)}
+//         style={{
+//           borderRadius: 18,
+//           background: hov ? `rgba(255,255,255,0.04)` : "rgba(10,10,16,0.65)",
+//           border: `1px solid ${hov ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.06)"}`,
+//           padding: "22px 28px",
+//           backdropFilter: "blur(16px)",
+//           transition: "all 0.35s cubic-bezier(0.23,1,0.32,1)",
+//           display: "flex",
+//           alignItems: "flex-start",
+//           gap: 20,
+//         }}
+//       >
+//         <div style={{ fontSize: 22, marginTop: 2, flexShrink: 0 }}>{h.icon}</div>
+//         <div style={{ flex: 1, minWidth: 0 }}>
+//           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 6 }}>
+//             <span style={{
+//               fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase",
+//               padding: "3px 10px", borderRadius: 100,
+//               background: `${h.color}14`, border: `1px solid ${h.color}30`,
+//               color: h.color,
+//             }}>{h.badge}</span>
+//             <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: 1 }}>{h.type}</span>
+//           </div>
+//           <h4 style={{ fontFamily: "var(--font-head)", fontSize: 16, fontWeight: 700, color: "white", marginBottom: 4 }}>{h.title}</h4>
+//           <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 8 }}>📍 {h.host}</p>
+//           <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, fontWeight: 300 }}>{h.detail}</p>
+//         </div>
+//       </div>
+//     </Reveal>
+//   );
+// }
+
+// /* ── Main Certifications Section ── */
+// function CertificationsSection() {
+//   return (
+//     <section
+//       id="certifications"
+//       style={{
+//         padding: "160px 64px",
+//         position: "relative",
+//         background: "rgba(255,255,255,0.008)",
+//         borderTop: "1px solid rgba(255,255,255,0.03)",
+//       }}
+//     >
+//       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+
+//         {/* ── Section header ── */}
+//         <Reveal>
+//           <p style={{ fontSize: 12, letterSpacing: 4, textTransform: "uppercase", color: "rgba(255,255,255,0.36)", marginBottom: 16 }}>
+//             Credentials
+//           </p>
+//           <h2 className="heading-section" style={{ marginBottom: 16 }}>
+//             Certifications <span className="text-accent">&</span>
+//           </h2>
+//           <h2 className="heading-section" style={{ marginBottom: 20 }}>
+//             <span className="text-accent">Achievements.</span>
+//           </h2>
+//           <p style={{ fontSize: 16, color: "rgba(255,255,255,0.38)", fontWeight: 300, marginBottom: 72, maxWidth: 520 }}>
+//             Verified credentials from industry leaders and competitive hackathon results.
+//           </p>
+//         </Reveal>
+
+//         {/* ── Certificates grid ── */}
+//         <Reveal>
+//           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
+//             <div style={{ width: 32, height: 32, borderRadius: 10, background: "rgba(167,139,250,0.15)", border: "1px solid rgba(167,139,250,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🎓</div>
+//             <h3 style={{ fontFamily: "var(--font-head)", fontSize: 20, fontWeight: 700, color: "white" }}>Certifications</h3>
+//             <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)" }} />
+//             <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: 2, textTransform: "uppercase" }}>
+//               {CERT_DATA.length} certificates
+//             </span>
+//           </div>
+//         </Reveal>
+
+//         <div
+//           style={{
+//             display: "grid",
+//             gridTemplateColumns: "repeat(3, 1fr)",
+//             gap: 20,
+//             marginBottom: 80,
+//           }}
+//           className="certs-grid"
+//         >
+//           {CERT_DATA.map((cert, i) => (
+//             <CertCard key={cert.id} cert={cert} index={i} />
+//           ))}
+//         </div>
+
+//         {/* ── Achievements header ── */}
+//         <Reveal>
+//           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
+//             <div style={{ width: 32, height: 32, borderRadius: 10, background: "rgba(251,191,36,0.15)", border: "1px solid rgba(251,191,36,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🏆</div>
+//             <h3 style={{ fontFamily: "var(--font-head)", fontSize: 20, fontWeight: 700, color: "white" }}>Hackathon Achievements</h3>
+//             <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)" }} />
+//             <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: 2, textTransform: "uppercase" }}>
+//               4 hackathons
+//             </span>
+//           </div>
+//         </Reveal>
+
+        
+
+//         {/* Hackathon cards */}
+//         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+//           {HACKATHONS.map((h, i) => (
+//             <HackathonCard key={h.id} h={h} index={i} />
+//           ))}
+//         </div>
+
+//       </div>
+
+//       {/* ── Responsive styles ── */}
+//       <style>{`
+//         @media(max-width:1024px) {
+//           .certs-grid { grid-template-columns: repeat(2, 1fr) !important; }
+//         }
+//         @media(max-width:640px) {
+//           .certs-grid { grid-template-columns: 1fr !important; }
+//         }
+//       `}</style>
+//     </section>
+//   );
+// }
+
+
+
+
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import myPhoto from "./aishwarya.png";
+
 // SteelSense AI screenshots
 import ss1 from "./images/steelsense/1.png";
 import ss2 from "./images/steelsense/2.png";
@@ -706,7 +3097,7 @@ function StackSection() {
 ========================================================== */
 const EXPERIENCES = [
   {
-    period:"2024",
+    dateRange:"Feb 2025 – Present",
     role:"Artificial Intelligence Intern",
     co:"GlowLogics Solutions",
     type:"Internship",
@@ -719,7 +3110,7 @@ const EXPERIENCES = [
     ],
   },
   {
-    period:"2024",
+    dateRange:null,
     role:"Lead ML Engineer",
     co:"SteelSense AI",
     type:"Project",
@@ -731,7 +3122,7 @@ const EXPERIENCES = [
     ],
   },
   {
-    period:"2024",
+    dateRange:null,
     role:"ML Engineer",
     co:"BurnoutIQ Predictor",
     type:"Project",
@@ -743,10 +3134,22 @@ const EXPERIENCES = [
     ],
   },
   {
-    period:"2024",
+    dateRange:null,
+    role:"ArXiv RAG Chatbot",
+    co:"LangChain · FAISS · Vercel",
+    type:"Project",
+    color:"#60a5fa",
+    bullets:[
+      "Built a Retrieval-Augmented Generation system to parse, index, and answer queries over dense ArXiv AI research papers.",
+      "Used FAISS for vector search and LangChain for the RAG pipeline; deployed on Vercel.",
+      "Provides source-grounded, citation-accurate responses across 1000+ papers.",
+    ],
+  },
+  {
+    dateRange:null,
     role:"Deep Learning Researcher",
     co:"PyTorch DL Projects",
-    type:"Research",
+    type:"Self-Learning",
     color:"#f472b6",
     bullets:[
       "Implemented CNN architectures, training loops with validation, early stopping, and model checkpointing from scratch.",
@@ -791,7 +3194,9 @@ function ExperienceSection() {
                       padding:"3px 10px",borderRadius:100,background:`${e.color}18`,border:`1px solid ${e.color}33` }}>
                       {e.type}
                     </span>
-                    <span style={{ fontSize:12,color:"rgba(255,255,255,0.3)" }}>{e.period}</span>
+                    {e.dateRange && (
+                      <span style={{ fontSize:11,color:"rgba(255,255,255,0.38)",letterSpacing:0.5,fontWeight:500 }}>{e.dateRange}</span>
+                    )}
                   </div>
                   <h4 style={{ fontFamily:"var(--font-head)",fontSize:18,fontWeight:700,color:openIdx===i?"white":"rgba(255,255,255,0.7)",transition:"color 0.3s",marginBottom:4 }}>{e.role}</h4>
                   <p style={{ fontSize:13,color:openIdx===i?e.color:"rgba(255,255,255,0.35)",transition:"color 0.3s",fontWeight:500 }}>{e.co}</p>
@@ -810,9 +3215,11 @@ function ExperienceSection() {
           }}>
             {/* Header */}
             <div style={{ marginBottom:32 }}>
-              <div style={{ display:"inline-flex",alignItems:"center",gap:10,padding:"6px 16px",borderRadius:100,background:`${EXPERIENCES[openIdx].color}18`,border:`1px solid ${EXPERIENCES[openIdx].color}33`,marginBottom:20 }}>
+                <div style={{ display:"inline-flex",alignItems:"center",gap:10,padding:"6px 16px",borderRadius:100,background:`${EXPERIENCES[openIdx].color}18`,border:`1px solid ${EXPERIENCES[openIdx].color}33`,marginBottom:20 }}>
                 <div style={{ width:8,height:8,borderRadius:"50%",background:EXPERIENCES[openIdx].color,boxShadow:`0 0 10px ${EXPERIENCES[openIdx].color}` }}/>
-                <span style={{ fontSize:11,fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:EXPERIENCES[openIdx].color }}>{EXPERIENCES[openIdx].type} · {EXPERIENCES[openIdx].period}</span>
+                <span style={{ fontSize:11,fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:EXPERIENCES[openIdx].color }}>
+                  {EXPERIENCES[openIdx].type}{EXPERIENCES[openIdx].dateRange ? ` · ${EXPERIENCES[openIdx].dateRange}` : ""}
+                </span>
               </div>
               <h3 style={{ fontFamily:"var(--font-head)",fontSize:"1.8rem",fontWeight:800,lineHeight:1.15,marginBottom:8 }}>{EXPERIENCES[openIdx].role}</h3>
               <p style={{ fontSize:15,color:EXPERIENCES[openIdx].color,fontWeight:600,letterSpacing:0.5 }}>{EXPERIENCES[openIdx].co}</p>
@@ -843,7 +3250,7 @@ function ContactSection() {
     { label:"Email",       val:"aishwaryajoshi554@gmail.com", icon:"✉", href:"mailto:aishwaryajoshi554@gmail.com", color:"#a78bfa" },
     { label:"LinkedIn",    val:"/aishwaryajoshiaiml",         icon:"🔗", href:"https://linkedin.com/in/aishwaryajoshiaiml",                     color:"#60a5fa" },
     { label:"GitHub",      val:"/Aishwarya-J05",              icon:"⚡", href:"https://github.com/Aishwarya-J05",                               color:"#f472b6" },
-    { label:"HuggingFace", val:"/AishwaryaNJ",                icon:"🤗", href:"https://huggingface.co/AishwaryaNJ",         color:"#fbbf24" },
+    { label:"HuggingFace", val:"/AishwaryaNJ",                icon:"🤗", href:"https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai",         color:"#fbbf24" },
   ];
 
   return (
@@ -1172,7 +3579,6 @@ function MobileNav({ PDF }) {
     ["Education","education"],
     ["Experience","experience"],
     ["All Projects","all-projects"],
-    ["Certifications","certifications"],
     ["Contact","contact"],
   ];
 
@@ -1544,6 +3950,502 @@ function TopProjectModal({ project, startImg, onClose }) {
 }
 
 /* ==========================================================
+   ★ CERTIFICATIONS & ACHIEVEMENTS SECTION
+========================================================== */
+const CERT_DATA = [
+  {
+    id:"udemy",title:"Complete A.I. & Machine Learning, Data Science Bootcamp",
+    issuer:"Udemy",instructors:"Andrei Neagoie, Daniel Bourke",
+    date:"Aug 27, 2025",duration:"44 hours",
+    certId:"UC-bd679731-00fa-4445-9506-eb2a4e00631c",
+    link:"https://ude.my/UC-bd679731-00fa-4445-9506-eb2a4e00631c",
+    color:"#a78bfa",icon:"🎓",
+    tags:["AI","Machine Learning","Data Science"],
+    issuerLogo:"https://cdn.simpleicons.org/udemy/A435F0",
+  },
+  {
+    id:"msgenai",title:"Career Essentials in Generative AI",
+    issuer:"Microsoft & LinkedIn",instructors:"",
+    date:"Oct 15, 2024",duration:"4 hrs 53 min",
+    certId:"54daa6044faf50d0a6dd1a1294d0e1565a87cb40ad27275d5e72260721dfebcb",
+    link:"https://www.linkedin.com/learning/certificates/54daa6044faf50d0a6dd1a1294d0e1565a87cb40ad27275d5e72260721dfebcb",
+    color:"#60a5fa",icon:"🤖",
+    tags:["Generative AI","Computer Ethics","Artificial Intelligence"],
+    issuerLogo:"https://cdn.simpleicons.org/microsoft/00A4EF",
+  },
+  {
+    id:"mlai",title:"Machine Learning & AI",
+    issuer:"PrepInsta",instructors:"Aashay Mishra",
+    date:"Dec 1, 2025",duration:"",
+    certId:"692d708141cb810a142022c6",link:"",
+    color:"#34d399",icon:"⚙️",
+    tags:["Machine Learning","Artificial Intelligence"],
+    issuerLogo:"https://cdn.simpleicons.org/python/3776AB",
+  },
+  {
+    id:"powerbi",title:"Get Started Building with Power BI",
+    issuer:"Microsoft Learn",instructors:"",
+    date:"Jan 4, 2026",duration:"",
+    certId:"uamprgd3",
+    link:"https://learn.microsoft.com/en-us/users/aishwaryajoshi-5256/achievements/uamprgd3",
+    color:"#fbbf24",icon:"📊",
+    tags:["Power BI","Data Visualization","Business Intelligence"],
+    issuerLogo:"https://cdn.simpleicons.org/powerbi/F2C811",
+  },
+  {
+    id:"python",title:"Python Developer",
+    issuer:"SoloLearn",instructors:"",
+    date:"Sep 24, 2024",duration:"",
+    certId:"CC-VFQ4ZSMF",
+    link:"https://www.sololearn.com/certificates/CC-VFQ4ZSMF",
+    color:"#f472b6",icon:"🐍",
+    tags:["Python","Programming","Development"],
+    issuerLogo:"https://cdn.simpleicons.org/python/3776AB",
+  },
+  {
+    id:"dataanalytics",title:"Data Analytics with AI",
+    issuer:"SoloLearn",instructors:"",
+    date:"Jul 21, 2025",duration:"",
+    certId:"CC-GTC04UDB",
+    link:"https://www.sololearn.com/certificates/CC-GTC04UDB",
+    color:"#fb923c",icon:"📈",
+    tags:["Data Analytics","AI","Data Science"],
+    issuerLogo:"https://cdn.simpleicons.org/python/3776AB",
+  },
+];
+
+const HACKATHONS = [
+  { id:"gogte",title:"National Level Hackathon",host:"KLS Gogte Institute of Technology, Belagavi",detail:"Qualified as a finalist (top 13 of ~25 finalist teams) in a 24-hour national hackathon.",icon:"🏆",color:"#a78bfa",badge:"Finalist",type:"24hr Hackathon" },
+  { id:"tce",title:"6-Hour Hackathon",host:"Tontadarya College of Engineering, Gadag",detail:"Secured 2nd place in a college-level 6-hour hackathon.",icon:"🥈",color:"#fbbf24",badge:"2nd Place",type:"6hr Hackathon" },
+  { id:"national4",title:"National Hackathon Participant",host:"Multiple Institutions",detail:"Participated in 4 national-level 24-hour hackathons.",icon:"⚡",color:"#60a5fa",badge:"4× Participant",type:"24hr Hackathon" },
+];
+
+function CertCard({ cert, index }) {
+  const [hov, setHov] = useState(false);
+  const [imgErr, setImgErr] = useState(false);
+  return (
+    <Reveal delay={index * 80}>
+      <div onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
+        style={{ borderRadius:22, background:hov?`linear-gradient(135deg,${cert.color}18,rgba(255,255,255,0.04))`:"rgba(10,10,16,0.7)", border:`1px solid ${hov?cert.color+"55":cert.color+"22"}`, padding:28, display:"flex", flexDirection:"column", gap:16, height:"100%", backdropFilter:"blur(16px)", transition:"all 0.4s cubic-bezier(0.23,1,0.32,1)", transform:hov?"translateY(-6px)":"translateY(0)", boxShadow:hov?`0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px ${cert.color}22`:"none", position:"relative", overflow:"hidden" }}>
+        <div style={{ position:"absolute",top:-40,right:-40,width:130,height:130,borderRadius:"50%",background:`radial-gradient(circle,${cert.color}20,transparent 70%)`,filter:"blur(24px)",pointerEvents:"none",opacity:hov?1:0.5,transition:"opacity 0.4s" }}/>
+        <div style={{ display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:12 }}>
+          <div style={{ width:48,height:48,borderRadius:14,flexShrink:0,background:imgErr?`${cert.color}22`:"rgba(255,255,255,0.06)",border:`1px solid ${hov?cert.color+"55":"rgba(255,255,255,0.1)"}`,display:"flex",alignItems:"center",justifyContent:"center",overflow:"hidden",padding:imgErr?0:8,transition:"border-color 0.3s" }}>
+            {imgErr?<span style={{ fontSize:22 }}>{cert.icon}</span>:<img src={cert.issuerLogo} alt={cert.issuer} onError={()=>setImgErr(true)} style={{ width:"100%",height:"100%",objectFit:"contain" }}/>}
+          </div>
+          {cert.link?(
+            <a href={cert.link} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()}
+              style={{ fontSize:10,fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",padding:"4px 10px",borderRadius:100,background:`${cert.color}18`,border:`1px solid ${cert.color}44`,color:cert.color,textDecoration:"none",whiteSpace:"nowrap",flexShrink:0,transition:"background 0.2s" }}
+              onMouseEnter={e=>e.currentTarget.style.background=`${cert.color}30`}
+              onMouseLeave={e=>e.currentTarget.style.background=`${cert.color}18`}>Verify ↗</a>
+          ):(
+            <span style={{ fontSize:10,fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",padding:"4px 10px",borderRadius:100,background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",color:"rgba(255,255,255,0.35)",whiteSpace:"nowrap",flexShrink:0 }}>Certified</span>
+          )}
+        </div>
+        <div>
+          <p style={{ fontSize:11,fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:cert.color,marginBottom:8 }}>{cert.issuer}</p>
+          <h4 style={{ fontFamily:"var(--font-head)",fontSize:15,fontWeight:800,lineHeight:1.3,color:"white",marginBottom:cert.instructors?6:0 }}>{cert.title}</h4>
+          {cert.instructors&&<p style={{ fontSize:12,color:"rgba(255,255,255,0.35)",fontWeight:300 }}>by {cert.instructors}</p>}
+        </div>
+        <div style={{ display:"flex",gap:6,flexWrap:"wrap" }}>
+          {cert.tags.map(t=><span key={t} style={{ fontSize:10,padding:"3px 9px",borderRadius:6,background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.07)",color:"rgba(255,255,255,0.45)" }}>{t}</span>)}
+        </div>
+        <div style={{ marginTop:"auto",paddingTop:14,borderTop:"1px solid rgba(255,255,255,0.06)",display:"flex",justifyContent:"space-between",alignItems:"center",gap:8 }}>
+          <span style={{ fontSize:11,color:"rgba(255,255,255,0.35)",fontWeight:500 }}>{cert.date}{cert.duration?` · ${cert.duration}`:""}</span>
+          <span style={{ fontSize:9,color:"rgba(255,255,255,0.2)",fontFamily:"'Fira Code','Courier New',monospace",letterSpacing:0.5,maxWidth:120,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap" }}>{cert.certId}</span>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
+function HackathonCard({ h, index }) {
+  const [hov,setHov]=useState(false);
+  return (
+    <Reveal delay={index*100}>
+      <div onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
+        style={{ borderRadius:18,background:hov?"rgba(255,255,255,0.04)":"rgba(10,10,16,0.65)",border:`1px solid ${hov?"rgba(255,255,255,0.12)":"rgba(255,255,255,0.06)"}`,padding:"22px 28px",backdropFilter:"blur(16px)",transition:"all 0.35s cubic-bezier(0.23,1,0.32,1)",display:"flex",alignItems:"flex-start",gap:20 }}>
+        <div style={{ fontSize:22,marginTop:2,flexShrink:0 }}>{h.icon}</div>
+        <div style={{ flex:1,minWidth:0 }}>
+          <div style={{ display:"flex",alignItems:"center",gap:10,flexWrap:"wrap",marginBottom:6 }}>
+            <span style={{ fontSize:10,fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",padding:"3px 10px",borderRadius:100,background:`${h.color}14`,border:`1px solid ${h.color}30`,color:h.color }}>{h.badge}</span>
+            <span style={{ fontSize:11,color:"rgba(255,255,255,0.3)",letterSpacing:1 }}>{h.type}</span>
+          </div>
+          <h4 style={{ fontFamily:"var(--font-head)",fontSize:16,fontWeight:700,color:"white",marginBottom:4 }}>{h.title}</h4>
+          <p style={{ fontSize:12,color:"rgba(255,255,255,0.35)",marginBottom:8 }}>📍 {h.host}</p>
+          <p style={{ fontSize:13,color:"rgba(255,255,255,0.5)",lineHeight:1.7,fontWeight:300 }}>{h.detail}</p>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
+function CertificationsSection() {
+  return (
+    <section id="certifications" style={{ padding:"160px 64px",position:"relative",background:"rgba(255,255,255,0.008)",borderTop:"1px solid rgba(255,255,255,0.03)" }}>
+      <div style={{ maxWidth:1100,margin:"0 auto" }}>
+
+        {/* Header */}
+        <Reveal>
+          <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:16 }}>Credentials</p>
+          <h2 className="heading-section" style={{ marginBottom:16 }}>
+            Certifications <span className="text-accent">&amp; Achievements.</span>
+          </h2>
+          <p style={{ fontSize:16,color:"rgba(255,255,255,0.38)",fontWeight:300,marginBottom:72,maxWidth:520 }}>
+            Verified credentials from industry leaders and competitive hackathon results.
+          </p>
+        </Reveal>
+
+        {/* Certs */}
+        <Reveal>
+          <div style={{ display:"flex",alignItems:"center",gap:16,marginBottom:32 }}>
+            <div style={{ width:32,height:32,borderRadius:10,background:"rgba(167,139,250,0.15)",border:"1px solid rgba(167,139,250,0.3)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16 }}>🎓</div>
+            <h3 style={{ fontFamily:"var(--font-head)",fontSize:20,fontWeight:700,color:"white" }}>Certifications</h3>
+            <div style={{ flex:1,height:1,background:"rgba(255,255,255,0.06)" }}/>
+            <span style={{ fontSize:11,color:"rgba(255,255,255,0.3)",letterSpacing:2,textTransform:"uppercase" }}>{CERT_DATA.length} certificates</span>
+          </div>
+        </Reveal>
+        <div className="certs-grid" style={{ display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:20,marginBottom:80 }}>
+          {CERT_DATA.map((cert,i)=><CertCard key={cert.id} cert={cert} index={i}/>)}
+        </div>
+
+        {/* Hackathons */}
+        <Reveal>
+          <div style={{ display:"flex",alignItems:"center",gap:16,marginBottom:32 }}>
+            <div style={{ width:32,height:32,borderRadius:10,background:"rgba(251,191,36,0.15)",border:"1px solid rgba(251,191,36,0.3)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16 }}>🏆</div>
+            <h3 style={{ fontFamily:"var(--font-head)",fontSize:20,fontWeight:700,color:"white" }}>Hackathon Achievements</h3>
+            <div style={{ flex:1,height:1,background:"rgba(255,255,255,0.06)" }}/>
+            <span style={{ fontSize:11,color:"rgba(255,255,255,0.3)",letterSpacing:2,textTransform:"uppercase" }}>4 hackathons</span>
+          </div>
+        </Reveal>
+        <div style={{ display:"flex",flexDirection:"column",gap:16,marginBottom:80 }}>
+          {HACKATHONS.map((h,i)=><HackathonCard key={h.id} h={h} index={i}/>)}
+        </div>
+
+        {/* ── Medium Articles ── */}
+        <Reveal>
+          <div style={{ display:"flex",alignItems:"center",gap:16,marginBottom:32 }}>
+            <div style={{ width:32,height:32,borderRadius:10,background:"rgba(96,165,250,0.15)",border:"1px solid rgba(96,165,250,0.3)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16 }}>✍️</div>
+            <h3 style={{ fontFamily:"var(--font-head)",fontSize:20,fontWeight:700,color:"white" }}>Published Articles</h3>
+            <div style={{ flex:1,height:1,background:"rgba(255,255,255,0.06)" }}/>
+          </div>
+        </Reveal>
+
+        <Reveal delay={80}>
+          <a href="https://medium.com/@aishwaryajoshi554" target="_blank" rel="noopener noreferrer"
+            style={{ textDecoration:"none",display:"block" }}>
+            <div
+              style={{ borderRadius:22,background:"rgba(10,10,16,0.7)",border:"1px solid rgba(96,165,250,0.22)",padding:"32px 36px",backdropFilter:"blur(16px)",transition:"all 0.4s cubic-bezier(0.23,1,0.32,1)",display:"flex",alignItems:"center",justifyContent:"space-between",gap:24,flexWrap:"wrap" }}
+              onMouseEnter={e=>{ e.currentTarget.style.border="1px solid rgba(96,165,250,0.55)"; e.currentTarget.style.transform="translateY(-4px)"; e.currentTarget.style.boxShadow="0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(96,165,250,0.18)"; }}
+              onMouseLeave={e=>{ e.currentTarget.style.border="1px solid rgba(96,165,250,0.22)"; e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}>
+              <div style={{ display:"flex",alignItems:"center",gap:20 }}>
+                {/* Medium logo */}
+                <div style={{ width:52,height:52,borderRadius:16,background:"rgba(96,165,250,0.1)",border:"1px solid rgba(96,165,250,0.25)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
+                  <img src="https://cdn.simpleicons.org/medium/FFFFFF" alt="Medium" style={{ width:28,height:28,objectFit:"contain" }}/>
+                </div>
+                <div>
+                  <div style={{ fontSize:11,fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:"#60a5fa",marginBottom:6 }}>Medium · Published</div>
+                  <h4 style={{ fontFamily:"var(--font-head)",fontSize:18,fontWeight:800,color:"white",marginBottom:6 }}>
+                    Technical Writing on AI/ML
+                  </h4>
+                  <p style={{ fontSize:14,color:"rgba(255,255,255,0.45)",fontWeight:300,lineHeight:1.6,maxWidth:480 }}>
+                    Writing about machine learning concepts, practical deep learning, and AI engineering — breaking down complex topics for engineers and learners.
+                  </p>
+                  <div style={{ display:"flex",gap:8,marginTop:14,flexWrap:"wrap" }}>
+                    {["Machine Learning","Deep Learning","AI Engineering","Python"].map(t=>(
+                      <span key={t} style={{ fontSize:10,padding:"3px 9px",borderRadius:6,background:"rgba(96,165,250,0.08)",border:"1px solid rgba(96,165,250,0.18)",color:"rgba(96,165,250,0.8)" }}>{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div style={{ display:"flex",flexDirection:"column",alignItems:"flex-end",gap:12,flexShrink:0 }}>
+                <span style={{ padding:"10px 24px",borderRadius:100,background:"rgba(96,165,250,0.12)",border:"1px solid rgba(96,165,250,0.3)",color:"#60a5fa",fontSize:12,fontWeight:700,letterSpacing:1,textTransform:"uppercase",whiteSpace:"nowrap" }}>
+                  Read Articles ↗
+                </span>
+                <span style={{ fontSize:11,color:"rgba(255,255,255,0.3)" }}>medium.com/@aishwaryajoshi554</span>
+              </div>
+            </div>
+          </a>
+        </Reveal>
+
+      </div>
+      <style>{`
+        @media(max-width:1024px) { .certs-grid { grid-template-columns:repeat(2,1fr) !important; } }
+        @media(max-width:640px)  { .certs-grid { grid-template-columns:1fr !important; } }
+      `}</style>
+    </section>
+  );
+}
+
+/* ==========================================================
+   ★ PORTFOLIO CHATBOT — floating AI assistant
+========================================================== */
+const SYSTEM_PROMPT = `You are Aishwarya Joshi's personal AI assistant embedded in her portfolio website. Your job is to answer questions about Aishwarya in a friendly, professional, and concise way.
+
+Here is everything you know about her:
+
+PERSONAL:
+- Name: Aishwarya Joshi
+- Based in Bengaluru, India
+- Final-year B.E. (ECE) student at Tontadarya College of Engineering, Gadag — VTU
+- CGPA: 9.41 (up to 7th semester)
+- PUC: 89% — Smt. Vidya P Hanchinmani PU College, Dharwad
+- Email: aishwaryajoshi554@gmail.com
+- GitHub: github.com/Aishwarya-J05
+- LinkedIn: linkedin.com/in/aishwaryajoshiaiml
+- HuggingFace: huggingface.co/spaces/AishwaryaNJ/steelsense-ai
+- Graduating: June 2026
+- Open to: AI/ML Engineer, Data Scientist roles and internships
+
+EXPERIENCE:
+- AI Intern at GlowLogics Solutions (2024): supervised & unsupervised ML, deep learning with PyTorch, end-to-end ML workflows
+
+PROJECTS:
+1. SteelSense AI — YOLOv8 real-time steel defect detection, Flask REST API, Gemini Vision API, Supabase, Docker, deployed on HuggingFace Spaces. 94%+ accuracy, sub-100ms inference.
+2. ArXiv RAG Chatbot — LangChain + FAISS RAG system for ArXiv papers, deployed on Vercel: rag-ar-xiv-chatbot.vercel.app
+3. BurnoutIQ — ML pipeline for burnout risk prediction (SVM, Random Forest, Naive Bayes), Streamlit dashboard live at burnoutiq.streamlit.app
+4. AI Assistant Usage in Student Life — Data analytics project with EDA, Pandas, Matplotlib, Seaborn
+5. MNIST CNN Image Classifier — PyTorch CNN built from scratch
+6. Vehicle Price Prediction — ML regression pipeline
+7. Karnataka Districts Game — Python CLI quiz game
+8. PyTorch Deep Learning Projects — CNNs, ResNet transfer learning, training loops
+
+SKILLS:
+- Deep Learning: PyTorch, TensorFlow, YOLOv8, CNNs, ResNet, OpenCV, HuggingFace
+- NLP/RAG: LangChain, FAISS, Streamlit, Gemini API, LLMs
+- ML: Scikit-learn, Random Forest, SVM, KNN, Decision Trees, XGBoost
+- Data Science: NumPy, Pandas, Matplotlib, Seaborn, Power BI, Jupyter
+- MLOps: Docker, Flask, FastAPI, Supabase, Joblib
+- Languages: Python, SQL, Git
+
+CERTIFICATIONS:
+- Complete AI & ML Data Science Bootcamp — Udemy
+- Career Essentials in Generative AI — Microsoft & LinkedIn
+- Python — SoloLearn
+- Power BI — Microsoft
+
+Keep answers short (2-4 sentences). Be warm, confident and professional. If asked something you don't know about Aishwarya, say you're not sure but suggest contacting her directly at aishwaryajoshi554@gmail.com. Never make up information.`;
+
+const SUGGESTED_QUESTIONS = [
+  "What are your top projects?",
+  "What's your tech stack?",
+  "Are you open to work?",
+  "Tell me about SteelSense AI",
+  "What's your CGPA?",
+  "How can I contact you?",
+];
+
+function PortfolioChat() {
+  const [open, setOpen]       = useState(false);
+  const [msgs, setMsgs]       = useState([
+    { role:"assistant", content:"Hi! 👋 I'm Aishwarya's AI assistant. Ask me anything about her projects, skills, or experience!" }
+  ]);
+  const [input, setInput]     = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showDot, setShowDot] = useState(true);
+  const bottomRef             = useRef(null);
+  const inputRef              = useRef(null);
+
+  // Auto-scroll to bottom on new message
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior:"smooth" });
+  }, [msgs, loading]);
+
+  // Focus input when opened
+  useEffect(() => {
+    if (open) { setTimeout(()=>inputRef.current?.focus(), 300); setShowDot(false); }
+  }, [open]);
+
+  const sendMessage = async (text) => {
+    const userText = (text || input).trim();
+    if (!userText || loading) return;
+    setInput("");
+
+    const newMsgs = [...msgs, { role:"user", content:userText }];
+    setMsgs(newMsgs);
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system: SYSTEM_PROMPT,
+          messages: newMsgs.map(m => ({ role: m.role, content: m.content })),
+        }),
+      });
+      const data = await res.json();
+      const reply = data?.text || data?.error || "Sorry, I couldn't get a response. Try again!";
+      setMsgs(v => [...v, { role:"assistant", content: reply }]);
+    } catch {
+      setMsgs(v => [...v, { role:"assistant", content:"Oops! Something went wrong. Please try again or email aishwaryajoshi554@gmail.com directly." }]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleKey = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  };
+
+  const portal = typeof document !== "undefined" ? document.body : null;
+  if (!portal) return null;
+
+  return ReactDOM.createPortal(
+    <>
+      {/* ── Floating bubble ── */}
+      <div style={{ position:"fixed", bottom:28, right:28, zIndex:89999 }}>
+        <button
+          onClick={()=>setOpen(o=>!o)}
+          style={{
+            width:56, height:56, borderRadius:"50%",
+            background:"linear-gradient(135deg,#a78bfa,#60a5fa)",
+            border:"none", cursor:"pointer",
+            display:"flex", alignItems:"center", justifyContent:"center",
+            boxShadow:"0 8px 32px rgba(167,139,250,0.5), 0 2px 8px rgba(0,0,0,0.4)",
+            transition:"all 0.35s cubic-bezier(0.23,1,0.32,1)",
+            transform: open ? "scale(0.9) rotate(20deg)" : "scale(1) rotate(0deg)",
+            fontSize:24,
+          }}
+          onMouseEnter={e=>{ if(!open) e.currentTarget.style.transform="scale(1.12)"; }}
+          onMouseLeave={e=>{ if(!open) e.currentTarget.style.transform="scale(1)"; }}>
+          {open ? "✕" : "✦"}
+        </button>
+
+        {/* Notification dot */}
+        {showDot && !open && (
+          <div style={{ position:"absolute", top:2, right:2, width:12, height:12, borderRadius:"50%", background:"#4ade80", border:"2px solid #050508", animation:"pulseSoft 2s infinite" }}/>
+        )}
+
+        {/* Tooltip */}
+        {!open && (
+          <div style={{ position:"absolute", bottom:"calc(100% + 10px)", right:0, background:"rgba(10,10,16,0.95)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:10, padding:"7px 12px", whiteSpace:"nowrap", fontSize:12, color:"rgba(255,255,255,0.7)", pointerEvents:"none", backdropFilter:"blur(12px)", boxShadow:"0 4px 20px rgba(0,0,0,0.4)" }}>
+            Ask me about Aishwarya ✦
+          </div>
+        )}
+      </div>
+
+      {/* ── Chat panel ── */}
+      <div style={{
+        position:"fixed", bottom:96, right:28, zIndex:89998,
+        width:360, height:520,
+        background:"#0a0a10",
+        border:"1px solid rgba(255,255,255,0.1)",
+        borderRadius:24,
+        display:"flex", flexDirection:"column",
+        overflow:"hidden",
+        boxShadow:"0 24px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(167,139,250,0.12)",
+        transform: open ? "scale(1) translateY(0)" : "scale(0.92) translateY(16px)",
+        opacity: open ? 1 : 0,
+        pointerEvents: open ? "all" : "none",
+        transition:"all 0.4s cubic-bezier(0.23,1,0.32,1)",
+        transformOrigin:"bottom right",
+      }}>
+
+        {/* Header */}
+        <div style={{ padding:"16px 20px", background:"linear-gradient(135deg,rgba(167,139,250,0.15),rgba(96,165,250,0.08))", borderBottom:"1px solid rgba(255,255,255,0.07)", display:"flex", alignItems:"center", gap:12, flexShrink:0 }}>
+          <div style={{ width:36, height:36, borderRadius:"50%", background:"linear-gradient(135deg,#a78bfa,#60a5fa)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:16, flexShrink:0 }}>✦</div>
+          <div>
+            <div style={{ fontFamily:"var(--font-head)", fontWeight:700, fontSize:14, color:"white" }}>Aishwarya's Assistant</div>
+            <div style={{ fontSize:11, color:"#4ade80", display:"flex", alignItems:"center", gap:5, marginTop:2 }}>
+              <div style={{ width:6, height:6, borderRadius:"50%", background:"#4ade80", animation:"pulseSoft 2s infinite" }}/>
+              Online
+            </div>
+          </div>
+          <button onClick={()=>setMsgs([{ role:"assistant", content:"Hi! 👋 I'm Aishwarya's AI assistant. Ask me anything about her projects, skills, or experience!" }])}
+            style={{ marginLeft:"auto", background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:8, color:"rgba(255,255,255,0.5)", fontSize:10, padding:"4px 8px", cursor:"pointer", letterSpacing:1, transition:"all 0.2s", fontFamily:"inherit" }}
+            onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.12)"}
+            onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.06)"}>
+            CLEAR
+          </button>
+        </div>
+
+        {/* Messages */}
+        <div style={{ flex:1, overflowY:"auto", padding:"16px", display:"flex", flexDirection:"column", gap:12 }}>
+
+          {/* Suggested questions — show only at start */}
+          {msgs.length === 1 && (
+            <div style={{ display:"flex", flexWrap:"wrap", gap:7, marginBottom:4 }}>
+              {SUGGESTED_QUESTIONS.map(q=>(
+                <button key={q} onClick={()=>sendMessage(q)}
+                  style={{ fontSize:11, padding:"6px 12px", borderRadius:100, background:"rgba(167,139,250,0.1)", border:"1px solid rgba(167,139,250,0.25)", color:"#c4b5fd", cursor:"pointer", transition:"all 0.2s", fontFamily:"inherit", textAlign:"left" }}
+                  onMouseEnter={e=>e.currentTarget.style.background="rgba(167,139,250,0.22)"}
+                  onMouseLeave={e=>e.currentTarget.style.background="rgba(167,139,250,0.1)"}>
+                  {q}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {msgs.map((m, i) => (
+            <div key={i} style={{ display:"flex", flexDirection:"column", alignItems: m.role==="user" ? "flex-end" : "flex-start", gap:4 }}>
+              {/* Avatar label */}
+              <div style={{ fontSize:10, color:"rgba(255,255,255,0.28)", letterSpacing:1, textTransform:"uppercase", paddingLeft: m.role==="user"?0:4, paddingRight:m.role==="user"?4:0 }}>
+                {m.role==="user" ? "You" : "Aishwarya's AI"}
+              </div>
+              {/* Bubble */}
+              <div style={{
+                maxWidth:"85%", padding:"10px 14px", borderRadius: m.role==="user" ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
+                background: m.role==="user"
+                  ? "linear-gradient(135deg,#a78bfa,#60a5fa)"
+                  : "rgba(255,255,255,0.06)",
+                border: m.role==="user" ? "none" : "1px solid rgba(255,255,255,0.08)",
+                fontSize:13, lineHeight:1.65, color: m.role==="user" ? "white" : "rgba(255,255,255,0.85)",
+                fontWeight:300,
+              }}>
+                {m.content}
+              </div>
+            </div>
+          ))}
+
+          {/* Loading indicator */}
+          {loading && (
+            <div style={{ display:"flex", alignItems:"flex-start", gap:4 }}>
+              <div style={{ padding:"10px 16px", borderRadius:"18px 18px 18px 4px", background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.08)", display:"flex", gap:5, alignItems:"center" }}>
+                {[0,1,2].map(i=>(
+                  <div key={i} style={{ width:6, height:6, borderRadius:"50%", background:"rgba(167,139,250,0.8)", animation:`pulseSoft 1.2s ease ${i*0.2}s infinite` }}/>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div ref={bottomRef}/>
+        </div>
+
+        {/* Input */}
+        <div style={{ padding:"12px 14px", borderTop:"1px solid rgba(255,255,255,0.07)", display:"flex", gap:8, alignItems:"flex-end", flexShrink:0, background:"rgba(255,255,255,0.02)" }}>
+          <textarea
+            ref={inputRef}
+            value={input}
+            onChange={e=>setInput(e.target.value)}
+            onKeyDown={handleKey}
+            placeholder="Ask about projects, skills, contact..."
+            rows={1}
+            style={{
+              flex:1, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:14,
+              color:"white", fontSize:13, padding:"10px 14px", resize:"none", outline:"none",
+              fontFamily:"var(--font-body)", lineHeight:1.5, maxHeight:80, overflowY:"auto",
+            }}
+          />
+          <button
+            onClick={()=>sendMessage()}
+            disabled={!input.trim() || loading}
+            style={{
+              width:38, height:38, borderRadius:"50%", flexShrink:0,
+              background: input.trim() && !loading ? "linear-gradient(135deg,#a78bfa,#60a5fa)" : "rgba(255,255,255,0.06)",
+              border:"none", cursor: input.trim() && !loading ? "pointer" : "default",
+              color:"white", fontSize:16, display:"flex", alignItems:"center", justifyContent:"center",
+              transition:"all 0.25s",
+            }}>
+            {loading ? "·" : "↑"}
+          </button>
+        </div>
+      </div>
+    </>,
+    portal
+  );
+}
+
+/* ==========================================================
    MAIN
 ========================================================== */
 export default function Portfolio() {
@@ -1574,13 +4476,13 @@ export default function Portfolio() {
       impact:"94%+ classification accuracy with sub-100ms inference time — deployed live on Hugging Face Spaces.",
       stack:["Python","PyTorch","YOLOv8","Flask","Gemini Vision API","Supabase","Docker","HuggingFace"],
       link:"https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai",
-      ghLink:"https://github.com/Aishwarya-J05/SteelSense-AI",
+      ghLink:"https://github.com/Aishwarya-J05",
       badge:"🔬 Live", badgeColor:"#a78bfa",
       imgFolder:"steelsense",
       // ── Add your screenshot imports here ──
       // import ss1 from "./images/steelsense/1.png"; etc.
       // then: images: [ss1, ss2, ss3]
-      images: [ss1, ss2, ss3, ss4], // placeholder — add imports above
+      images: [ss1,ss2,ss3,ss4], // placeholder — add imports above
     },
     {
       title:"ArXiv RAG Chatbot",tag:"NLP / RAG",sub:"LangChain · FAISS · Vercel",
@@ -1588,7 +4490,7 @@ export default function Portfolio() {
       impact:"Deployed on Vercel — reduces research synthesis time dramatically across 1000+ papers with exact citations.",
       stack:["Python","LangChain","FAISS","HuggingFace Embeddings","LLMs","Vercel"],
       link:"https://rag-ar-xiv-chatbot.vercel.app/",
-      ghLink:"https://github.com/Aishwarya-J05/RAG-ArXiv-chatbot",
+      ghLink:"https://github.com/Aishwarya-J05",
       badge:"🤖 Live", badgeColor:"#60a5fa",
       imgFolder:"rag",
       images: [rag1, rag2, rag3], // placeholder
@@ -1599,7 +4501,7 @@ export default function Portfolio() {
       impact:"Best model (Random Forest) selected via F1-Score & RMSLE, serialized with Joblib — live on Streamlit Cloud.",
       stack:["Python","Pandas","Scikit-learn","SVM","Random Forest","Naive Bayes","Joblib","Streamlit"],
       link:"https://burnoutiq.streamlit.app",
-      ghLink:"https://github.com/Aishwarya-J05/Burnout-IQ",
+      ghLink:"https://github.com/Aishwarya-J05",
       badge:"📊 Live", badgeColor:"#34d399",
       imgFolder:"burnoutiq",
       images: [bq1, bq2], // placeholder
@@ -1832,7 +4734,7 @@ export default function Portfolio() {
             <div style={{ display:"flex",gap:16,flexWrap:"wrap",marginTop:44 }}>
               <Mag href={PDF} target="_blank" rel="noopener noreferrer" className="btn-primary">View Resume</Mag>
               <Mag href="https://linkedin.com/in/aishwaryajoshiaiml" target="_blank" rel="noopener noreferrer" className="btn-secondary">LinkedIn ↗</Mag>
-              <Mag href="https://huggingface.co/AishwaryaNJ" target="_blank" rel="noopener noreferrer" className="btn-secondary">HuggingFace ↗</Mag>
+              <Mag href="https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai" target="_blank" rel="noopener noreferrer" className="btn-secondary">HuggingFace ↗</Mag>
             </div>
           </Reveal>
           <Reveal delay={200}>
@@ -1938,10 +4840,8 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <CertificationsSection /> 
-      
-
       {/* CONTACT — standalone section */}
+      <CertificationsSection/>
       <ContactSection/>
 
       {/* FOOTER */}
@@ -1954,7 +4854,7 @@ export default function Portfolio() {
         <div style={{ display:"flex",gap:24,alignItems:"center" }}>
           <a href={PDF} target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>Resume PDF</a>
           <a href="https://github.com/Aishwarya-J05" target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>GitHub</a>
-          <a href="https://huggingface.co/spaces/AishwaryaNJ/" target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>HuggingFace</a>
+          <a href="https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai" target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>HuggingFace</a>
           <a href={PDF} download="Aishwarya_Joshi_Resume.pdf"
             style={{ padding:"8px 18px",borderRadius:100,background:"rgba(167,139,250,0.12)",border:"1px solid rgba(167,139,250,0.3)",fontSize:11,fontWeight:700,color:"#c4b5fd",letterSpacing:1,textDecoration:"none",transition:"all 0.3s" }}
             onMouseEnter={e=>e.currentTarget.style.background="rgba(167,139,250,0.25)"}
@@ -1964,423 +4864,9 @@ export default function Portfolio() {
         </div>
         </div>
       </footer>
+
+      {/* FLOATING CHATBOT */}
+      <PortfolioChat/>
     </>
-  );
-}
-
-/* ==========================================================
-   ★ CERTIFICATIONS & ACHIEVEMENTS SECTION
-   Drop this between ExperienceSection and ContactSection in Portfolio.jsx
-   
-   USAGE:
-   1. Copy the CERT_DATA, HACKATHONS arrays and the two components below
-   2. Add <CertificationsSection /> and <AchievementsSection /> 
-      inside Portfolio() return, before <ContactSection />
-   3. Add the section ids to your nav links array if desired
-========================================================== */
-
-/* ── Certificate data ──
-   Replace the `link` values with your real verification URLs when you have them.
-   The `certId` is shown as a subtle label on each card.
-*/
-const CERT_DATA = [
-  {
-    id: "udemy",
-    title: "Complete A.I. & Machine Learning, Data Science Bootcamp",
-    issuer: "Udemy",
-    instructors: "Andrei Neagoie, Daniel Bourke",
-    date: "Aug 27, 2025",
-    duration: "44 hours",
-    certId: "UC-bd679731-00fa-4445-9506-eb2a4e00631c",
-    link: "https://ude.my/UC-bd679731-00fa-4445-9506-eb2a4e00631c",
-    color: "#a78bfa",
-    icon: "🎓",
-    tags: ["AI", "Machine Learning", "Data Science"],
-    issuerLogo: "https://cdn.simpleicons.org/udemy/A435F0",
-  },
-  {
-    id: "msgenai",
-    title: "Career Essentials in Generative AI",
-    issuer: "Microsoft & LinkedIn",
-    instructors: "",
-    date: "Oct 15, 2024",
-    duration: "4 hrs 53 min",
-    certId: "54daa6044faf50d0a6dd1a1294d0e1565a87cb40ad27275d5e72260721dfebcb",
-    link: "https://www.linkedin.com/learning/certificates/54daa6044faf50d0a6dd1a1294d0e1565a87cb40ad27275d5e72260721dfebcb",
-    color: "#60a5fa",
-    icon: "🤖",
-    tags: ["Generative AI", "Computer Ethics", "Artificial Intelligence"],
-    issuerLogo: "https://cdn.simpleicons.org/microsoft/00A4EF",
-  },
-  {
-    id: "mlai",
-    title: "Machine Learning & AI",
-    issuer: "PrepInsta",
-    instructors: "Aashay Mishra",
-    date: "Dec 1, 2025",
-    duration: "",
-    certId: "692d708141cb810a142022c6",
-    link: "", // add your PrepInsta link here
-    color: "#34d399",
-    icon: "⚙️",
-    tags: ["Machine Learning", "Artificial Intelligence"],
-    issuerLogo: "https://cdn.simpleicons.org/python/3776AB",
-  },
-  {
-    id: "powerbi",
-    title: "Get Started Building with Power BI",
-    issuer: "Microsoft Learn",
-    instructors: "",
-    date: "Jan 4, 2026",
-    duration: "",
-    certId: "uamprgd3",
-    link: "https://learn.microsoft.com/en-us/users/aishwaryajoshi-5256/achievements/uamprgd3",
-    color: "#fbbf24",
-    icon: "📊",
-    tags: ["Power BI", "Data Visualization", "Business Intelligence"],
-    issuerLogo: "https://cdn.simpleicons.org/powerbi/F2C811",
-  },
-  {
-    id: "python",
-    title: "Python Developer",
-    issuer: "SoloLearn",
-    instructors: "",
-    date: "Sep 24, 2024",
-    duration: "",
-    certId: "CC-VFQ4ZSMF",
-    link: "https://www.sololearn.com/certificates/CC-VFQ4ZSMF", // add your SoloLearn profile link here
-    color: "#f472b6",
-    icon: "🐍",
-    tags: ["Python", "Programming", "Development"],
-    issuerLogo: "https://cdn.simpleicons.org/python/3776AB",
-  },
-  {
-    id: "dataanalytics",
-    title: "Data Analytics with AI",
-    issuer: "SoloLearn",
-    instructors: "",
-    date: "Jul 21, 2025",
-    duration: "",
-    certId: "CC-GTC04UDB",
-    link: "https://www.sololearn.com/certificates/CC-GTCO4UDB", // add your SoloLearn profile link here
-    color: "#fb923c",
-    icon: "📈",
-    tags: ["Data Analytics", "AI", "Data Science"],
-    issuerLogo: "https://cdn.simpleicons.org/python/3776AB",
-  },
-];
-
-/* ── Hackathon / Achievement data ── */
-const HACKATHONS = [
-  {
-    id: "gogte",
-    title: "National Level Hackathon",
-    host: "KLS Gogte Institute of Technology, Belagavi",
-    detail: "Qualified as a finalist (top 13 of ~25 finalist teams) in a 24-hour national hackathon.",
-    icon: "🏆",
-    color: "#a78bfa",
-    badge: "Finalist",
-    type: "24hr Hackathon",
-  },
-  {
-    id: "tce",
-    title: "6-Hour Hackathon",
-    host: "Tontadarya College of Engineering, Gadag",
-    detail: "Secured 2nd place in a college-level 6-hour hackathon.",
-    icon: "🥈",
-    color: "#fbbf24",
-    badge: "2nd Place",
-    type: "6hr Hackathon",
-  },
-  {
-    id: "national4",
-    title: "National Hackathon Participant",
-    host: "Multiple Institutions",
-    detail: "Participated in 4 national-level 24-hour hackathons.",
-    icon: "⚡",
-    color: "#60a5fa",
-    badge: "4× Participant",
-    type: "24hr Hackathon",
-  },
-];
-
-/* ── CertCard component ── */
-function CertCard({ cert, index }) {
-  const [hov, setHov] = useState(false);
-  const [imgErr, setImgErr] = useState(false);
-
-  return (
-    <Reveal delay={index * 80}>
-      <div
-        onMouseEnter={() => setHov(true)}
-        onMouseLeave={() => setHov(false)}
-        style={{
-          borderRadius: 22,
-          background: hov
-            ? `linear-gradient(135deg,${cert.color}18,rgba(255,255,255,0.04))`
-            : "rgba(10,10,16,0.7)",
-          border: `1px solid ${hov ? cert.color + "55" : cert.color + "22"}`,
-          padding: 28,
-          display: "flex",
-          flexDirection: "column",
-          gap: 16,
-          height: "100%",
-          backdropFilter: "blur(16px)",
-          transition: "all 0.4s cubic-bezier(0.23,1,0.32,1)",
-          transform: hov ? "translateY(-6px)" : "translateY(0)",
-          boxShadow: hov ? `0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px ${cert.color}22` : "none",
-          position: "relative",
-          overflow: "hidden",
-          cursor: cert.link ? "pointer" : "default",
-        }}
-      >
-        {/* bg orb */}
-        <div style={{
-          position: "absolute", top: -40, right: -40, width: 130, height: 130,
-          borderRadius: "50%",
-          background: `radial-gradient(circle,${cert.color}20,transparent 70%)`,
-          filter: "blur(24px)", pointerEvents: "none",
-          transition: "opacity 0.4s",
-          opacity: hov ? 1 : 0.5,
-        }} />
-
-        {/* Header row */}
-        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
-          <div style={{
-            width: 48, height: 48, borderRadius: 14, flexShrink: 0,
-            background: imgErr ? `${cert.color}22` : "rgba(255,255,255,0.06)",
-            border: `1px solid ${hov ? cert.color + "55" : "rgba(255,255,255,0.1)"}`,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            overflow: "hidden", padding: imgErr ? 0 : 8,
-            transition: "border-color 0.3s",
-          }}>
-            {imgErr ? (
-              <span style={{ fontSize: 22 }}>{cert.icon}</span>
-            ) : (
-              <img
-                src={cert.issuerLogo}
-                alt={cert.issuer}
-                onError={() => setImgErr(true)}
-                style={{ width: "100%", height: "100%", objectFit: "contain" }}
-              />
-            )}
-          </div>
-
-          {/* Verified / link badge */}
-          {cert.link ? (
-            <a
-              href={cert.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={e => e.stopPropagation()}
-              style={{
-                fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase",
-                padding: "4px 10px", borderRadius: 100,
-                background: `${cert.color}18`, border: `1px solid ${cert.color}44`,
-                color: cert.color, textDecoration: "none",
-                transition: "background 0.2s",
-                whiteSpace: "nowrap", flexShrink: 0,
-              }}
-              onMouseEnter={e => e.currentTarget.style.background = `${cert.color}30`}
-              onMouseLeave={e => e.currentTarget.style.background = `${cert.color}18`}
-            >
-              Verify ↗
-            </a>
-          ) : (
-            <span style={{
-              fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase",
-              padding: "4px 10px", borderRadius: 100,
-              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
-              color: "rgba(255,255,255,0.35)", whiteSpace: "nowrap", flexShrink: 0,
-            }}>
-              Certified
-            </span>
-          )}
-        </div>
-
-        {/* Title + issuer */}
-        <div>
-          <p style={{
-            fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase",
-            color: cert.color, marginBottom: 8,
-          }}>
-            {cert.issuer}
-          </p>
-          <h4 style={{
-            fontFamily: "var(--font-head)", fontSize: 16, fontWeight: 800,
-            lineHeight: 1.3, color: "white", marginBottom: cert.instructors ? 6 : 0,
-          }}>
-            {cert.title}
-          </h4>
-          {cert.instructors && (
-            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", fontWeight: 300 }}>
-              by {cert.instructors}
-            </p>
-          )}
-        </div>
-
-        {/* Tags */}
-        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          {cert.tags.map(t => (
-            <span key={t} style={{
-              fontSize: 10, padding: "3px 9px", borderRadius: 6,
-              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)",
-              color: "rgba(255,255,255,0.45)",
-            }}>{t}</span>
-          ))}
-        </div>
-
-        {/* Footer — date + cert ID */}
-        <div style={{
-          marginTop: "auto",
-          paddingTop: 14,
-          borderTop: "1px solid rgba(255,255,255,0.06)",
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          gap: 8,
-        }}>
-          <span style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", fontWeight: 500 }}>
-            {cert.date}{cert.duration ? ` · ${cert.duration}` : ""}
-          </span>
-          <span style={{
-            fontSize: 9, color: "rgba(255,255,255,0.2)", fontFamily: "'Fira Code','Courier New',monospace",
-            letterSpacing: 0.5, maxWidth: 120, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
-          }}>
-            {cert.certId}
-          </span>
-        </div>
-      </div>
-    </Reveal>
-  );
-}
-
-/* ── HackathonCard component ── */
-function HackathonCard({ h, index }) {
-  const [hov, setHov] = useState(false);
-  return (
-    <Reveal delay={index * 100}>
-      <div
-        onMouseEnter={() => setHov(true)}
-        onMouseLeave={() => setHov(false)}
-        style={{
-          borderRadius: 18,
-          background: hov ? `rgba(255,255,255,0.04)` : "rgba(10,10,16,0.65)",
-          border: `1px solid ${hov ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.06)"}`,
-          padding: "22px 28px",
-          backdropFilter: "blur(16px)",
-          transition: "all 0.35s cubic-bezier(0.23,1,0.32,1)",
-          display: "flex",
-          alignItems: "flex-start",
-          gap: 20,
-        }}
-      >
-        <div style={{ fontSize: 22, marginTop: 2, flexShrink: 0 }}>{h.icon}</div>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 6 }}>
-            <span style={{
-              fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase",
-              padding: "3px 10px", borderRadius: 100,
-              background: `${h.color}14`, border: `1px solid ${h.color}30`,
-              color: h.color,
-            }}>{h.badge}</span>
-            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: 1 }}>{h.type}</span>
-          </div>
-          <h4 style={{ fontFamily: "var(--font-head)", fontSize: 16, fontWeight: 700, color: "white", marginBottom: 4 }}>{h.title}</h4>
-          <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 8 }}>📍 {h.host}</p>
-          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, fontWeight: 300 }}>{h.detail}</p>
-        </div>
-      </div>
-    </Reveal>
-  );
-}
-
-/* ── Main Certifications Section ── */
-function CertificationsSection() {
-  return (
-    <section
-      id="certifications"
-      style={{
-        padding: "160px 64px",
-        position: "relative",
-        background: "rgba(255,255,255,0.008)",
-        borderTop: "1px solid rgba(255,255,255,0.03)",
-      }}
-    >
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-
-        {/* ── Section header ── */}
-        <Reveal>
-          <p style={{ fontSize: 12, letterSpacing: 4, textTransform: "uppercase", color: "rgba(255,255,255,0.36)", marginBottom: 16 }}>
-            Credentials
-          </p>
-          <h2 className="heading-section" style={{ marginBottom: 16 }}>
-            Certifications <span className="text-accent">&</span>
-          </h2>
-          <h2 className="heading-section" style={{ marginBottom: 20 }}>
-            <span className="text-accent">Achievements.</span>
-          </h2>
-          <p style={{ fontSize: 16, color: "rgba(255,255,255,0.38)", fontWeight: 300, marginBottom: 72, maxWidth: 520 }}>
-            Verified credentials from industry leaders and competitive hackathon results.
-          </p>
-        </Reveal>
-
-        {/* ── Certificates grid ── */}
-        <Reveal>
-          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
-            <div style={{ width: 32, height: 32, borderRadius: 10, background: "rgba(167,139,250,0.15)", border: "1px solid rgba(167,139,250,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🎓</div>
-            <h3 style={{ fontFamily: "var(--font-head)", fontSize: 20, fontWeight: 700, color: "white" }}>Certifications</h3>
-            <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)" }} />
-            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: 2, textTransform: "uppercase" }}>
-              {CERT_DATA.length} certificates
-            </span>
-          </div>
-        </Reveal>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 20,
-            marginBottom: 80,
-          }}
-          className="certs-grid"
-        >
-          {CERT_DATA.map((cert, i) => (
-            <CertCard key={cert.id} cert={cert} index={i} />
-          ))}
-        </div>
-
-        {/* ── Achievements header ── */}
-        <Reveal>
-          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
-            <div style={{ width: 32, height: 32, borderRadius: 10, background: "rgba(251,191,36,0.15)", border: "1px solid rgba(251,191,36,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🏆</div>
-            <h3 style={{ fontFamily: "var(--font-head)", fontSize: 20, fontWeight: 700, color: "white" }}>Hackathon Achievements</h3>
-            <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.06)" }} />
-            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: 2, textTransform: "uppercase" }}>
-              4 hackathons
-            </span>
-          </div>
-        </Reveal>
-
-        
-
-        {/* Hackathon cards */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {HACKATHONS.map((h, i) => (
-            <HackathonCard key={h.id} h={h} index={i} />
-          ))}
-        </div>
-
-      </div>
-
-      {/* ── Responsive styles ── */}
-      <style>{`
-        @media(max-width:1024px) {
-          .certs-grid { grid-template-columns: repeat(2, 1fr) !important; }
-        }
-        @media(max-width:640px) {
-          .certs-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
-    </section>
   );
 }
