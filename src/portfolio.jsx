@@ -860,7 +860,7 @@ function ContactSection() {
     { label:"Email",       val:"aishwaryajoshi554@gmail.com", icon:"✉", href:"mailto:aishwaryajoshi554@gmail.com", color:"#a78bfa" },
     { label:"LinkedIn",    val:"/aishwaryajoshiaiml",         icon:"🔗", href:"https://linkedin.com/in/aishwaryajoshiaiml",                     color:"#60a5fa" },
     { label:"GitHub",      val:"/Aishwarya-J05",              icon:"⚡", href:"https://github.com/Aishwarya-J05",                               color:"#f472b6" },
-    { label:"HuggingFace", val:"/AishwaryaNJ",                icon:"🤗", href:"https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai",         color:"#fbbf24" },
+    { label:"HuggingFace", val:"/AishwaryaNJ",                icon:"🤗", href:"https://huggingface.co/spaces/AishwaryaNJ",         color:"#fbbf24" },
   ];
 
   return (
@@ -1802,7 +1802,7 @@ PERSONAL:
 - Email: aishwaryajoshi554@gmail.com
 - GitHub: github.com/Aishwarya-J05
 - LinkedIn: linkedin.com/in/aishwaryajoshiaiml
-- HuggingFace: huggingface.co/spaces/AishwaryaNJ/steelsense-ai
+- HuggingFace: huggingface.co/spaces/AishwaryaNJ
 - Graduating: June 2026
 - Open to: AI/ML Engineer, Data Scientist roles and internships
 
@@ -2086,7 +2086,7 @@ export default function Portfolio() {
       impact:"94%+ classification accuracy with sub-100ms inference time — deployed live on Hugging Face Spaces.",
       stack:["Python","PyTorch","YOLOv8","Flask","Gemini Vision API","Supabase","Docker","HuggingFace"],
       link:"https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai",
-      ghLink:"https://github.com/Aishwarya-J05",
+      ghLink:"https://github.com/Aishwarya-J05/SteelSense-AI",
       badge:"🔬 Live", badgeColor:"#a78bfa",
       imgFolder:"steelsense",
       // ── Add your screenshot imports here ──
@@ -2100,7 +2100,7 @@ export default function Portfolio() {
       impact:"Deployed on Vercel — reduces research synthesis time dramatically across 1000+ papers with exact citations.",
       stack:["Python","LangChain","FAISS","HuggingFace Embeddings","LLMs","Vercel"],
       link:"https://rag-ar-xiv-chatbot.vercel.app/",
-      ghLink:"https://github.com/Aishwarya-J05",
+      ghLink:"https://github.com/Aishwarya-J05/RAG-ArXiv-chatbot",
       badge:"🤖 Live", badgeColor:"#60a5fa",
       imgFolder:"rag",
       images: [rag1, rag2, rag3], // placeholder
@@ -2111,7 +2111,7 @@ export default function Portfolio() {
       impact:"Best model (Random Forest) selected via F1-Score & RMSLE, serialized with Joblib — live on Streamlit Cloud.",
       stack:["Python","Pandas","Scikit-learn","SVM","Random Forest","Naive Bayes","Joblib","Streamlit"],
       link:"https://burnoutiq.streamlit.app",
-      ghLink:"https://github.com/Aishwarya-J05",
+      ghLink:"https://github.com/Aishwarya-J05/Burnout-IQ",
       badge:"📊 Live", badgeColor:"#34d399",
       imgFolder:"burnoutiq",
       images: [bq1, bq2], // placeholder
@@ -2126,7 +2126,7 @@ export default function Portfolio() {
       desc:"Real-time YOLOv8 steel defect detection with Gemini Vision API, Flask REST API, Supabase, and Docker. Deployed on Hugging Face Spaces.",
       stack:["PyTorch","YOLOv8","Flask","Docker","Supabase"],
       link:"https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai",
-      ghLink:"https://github.com/Aishwarya-J05",
+      ghLink:"https://github.com/Aishwarya-J05/SteelSense-AI",
       live:true,
     },
     {
@@ -2135,7 +2135,7 @@ export default function Portfolio() {
       desc:"LangChain + FAISS retrieval-augmented chatbot for ArXiv AI papers. Source-grounded responses with exact citations. Deployed on Vercel.",
       stack:["LangChain","FAISS","HuggingFace","LLMs","Vercel"],
       link:"https://rag-ar-xiv-chatbot.vercel.app/",
-      ghLink:"https://github.com/Aishwarya-J05",
+      ghLink:"https://github.com/Aishwarya-J05/RAG-ArXiv-chatbot",
       live:true,
     },
     {
@@ -2144,7 +2144,7 @@ export default function Portfolio() {
       desc:"Employee burnout risk predictor — full ML pipeline with SVM, Random Forest, Naive Bayes. Deployed as interactive Streamlit dashboard.",
       stack:["Scikit-learn","Pandas","Random Forest","Streamlit"],
       link:"https://burnoutiq.streamlit.app",
-      ghLink:"https://github.com/Aishwarya-J05",
+      ghLink:"https://github.com/Aishwarya-J05/Burnout-IQ",
       live:true,
     },
     {
@@ -2188,8 +2188,8 @@ export default function Portfolio() {
       tag:"Deep Learning",color:"#c4b5fd",icon:"🔥",
       desc:"Core deep learning implemented from scratch — custom CNNs, training loops with validation, early stopping, checkpointing, and transfer learning with ResNet.",
       stack:["PyTorch","CNNs","ResNet","Transfer Learning"],
-      link:"https://github.com/Aishwarya-J05",
-      ghLink:"https://github.com/Aishwarya-J05",
+      link:"https://github.com/Aishwarya-J05/Pytorch",
+      ghLink:"https://github.com/Aishwarya-J05/Pytorch",
       live:false,
     },
   ];
@@ -2344,7 +2344,7 @@ export default function Portfolio() {
             <div style={{ display:"flex",gap:16,flexWrap:"wrap",marginTop:44 }}>
               <Mag href={PDF} target="_blank" rel="noopener noreferrer" className="btn-primary">View Resume</Mag>
               <Mag href="https://linkedin.com/in/aishwaryajoshiaiml" target="_blank" rel="noopener noreferrer" className="btn-secondary">LinkedIn ↗</Mag>
-              <Mag href="https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai" target="_blank" rel="noopener noreferrer" className="btn-secondary">HuggingFace ↗</Mag>
+              <Mag href="https://huggingface.co/spaces/AishwaryaNJ" target="_blank" rel="noopener noreferrer" className="btn-secondary">HuggingFace ↗</Mag>
             </div>
           </Reveal>
           <Reveal delay={200}>
@@ -2464,7 +2464,7 @@ export default function Portfolio() {
         <div style={{ display:"flex",gap:24,alignItems:"center" }}>
           <a href={PDF} target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>Resume PDF</a>
           <a href="https://github.com/Aishwarya-J05" target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>GitHub</a>
-          <a href="https://huggingface.co/spaces/AishwaryaNJ/steelsense-ai" target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>HuggingFace</a>
+          <a href="https://huggingface.co/spaces/AishwaryaNJ" target="_blank" rel="noopener noreferrer" className="nav-link" style={{ fontSize:11 }}>HuggingFace</a>
           <a href={PDF} download="Aishwarya_Joshi_Resume.pdf"
             style={{ padding:"8px 18px",borderRadius:100,background:"rgba(167,139,250,0.12)",border:"1px solid rgba(167,139,250,0.3)",fontSize:11,fontWeight:700,color:"#c4b5fd",letterSpacing:1,textDecoration:"none",transition:"all 0.3s" }}
             onMouseEnter={e=>e.currentTarget.style.background="rgba(167,139,250,0.25)"}
