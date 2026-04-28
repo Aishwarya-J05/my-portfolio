@@ -14,8 +14,8 @@ import rag2 from "./images/rag/2.png";
 import rag3 from "./images/rag/3.png";
 
 // BurnoutIQ screenshots
-import bq1 from "./images/burnoutiq/1.png";
-import bq2 from "./images/burnoutiq/2.png";
+import dp1 from "./images/dynamic_pricing/1.png";
+import dp2 from "./images/dynamic_pricing/2.png";
 
 /* ==========================================================
    GLOBAL STYLES
@@ -555,18 +555,21 @@ const STACK_GROUPS = [
       { name:"Jupyter Notebook", note:"Research & experimentation", logo:"https://cdn.simpleicons.org/jupyter/F37626" },
     ],
   },
-  {
-    id:"mlops", label:"MLOps & Backend",
-    color:"rgba(244,114,182,0.10)", border:"rgba(244,114,182,0.22)", accent:"#f472b6", icon:"🐳",
-    skills:[
-      { name:"Docker",           note:"Containerization",       logo:"https://cdn.simpleicons.org/docker/2496ED" },
-      { name:"Flask",            note:"Web backend / API",      logo:"https://cdn.simpleicons.org/flask/FFFFFF" },
-      { name:"FastAPI",          note:"High-perf API serving",  logo:"https://cdn.simpleicons.org/fastapi/009688" },
-      { name:"Supabase",         note:"Database + auth",        logo:"https://cdn.simpleicons.org/supabase/3ECF8E" },
-      { name:"Hugging Face Spaces", note:"Model hosting",       logo:"https://cdn.simpleicons.org/huggingface/FFD21E" },
-      { name:"Joblib",           note:"Model serialization",    logo:"https://cdn.simpleicons.org/python/3776AB" },
-    ],
-  },
+{
+  id:"mlops", label:"MLOps & Backend",
+  color:"rgba(244,114,182,0.10)", border:"rgba(244,114,182,0.22)", accent:"#f472b6", icon:"🐳",
+  skills:[
+    { name:"Docker",              note:"Containerization",        logo:"https://cdn.simpleicons.org/docker/2496ED" },
+    { name:"FastAPI",             note:"High-perf API serving",   logo:"https://cdn.simpleicons.org/fastapi/009688" },
+    { name:"Flask",               note:"Web backend / API",       logo:"https://cdn.simpleicons.org/flask/FFFFFF" },
+    { name:"AWS EC2", note:"Cloud deployment", logo:"https://cdn.simpleicons.org/amazonwebservices/FF9900" },
+    { name:"Nginx",               note:"Reverse proxy / HTTPS",   logo:"https://cdn.simpleicons.org/nginx/009639" },
+    { name:"Supabase",            note:"Database + auth",         logo:"https://cdn.simpleicons.org/supabase/3ECF8E" },
+    { name:"Hugging Face Spaces", note:"Model hosting",           logo:"https://cdn.simpleicons.org/huggingface/FFD21E" },
+    { name:"Streamlit",           note:"ML app deployment",       logo:"https://cdn.simpleicons.org/streamlit/FF4B4B" },
+    { name:"Joblib",              note:"Model serialization",     logo:"https://cdn.simpleicons.org/python/3776AB" },
+  ],
+},
   {
     id:"tools", label:"Languages & Tools",
     color:"rgba(167,139,250,0.08)", border:"rgba(167,139,250,0.18)", accent:"#c4b5fd", icon:"🛠️",
@@ -741,9 +744,9 @@ const EXPERIENCES = [
   },
   {
     dateRange:null,
-    role:"Lead ML Engineer",
+    role:"ML Engineer",
     co:"SteelSense AI",
-    type:"Project",
+    type:"Personal Project",
     color:"#60a5fa",
     bullets:[
       "Engineered real-time steel surface defect detection using YOLOv8 — classifies 6 defect types with confidence scoring.",
@@ -751,18 +754,18 @@ const EXPERIENCES = [
       "Containerized with Docker and deployed on Hugging Face Spaces — publicly live and accessible.",
     ],
   },
-  {
-    dateRange:null,
-    role:"ML Engineer",
-    co:"BurnoutIQ Predictor",
-    type:"Project",
-    color:"#34d399",
-    bullets:[
-      "End-to-end ML pipeline predicting employee burnout risk from workplace and AI adoption data.",
-      "Evaluated SVM, Random Forest, and Naive Bayes — selected best model via F1-Score & RMSLE, serialized with Joblib.",
-      "Deployed as an interactive Streamlit dashboard on Streamlit Cloud.",
-    ],
-  },
+{
+  dateRange: null,
+  role: "ML Engineer",
+  co: "Dynamic Pricing Engine",
+  type: "Internship Project",
+  color: "#34d399",
+  bullets: [
+    "Built a real-time ML pricing engine ingesting inventory, competitor price, and demand signals to generate per-SKU price recommendations with confidence scores.",
+    "Trained Random Forest and XGBoost on 50K+ synthetic SKU scenarios; combined ML baseline with deterministic guardrails — competitor blending, demand surge multipliers, and floor/ceiling bounds.",
+    "Deployed FastAPI inference layer + Streamlit dashboard via Docker Compose on AWS EC2 with Nginx reverse proxy and Let's Encrypt HTTPS.",
+  ],
+},
   {
     dateRange:null,
     role:"ArXiv RAG Chatbot",
@@ -2174,17 +2177,17 @@ export default function Portfolio() {
       imgFolder:"rag",
       images: [rag1,rag2,rag3], // placeholder
     },
-    {
-      title:"BurnoutIQ",tag:"Machine Learning",sub:"Scikit-learn · Streamlit",
-      desc:"Full end-to-end predictive ML pipeline evaluating employee burnout risk and productivity scores from workplace habits and AI adoption metrics. Comprehensive EDA, feature engineering, and multi-model benchmarking.",
-      impact:"Best model (Random Forest) selected via F1-Score & RMSLE, serialized with Joblib — live on Streamlit Cloud.",
-      stack:["Python","Pandas","Scikit-learn","SVM","Random Forest","Naive Bayes","Joblib","Streamlit"],
-      link:"https://burnoutiq.streamlit.app",
-      ghLink:"https://github.com/Aishwarya-J05/Burnout-IQ",
-      badge:"📊 Live", badgeColor:"#34d399",
-      imgFolder:"burnoutiq",
-      images: [bq1,bq2], // placeholder
-    },
+{
+  title: "Dynamic Pricing Engine", tag: "ML / MLOps", sub: "XGBoost · FastAPI · AWS EC2",
+  desc: "Real-time ML pricing engine ingesting inventory levels, competitor prices, and demand velocity signals to generate per-SKU price recommendations. Deterministic guardrails layer handles competitor blending, demand surge detection, flash sale multipliers, and floor/ceiling bounds.",
+  impact: "Random Forest + XGBoost ensemble deployed behind FastAPI on AWS EC2 with Docker Compose, Nginx reverse proxy, and Let's Encrypt HTTPS — live at dynamic-pricing.duckdns.org.",
+  stack: ["Python", "XGBoost", "Scikit-learn", "FastAPI", "Streamlit", "Docker", "AWS EC2", "Nginx"],
+  link: "https://dynamic-pricing.duckdns.org/",
+  ghLink: "https://github.com/Aishwarya-J05/Dynamic-Pricing-Engine",
+  badge: "⚡ Live", badgeColor: "#34d399",
+  imgFolder: "dynamic-pricing",
+  images: [dp1, dp2], // placeholder
+},
   ];
 
   /* ── All projects grid ── */
@@ -2207,6 +2210,41 @@ export default function Portfolio() {
       ghLink:"https://github.com/Aishwarya-J05/RAG-ArXiv-chatbot",
       live:true,
     },
+    {
+  title: "Dynamic Pricing Engine",
+  tag: "ML / MLOps",
+  color: "#34d399",
+  icon: "💰",
+  desc: "Real-time ML pricing engine with Random Forest + XGBoost inference, deterministic guardrails (competitor blending, demand surge, inventory pressure), FastAPI REST layer, and Streamlit dashboard. Deployed on AWS EC2 with Docker Compose, Nginx, and HTTPS.",
+  stack: ["XGBoost", "FastAPI", "Kafka", "Streamlit", "Docker", "AWS EC2"],
+  link: "https://dynamic-pricing.duckdns.org/",
+  ghLink: "https://github.com/Aishwarya-J05/Dynamic-Pricing-Engine",
+  live: true,
+},
+
+{
+  title: "Medical Diagnosis AI",
+  tag: "Computer Vision / XAI",
+  color: "#f472b6",
+  icon: "🫁",
+  desc: "Chest X-ray pneumonia detection with ResNet50 (88.6% accuracy, 0.943 AUC-ROC), Grad-CAM visual explainability, FastAPI inference backend, React glassmorphism frontend, and Supabase diagnosis history. Deployed on HuggingFace Docker Spaces.",
+  stack: ["PyTorch", "ResNet50", "Grad-CAM", "FastAPI", "React", "Supabase"],
+  link: "https://huggingface.co/spaces/AishwaryaNJ/medical-diagnosis-ai",
+  ghLink: "https://github.com/Aishwarya-J05/medical-diagnosis-ai",
+  live: true,
+},
+
+{
+  title: "Bank Fraud Detection",
+  tag: "ML / FinTech",
+  color: "#fb923c",
+  icon: "🔍",
+  desc: "Credit card fraud detection dashboard with ML classification on imbalanced transaction data. Real-time risk scoring with interactive analytics. Deployed on HuggingFace Spaces.",
+  stack: ["Scikit-learn", "Pandas", "XGBoost", "SHAP", "Streamlit", "HuggingFace"],
+  link: "https://huggingface.co/spaces/AishwaryaNJ/fraud-detection-dashboard",
+  ghLink: "https://github.com/Aishwarya-J05/Bank-fraud-detection",
+  live: true,
+},
     {
       title:"BurnoutIQ",
       tag:"Machine Learning",color:"#34d399",icon:"📊",
@@ -2334,7 +2372,7 @@ export default function Portfolio() {
             <h1 className="heading-display text-gradient" style={{ marginBottom:32 }}>Systems.</h1>
 
             <p style={{ fontSize:15, color:"rgba(255,255,255,0.52)", lineHeight:1.9, marginBottom:14, fontWeight:300 }}>
-              I'm <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>Aishwarya Joshi</strong> — an AI/ML Engineer specializing in <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>Deep Learning</strong>, <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>Computer Vision</strong>, and <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>NLP & RAG systems</strong>.
+              I'm <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>Aishwarya Joshi</strong> — an AI/ML Engineer specializing in <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>Deep Learning</strong>, <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>Computer Vision</strong>, <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>NLP & RAG</strong>, and <strong style={{ color:"rgba(255,255,255,0.82)", fontWeight:500 }}>end-to-end ML deployment</strong>.
             </p>
             <p style={{ fontSize:15, color:"rgba(255,255,255,0.42)", lineHeight:1.9, marginBottom:14, fontWeight:300 }}>
               I don't just train models — I engineer end-to-end systems that are containerized, deployed, and publicly accessible. From real-time industrial defect detection with YOLOv8 to RAG chatbots built with LangChain and FAISS.
@@ -2356,7 +2394,7 @@ export default function Portfolio() {
             {/* small stat strip below terminal */}
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10, marginTop:16 }}>
               {[
-                { val:"3+",    label:"Projects Live" },
+                { val:"5+",    label:"Projects Live" },
                 { val:"9.41",  label:"CGPA · VTU" },
                 { val:"6+",    label:"Frameworks" },
               ].map(s => (
@@ -2407,8 +2445,8 @@ export default function Portfolio() {
             <p style={{ fontSize:12,letterSpacing:4,textTransform:"uppercase",color:"rgba(255,255,255,0.36)",marginBottom:16 }}>About Me</p>
             <h2 className="heading-section" style={{ marginBottom:40 }}>Not just models.<br/><span className="text-accent">Systems.</span></h2>
             <div style={{ display:"flex",flexDirection:"column",gap:24,fontSize:16,color:"rgba(255,255,255,0.55)",lineHeight:1.85,fontWeight:300 }}>
-              <p>I'm Aishwarya, a final-year B.Tech (ECE) student at VTU with a 9.41 CGPA. I bridge the gap between theoretical machine learning and scalable engineering.</p>
-              <p>Many build notebooks. I build applications. Every project I ship is containerized, deployed, and publicly accessible — from real-time defect detection to RAG chatbots that understand dense research papers.</p>
+              <p>I'm Aishwarya, a final-year BE (ECE) student at VTU with a 9.41 CGPA. I bridge the gap between theoretical machine learning and scalable production engineering.</p>
+<p>Many build notebooks. I build systems. Every project I ship is containerized, API-served, and publicly deployed — from real-time steel defect detection to dynamic pricing engines running on AWS EC2.</p>
             </div>
             <div style={{ display:"flex",gap:16,flexWrap:"wrap",marginTop:44 }}>
               <Mag href={PDF} target="_blank" rel="noopener noreferrer" className="btn-primary">View Resume</Mag>
